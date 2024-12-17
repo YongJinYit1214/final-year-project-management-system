@@ -1,0 +1,24 @@
+<?php
+class AuthManager {
+    public static function login($userId, $role) {
+        SessionManager::start();
+        SessionManager::set('user_id', $userId);
+        SessionManager::set('role', $role);
+    }
+
+    public static function isLoggedIn() {
+        SessionManager::start();
+        return SessionManager::get('user_id') !== null;
+    }
+
+    public static function hasRole($role) {
+        SessionManager::start();
+        return SessionManager::get('role') === $role;
+    }
+
+    public static function logout() {
+        SessionManager::start();
+        SessionManager::destroy();
+    }
+}
+?>

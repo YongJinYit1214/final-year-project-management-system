@@ -1,0 +1,96 @@
+/* General page styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Arial', sans-serif;
+}
+
+body {
+    background-color: #f4f4f9;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+/* Container for the registration form */
+.form-container {
+    background-color: white;
+    padding: 40px;
+    width: 100%;
+    max-width: 450px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+h2 {
+    font-size: 2em;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+/* Input fields styles */
+input[type="text"],
+input[type="email"],
+input[type="password"] {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 1em;
+    outline: none;
+}
+
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="password"]:focus {
+    border-color: #3498db;
+}
+
+/* Submit button styles */
+button[type="submit"] {
+    width: 100%;
+    padding: 12px;
+    background-color: #3498db;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 1.1em;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+button[type="submit"]:hover {
+    background-color: #2980b9;
+}
+
+/* Footer link styles */
+.form-footer {
+    margin-top: 20px;
+    font-size: 0.9em;
+    color: #777;
+}
+
+.form-footer a {
+    color: #3498db;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.form-footer a:hover {
+    text-decoration: underline;
+}
+
+/* Responsive Design for smaller screens */
+@media (max-width: 480px) {
+    .form-container {
+        padding: 30px;
+        width: 90%;
+    }
+    h2 {
+        font-size: 1.8em;
+    }
+}

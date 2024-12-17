@@ -1,0 +1,1796 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FCI FYP System</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo-section">
+                <a href="index.html">FCI FYP Management System</a>
+            </div>
+            <div class="nav-section">
+                <div class="nav-links">
+                    <a href="#homeSection" class="nav-link" id="homeLink">Home</a>
+                    <a href="#projectProposals" class="nav-link" id="projectsLink">Projects</a>
+                    <a href="#meetings" class="nav-link" id="meetingsLink">Meetings</a>
+                    <a href="#progress" class="nav-link" id="progressLink">Progress</a>
+                    <a href="#assessment" class="nav-link" id="assessmentLink">Assessment</a>
+                    <a href="#support" class="nav-link" id="supportLink">Support</a>
+                    <a href="#communication" class="nav-link" id="communicationLink">
+                        <i class="fas fa-comments"></i> Communication
+                    </a>
+                </div>
+            </div>
+            <div class="profile-menu">
+                <button class="profile-btn" id="profileBtn">
+                    <i class="fas fa-user-circle"></i>
+                    <i class="fas fa-chevron-down"></i>
+                </button>
+                <div class="profile-dropdown" id="profileDropdown">
+                    <a href="#profile" id="profileLink">
+                        <i class="fas fa-user"></i> My Profile
+                    </a>
+                    <a href="#loginForm" id="loginBtn">
+                        <i class="fas fa-sign-in-alt"></i> Login
+                    </a>
+                    <a href="#registrationForm" id="registerBtn">
+                        <i class="fas fa-user-plus"></i> Register
+                    </a>
+                    <a href="#" id="logoutBtn">
+                        <i class="fas fa-sign-out-alt"></i> Logout
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="hero-section">
+        <h1>Welcome to FCI Final Year Project System</h1>
+        <p>Manage your final year project journey efficiently</p>
+    </div>
+
+    <div class="container">
+        <!-- Home Section -->
+        <div class="section" id="homeSection">
+            <div class="dashboard-grid">
+                <div class="dashboard-card announcements">
+                    <h3><i class="fas fa-bullhorn"></i>Announcements</h3>
+                    <div class="announcement-list">
+                        <div class="announcement">
+                            <h4>FYP Registration Deadline</h4>
+                            <p>Registration closes on March 30, 2024</p>
+                            <small>Posted: March 15, 2024</small>
+                        </div>
+                        <div class="announcement">
+                            <h4>Supervisor Assignment</h4>
+                            <p>Supervisor assignments will be finalized by April 5, 2024</p>
+                            <small>Posted: March 14, 2024</small>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="dashboard-card quick-links">
+                    <h3><i class="fas fa-link"></i> Quick Links</h3>
+                    <ul>
+                        <li><a href="#"><i class="fas fa-file-alt"></i> Project Guidelines</a></li>
+                        <li><a href="#"><i class="fas fa-calendar-alt"></i> Important Dates</a></li>
+                        <li><a href="#"><i class="fas fa-book"></i> Documentation Templates</a></li>
+                        <li><a href="#"><i class="fas fa-question-circle"></i> FAQ</a></li>
+                        <li><a href="#supervisorDashboard" class="dashboard-link" id="supervisorLink">
+                            <i class="fas fa-chalkboard-teacher"></i> Supervisor Dashboard</a></li>
+                        <li><a href="#adminDashboard" class="dashboard-link" id="adminLink">
+                            <i class="fas fa-user-shield"></i> Admin Dashboard</a></li>
+                    </ul>
+                </div>
+
+                <div class="dashboard-card upcoming-events">
+                    <h3><i class="fas fa-calendar"></i> Upcoming Events</h3>
+                    <div class="event-list">
+                        <div class="event">
+                            <div class="event-date">MAR 25</div>
+                            <div class="event-details">
+                                <h4>Project Proposal Submission</h4>
+                                <p>Deadline: 11:59 PM</p>
+                            </div>
+                        </div>
+                        <div class="event">
+                            <div class="event-date">APR 01</div>
+                            <div class="event-details">
+                                <h4>FYP Orientation Session</h4>
+                                <p>Time: 2:00 PM - 4:00 PM</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Login Form -->
+        <div class="form-container" id="loginForm">
+            <h2>Login</h2>
+            <form id="loginFormElement">
+                <input type="email" placeholder="Email" required>
+                <input type="password" placeholder="Password" required>
+                <div class="forgot-password">
+                    <a href="#" id="forgotPasswordLink">Forgot Password?</a>
+                </div>
+                <button type="submit">Login</button>
+                <p class="form-footer">Don't have an account? <a href="#" id="switchToRegister">Register here</a></p>
+            </form>
+        </div>
+
+        <!-- Registration Form -->
+        <div class="form-container" id="registrationForm">
+            <h2>Student Registration</h2>
+            <form id="registerFormElement">
+                <input type="text" placeholder="Full Name" required>
+                <input type="email" placeholder="Email" required>
+                <input type="text" placeholder="Student ID" required>
+                <input type="password" placeholder="Password" required>
+                <input type="password" placeholder="Confirm Password" required>
+                <button type="submit">Register</button>
+                <p class="form-footer">Already have an account? <a href="#" id="switchToLogin">Login here</a></p>
+            </form>
+        </div>
+
+        <!-- Project Management Section -->
+        <div class="section" id="projectProposals">
+            <div class="projects-header">
+                <h2>Project Management</h2>
+            </div>
+
+            <!-- Project Status Overview -->
+            <div class="project-status-overview">
+                <div class="status-card">
+                    <h3>Current Project</h3>
+                    <p id="currentProject">Not assigned</p>
+                </div>
+                <div class="status-card">
+                    <h3>Supervisor</h3>
+                    <p id="supervisorName">Not assigned</p>
+                </div>
+                <div class="status-card">
+                    <h3>Project Status</h3>
+                    <p id="projectStatus">Pending</p>
+                </div>
+            </div>
+
+            <!-- Project Actions -->
+            <div class="project-actions-container">
+                <div class="action-card">
+                    <div class="action-icon">
+                        <i class="fas fa-list"></i>
+                    </div>
+                    <div class="action-content">
+                        <h4>View Available Projects</h4>
+                        <p>Browse all available final year projects</p>
+                        <button class="action-btn" id="viewProposalsBtn">View Projects</button>
+                    </div>
+                </div>
+
+                <div class="action-card">
+                    <div class="action-icon">
+                        <i class="fas fa-user-tie"></i>
+                    </div>
+                    <div class="action-content">
+                        <h4>Submit to Supervisor</h4>
+                        <p>Submit your project proposal to a supervisor</p>
+                        <button class="action-btn" id="submitSupervisorProposalBtn">Submit Proposal</button>
+                    </div>
+                </div>
+
+                <div class="action-card">
+                    <div class="action-icon">
+                        <i class="fas fa-university"></i>
+                    </div>
+                    <div class="action-content">
+                        <h4>Submit to Admin</h4>
+                        <p>Submit your project proposal for admin approval</p>
+                        <button class="action-btn" id="submitAdminProposalBtn">Submit Proposal</button>
+                    </div>
+                </div>
+
+                <div class="action-card">
+                    <div class="action-icon">
+                        <i class="fas fa-calendar-alt"></i>
+                    </div>
+                    <div class="action-content">
+                        <h4>Project Timeline</h4>
+                        <p>View your project timeline and progress</p>
+                        <button class="action-btn" id="viewTimelineBtn">View Timeline</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Available Projects Section -->
+            <div class="available-projects" style="display: none;">
+                <div class="action-panel">
+                    <div class="panel-header">
+                        <h3>Available Projects</h3>
+                        <div class="filter-controls">
+                            <select id="fieldFilter">
+                                <option value="">All Fields</option>
+                                <option value="ai">Artificial Intelligence</option>
+                                <option value="ml">Machine Learning</option>
+                                <option value="web">Web Development</option>
+                                <option value="mobile">Mobile Development</option>
+                                <option value="security">Cybersecurity</option>
+                            </select>
+                            <input type="text" id="searchProject" placeholder="Search projects...">
+                        </div>
+                    </div>
+                    <div class="projects-grid">
+                        <!-- Project cards will be added here dynamically -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Project Timeline Section -->
+            <div class="project-timeline-view" style="display: none;">
+                <div class="action-panel">
+                    <div class="panel-header">
+                        <h3>Project Timeline</h3>
+                        <div class="timeline-controls">
+                            <button class="view-btn" data-view="months">Monthly View</button>
+                            <button class="view-btn active" data-view="weeks">Weekly View</button>
+                        </div>
+                    </div>
+                    <div class="timeline-container">
+                        <div class="timeline-phases">
+                            <div class="phase">
+                                <div class="phase-header">
+                                    <h4>Requirements Analysis</h4>
+                                    <span class="phase-date">Mar 1 - Mar 15</span>
+                                </div>
+                                <div class="phase-progress">
+                                    <div class="progress-bar" style="width: 100%"></div>
+                                    <span class="status completed">Completed</span>
+                                </div>
+                                <ul class="phase-tasks">
+                                    <li class="completed">Project scope definition</li>
+                                    <li class="completed">Requirements gathering</li>
+                                    <li class="completed">Initial documentation</li>
+                                </ul>
+                            </div>
+                            <div class="phase current">
+                                <div class="phase-header">
+                                    <h4>Design Phase</h4>
+                                    <span class="phase-date">Mar 16 - Mar 31</span>
+                                </div>
+                                <div class="phase-progress">
+                                    <div class="progress-bar" style="width: 60%"></div>
+                                    <span class="status in-progress">In Progress</span>
+                                </div>
+                                <ul class="phase-tasks">
+                                    <li class="completed">System architecture</li>
+                                    <li class="in-progress">Database design</li>
+                                    <li>UI/UX design</li>
+                                </ul>
+                            </div>
+                            <div class="phase">
+                                <div class="phase-header">
+                                    <h4>Development</h4>
+                                    <span class="phase-date">Apr 1 - Apr 30</span>
+                                </div>
+                                <div class="phase-progress">
+                                    <div class="progress-bar" style="width: 0%"></div>
+                                    <span class="status pending">Pending</span>
+                                </div>
+                                <ul class="phase-tasks">
+                                    <li>Backend development</li>
+                                    <li>Frontend development</li>
+                                    <li>Integration</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="timeline-milestones">
+                            <div class="milestone completed">
+                                <span class="milestone-date">Mar 15</span>
+                                <span class="milestone-label">Requirements Sign-off</span>
+                            </div>
+                            <div class="milestone">
+                                <span class="milestone-date">Mar 31</span>
+                                <span class="milestone-label">Design Review</span>
+                            </div>
+                            <div class="milestone">
+                                <span class="milestone-date">Apr 30</span>
+                                <span class="milestone-label">Development Complete</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Add this new section inside the project management section -->
+            <div class="project-submission">
+                <div class="action-panel">
+                    <div class="panel-header">
+                        <h3>Project Submissions</h3>
+                        <button class="submit-project-btn" id="submitProjectBtn">
+                            <i class="fas fa-upload"></i> Submit Project
+                        </button>
+                    </div>
+                    <div class="submissions-list">
+                        <table class="submission-table">
+                            <thead>
+                                <tr>
+                                    <th>Submission Date</th>
+                                    <th>Title</th>
+                                    <th>Description</th>
+                                    <th>Files</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody id="submissionTableBody">
+                                <!-- Submissions will be listed here -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Project Submission Modal -->
+            <div class="modal" id="projectSubmissionModal">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3>Submit Project</h3>
+                        <button class="close-btn">&times;</button>
+                    </div>
+                    <form id="projectSubmissionForm">
+                        <div class="form-group">
+                            <label for="submissionTitle">Title</label>
+                            <input type="text" id="submissionTitle" required placeholder="e.g., Final Report, Project Demo">
+                        </div>
+                        <div class="form-group">
+                            <label for="submissionDescription">Description</label>
+                            <textarea id="submissionDescription" rows="3" required 
+                                placeholder="Describe what you are submitting..."></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="submissionFiles">Project Files</label>
+                            <div class="file-upload-container">
+                                <input type="file" id="submissionFiles" multiple class="file-input" required>
+                                <div class="file-list" id="submissionFileList">
+                                    <!-- Selected files will be listed here -->
+                                </div>
+                            </div>
+                            <small>Upload your project files (documents, source code, etc.)</small>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="cancel-btn">Cancel</button>
+                            <button type="submit" class="save-btn">Submit Project</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Add this new section inside the project management section -->
+            <div class="project-planning">
+                <div class="action-panel">
+                    <div class="panel-header">
+                        <h3>Project Planning</h3>
+                        <button class="add-plan-btn" id="addPlanBtn">
+                            <i class="fas fa-tasks"></i> Submit Project Plan
+                        </button>
+                    </div>
+                    
+                    <div class="plans-list">
+                        <table class="plan-table">
+                            <thead>
+                                <tr>
+                                    <th>Phase</th>
+                                    <th>Description</th>
+                                    <th>Start Date</th>
+                                    <th>End Date</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="planTableBody">
+                                <!-- Plans will be added here dynamically -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Project Plan Modal -->
+                <div class="modal" id="planModal">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h3 id="planModalTitle">Submit Project Plan</h3>
+                            <button class="close-btn">&times;</button>
+                        </div>
+                        <form id="planForm">
+                            <div class="form-group">
+                                <label for="planPhase">Project Phase</label>
+                                <select id="planPhase" required>
+                                    <option value="requirements">Requirements Analysis</option>
+                                    <option value="design">System Design</option>
+                                    <option value="development">Development</option>
+                                    <option value="testing">Testing</option>
+                                    <option value="deployment">Deployment</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="planDescription">Description</label>
+                                <textarea id="planDescription" rows="3" required></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="startDate">Start Date</label>
+                                <input type="date" id="startDate" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="endDate">End Date</label>
+                                <input type="date" id="endDate" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="deliverables">Deliverables</label>
+                                <textarea id="deliverables" rows="2" placeholder="List the expected deliverables"></textarea>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="cancel-btn">Cancel</button>
+                                <button type="submit" class="save-btn">Submit Plan</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Add this inside the project management section -->
+            <div class="action-panel">
+                <div class="panel-header">
+                    <h3>Presentation Slot Booking</h3>
+                    <button class="book-slot-btn" id="bookSlotBtn">
+                        <i class="fas fa-calendar-plus"></i> Book Presentation Slot
+                    </button>
+                </div>
+                <div class="bookings-list">
+                    <table class="booking-table">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Time</th>
+                                <th>Venue</th>
+                                <th>Panel Members</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="bookingTableBody">
+                            <!-- Bookings will be listed here -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Slot Booking Modal -->
+            <div class="modal" id="slotBookingModal">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3>Book Presentation Slot</h3>
+                        <button class="close-btn">&times;</button>
+                    </div>
+                    <form id="slotBookingForm">
+                        <div class="form-group">
+                            <label for="presentationDate">Preferred Date</label>
+                            <input type="date" id="presentationDate" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="presentationTime">Preferred Time</label>
+                            <select id="presentationTime" required>
+                                <option value="">Select time slot...</option>
+                                <option value="09:00">09:00 AM</option>
+                                <option value="10:00">10:00 AM</option>
+                                <option value="11:00">11:00 AM</option>
+                                <option value="14:00">02:00 PM</option>
+                                <option value="15:00">03:00 PM</option>
+                                <option value="16:00">04:00 PM</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="presentationVenue">Preferred Venue</label>
+                            <select id="presentationVenue" required>
+                                <option value="">Select venue...</option>
+                                <option value="room1">Meeting Room 1</option>
+                                <option value="room2">Meeting Room 2</option>
+                                <option value="hall1">Presentation Hall 1</option>
+                                <option value="lab1">Computer Lab 1</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Additional Notes</label>
+                            <textarea id="bookingNotes" rows="3" placeholder="Any special requirements or notes..."></textarea>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="cancel-btn">Cancel</button>
+                            <button type="submit" class="save-btn">Submit Booking</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Meetings Section -->
+        <div class="section" id="meetings">
+            <h2>Meetings Management</h2>
+            <div class="meetings-container">
+                <div class="upcoming-meetings">
+                    <h3>Upcoming Meetings</h3>
+                    <button class="schedule-btn" id="scheduleNewMeeting">
+                        <i class="fas fa-plus"></i> Schedule Meeting
+                    </button>
+                    <div class="meetings-list">
+                        <!-- Upcoming meetings will be listed here -->
+                    </div>
+                </div>
+                <div class="meeting-logs">
+                    <h3>Meeting Logs</h3>
+                    <div class="logs-list">
+                        <!-- Meeting logs will be listed here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Progress Section -->
+        <div class="section" id="progress">
+            <h2>Progress Tracking</h2>
+            <div class="progress-overview">
+                <div class="progress-stats">
+                    <div class="stat-card">
+                        <h3>Overall Progress</h3>
+                        <div class="progress-circle" data-progress="0">
+                            <span class="progress-text">0%</span>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Completed Tasks</h3>
+                        <p class="stat-number">0/0</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Next Milestone</h3>
+                        <p class="milestone-date">Not set</p>
+                    </div>
+                </div>
+                <div class="project-timeline">
+                    <h3>Project Timeline</h3>
+                    <div class="timeline-container">
+                        <!-- Timeline will be added here -->
+                    </div>
+                </div>
+            </div>
+
+            <div class="weekly-goals">
+                <div class="section-header">
+                    <h3>Weekly Goals</h3>
+                    <button class="add-goal-btn" id="addGoalBtn">
+                        <i class="fas fa-plus"></i> Add New Goal
+                    </button>
+                </div>
+                
+                <div class="goals-container">
+                    <div class="current-week">
+                        <h4>Current Week Goals (Week of <span id="currentWeekDate">loading...</span>)</h4>
+                        <div class="goals-list" id="currentWeekGoals">
+                            <!-- Goals will be added here dynamically -->
+                        </div>
+                    </div>
+                    
+                    <div class="previous-goals">
+                        <h4>Previous Weeks</h4>
+                        <div class="goals-list" id="previousWeekGoals">
+                            <!-- Previous goals will be listed here -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Goal Setting Modal -->
+                <div class="modal" id="goalModal">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h3>Set Weekly Goal</h3>
+                            <button class="close-btn">&times;</button>
+                        </div>
+                        <form id="goalForm">
+                            <div class="form-group">
+                                <label for="goalTitle">Goal Title</label>
+                                <input type="text" id="goalTitle" required placeholder="Enter goal title">
+                            </div>
+                            <div class="form-group">
+                                <label for="goalDescription">Description</label>
+                                <textarea id="goalDescription" rows="3" placeholder="Describe your goal"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="goalDeadline">Deadline</label>
+                                <input type="date" id="goalDeadline" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="goalPriority">Priority</label>
+                                <select id="goalPriority" required>
+                                    <option value="high">High</option>
+                                    <option value="medium">Medium</option>
+                                    <option value="low">Low</option>
+                                </select>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="cancel-btn">Cancel</button>
+                                <button type="submit" class="save-btn">Save Goal</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Assessment Section -->
+        <div class="section" id="assessment">
+            <h2>Assessment Dashboard</h2>
+            <div class="assessment-overview">
+                <div class="assessment-cards">
+                    <div class="assessment-card">
+                        <h3>Midterm Evaluation</h3>
+                        <div class="score-display">
+                            <span class="score">--</span>/100
+                        </div>
+                        <button class="view-details-btn">View Details</button>
+                    </div>
+                    <div class="assessment-card">
+                        <h3>Final Evaluation</h3>
+                        <div class="score-display">
+                            <span class="score">--</span>/100
+                        </div>
+                        <button class="view-details-btn">View Details</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Support Section -->
+        <div class="section" id="support">
+            <h2>Services & Support</h2>
+            <div class="support-container">
+                <!-- Feedback Form -->
+                <div class="action-panel">
+                    <div class="panel-header">
+                        <h3>Submit Feedback</h3>
+                    </div>
+                    <form id="feedbackForm" class="feedback-form">
+                        <div class="form-group">
+                            <label for="feedbackType">Type of Feedback</label>
+                            <select id="feedbackType" required>
+                                <option value="">Select type...</option>
+                                <option value="technical">Technical Support</option>
+                                <option value="system">System Issues</option>
+                                <option value="suggestion">Suggestions</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="feedbackSubject">Subject</label>
+                            <input type="text" id="feedbackSubject" required placeholder="Brief description of the issue">
+                        </div>
+                        <div class="form-group">
+                            <label for="feedbackDescription">Description</label>
+                            <textarea id="feedbackDescription" rows="4" required placeholder="Please provide detailed information..."></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="feedbackPriority">Priority</label>
+                            <select id="feedbackPriority" required>
+                                <option value="low">Low</option>
+                                <option value="medium">Medium</option>
+                                <option value="high">High</option>
+                                <option value="urgent">Urgent</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="attachments">Attachments (optional)</label>
+                            <input type="file" id="attachments" multiple>
+                            <small>You can attach screenshots or relevant files</small>
+                        </div>
+                        <button type="submit" class="submit-btn">Submit Feedback</button>
+                    </form>
+                </div>
+
+                <!-- Previous Feedback -->
+                <div class="action-panel">
+                    <div class="panel-header">
+                        <h3>Your Previous Feedback</h3>
+                    </div>
+                    <div class="feedback-list">
+                        <!-- Feedback items will be added here dynamically -->
+                    </div>
+                </div>
+
+                <!-- FAQ Section -->
+                <div class="action-panel">
+                    <div class="panel-header">
+                        <h3>Frequently Asked Questions</h3>
+                    </div>
+                    <div class="faq-list">
+                        <div class="faq-item">
+                            <div class="faq-question">
+                                <span>How do I reset my password?</span>
+                                <i class="fas fa-chevron-down"></i>
+                            </div>
+                            <div class="faq-answer">
+                                Click on the "Forgot Password" link on the login page and follow the instructions sent to your email.
+                            </div>
+                        </div>
+                        <div class="faq-item">
+                            <div class="faq-question">
+                                <span>How can I contact my supervisor?</span>
+                                <i class="fas fa-chevron-down"></i>
+                            </div>
+                            <div class="faq-answer">
+                                You can schedule a meeting through the Meetings section or send a message through the messaging system.
+                            </div>
+                        </div>
+                        <!-- Add more FAQ items as needed -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Supervisor Dashboard -->
+        <div class="section" id="supervisorDashboard">
+            <h2>Supervisor Dashboard</h2>
+            <div class="dashboard-overview">
+                <div class="dashboard-stats">
+                    <div class="stat-card">
+                        <h3>Assigned Students</h3>
+                        <div class="stat-number">12</div>
+                        <p>Active Projects</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Pending Reviews</h3>
+                        <div class="stat-number">5</div>
+                        <p>Submissions</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Upcoming Meetings</h3>
+                        <div class="stat-number">3</div>
+                        <p>This Week</p>
+                    </div>
+                </div>
+                
+                <div class="supervisor-actions">
+                    <div class="action-panel">
+                        <h3>Student Projects</h3>
+                        <div class="project-list">
+                            <div class="project-item">
+                                <h4>John Doe - AI Project</h4>
+                                <p>Progress: 75%</p>
+                                <button class="view-btn">View Details</button>
+                            </div>
+                            <div class="project-item">
+                                <h4>Jane Smith - ML Project</h4>
+                                <p>Progress: 60%</p>
+                                <button class="view-btn">View Details</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Add this new section for pending plans -->
+                    <div class="action-panel">
+                        <div class="panel-header">
+                            <h3>Project Plans Pending Approval</h3>
+                        </div>
+                        <div class="pending-plans">
+                            <table class="plan-table">
+                                <thead>
+                                    <tr>
+                                        <th>Student</th>
+                                        <th>Phase</th>
+                                        <th>Description</th>
+                                        <th>Timeline</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="pendingPlansTableBody">
+                                    <!-- Pending plans will be added here dynamically -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- Existing proposal submission panel -->
+                    <div class="action-panel">
+                        <div class="panel-header">
+                            <h3>Project Proposals</h3>
+                            <button class="add-proposal-btn" id="addProposalBtn">
+                                <i class="fas fa-plus"></i> Submit New Proposal
+                            </button>
+                        </div>
+                        
+                        <div class="proposals-list">
+                            <table class="proposal-table">
+                                <thead>
+                                    <tr>
+                                        <th>Title</th>
+                                        <th>Field</th>
+                                        <th>Max Students</th>
+                                        <th>Status</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <!-- Table will be populated dynamically when proposals are added -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- Add Proposal Modal -->
+                    <div class="modal" id="proposalModal">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h3 id="proposalModalTitle">Submit New Proposal</h3>
+                                <button class="close-btn">&times;</button>
+                            </div>
+                            <form id="proposalForm">
+                                <div class="form-group">
+                                    <label for="proposalTitle">Project Title</label>
+                                    <input type="text" id="proposalTitle" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="proposalField">Field of Study</label>
+                                    <select id="proposalField" required>
+                                        <option value="ai">Artificial Intelligence</option>
+                                        <option value="ml">Machine Learning</option>
+                                        <option value="web">Web Development</option>
+                                        <option value="mobile">Mobile Development</option>
+                                        <option value="security">Cybersecurity</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="proposalDescription">Project Description</label>
+                                    <textarea id="proposalDescription" rows="4" required></textarea>
+                                </div>
+                                <div class="form-group">
+                                    <label for="maxStudents">Maximum Students</label>
+                                    <input type="number" id="maxStudents" min="1" max="3" value="1" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="requirements">Requirements</label>
+                                    <textarea id="requirements" rows="3" placeholder="List the prerequisites and requirements"></textarea>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="cancel-btn">Cancel</button>
+                                    <button type="submit" class="save-btn">Submit Proposal</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                    <!-- Add this after the proposal modal in the supervisor dashboard section -->
+                    <div class="modal" id="assignProjectModal">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h3>Assign Project to Student</h3>
+                                <button class="close-btn">&times;</button>
+                            </div>
+                            <form id="assignProjectForm">
+                                <div class="form-group">
+                                    <label for="projectSelect">Select Project</label>
+                                    <select id="projectSelect" required>
+                                        <!-- Will be populated dynamically with available projects -->
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="studentSelect">Select Student</label>
+                                    <select id="studentSelect" required>
+                                        <option value="">Select a student...</option>
+                                        <option value="1">John Doe - TP123456</option>
+                                        <option value="2">Jane Smith - TP789012</option>
+                                        <option value="3">Alex Johnson - TP345678</option>
+                                    </select>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="cancel-btn">Cancel</button>
+                                    <button type="submit" class="save-btn">Assign Project</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                    <!-- Add this inside the supervisor-actions div in the supervisor dashboard -->
+                    <div class="action-panel">
+                        <div class="panel-header">
+                            <h3>Project Evaluations</h3>
+                        </div>
+                        <div class="evaluations-list">
+                            <table class="evaluation-table">
+                                <thead>
+                                    <tr>
+                                        <th>Student</th>
+                                        <th>Project</th>
+                                        <th>Current Phase</th>
+                                        <th>Last Submission</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>John Doe</td>
+                                        <td>AI Project</td>
+                                        <td>Development</td>
+                                        <td>Mar 20, 2024</td>
+                                        <td>
+                                            <button class="action-icon evaluate-btn" title="Evaluate">
+                                                <i class="fas fa-star"></i>
+                                            </button>
+                                            <button class="action-icon comment-btn" title="Add Comment">
+                                                <i class="fas fa-comment"></i>
+                                            </button>
+                                            <button class="action-icon history-btn" title="View History">
+                                                <i class="fas fa-history"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <!-- Evaluation Modal -->
+                        <div class="modal" id="evaluationModal">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h3>Project Evaluation</h3>
+                                    <button class="close-btn">&times;</button>
+                                </div>
+                                <form id="evaluationForm">
+                                    <div class="student-info">
+                                        <h4 id="studentName">Student: John Doe</h4>
+                                        <p id="projectTitle">Project: AI Project</p>
+                                    </div>
+                                    <div class="evaluation-criteria">
+                                        <div class="form-group">
+                                            <label>Technical Achievement (40%)</label>
+                                            <input type="number" min="0" max="40" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Project Management (20%)</label>
+                                            <input type="number" min="0" max="20" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Documentation (20%)</label>
+                                            <input type="number" min="0" max="20" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Presentation (20%)</label>
+                                            <input type="number" min="0" max="20" required>
+                                        </div>
+                                        <div class="total-score">
+                                            Total Score: <span id="totalScore">0</span>/100
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Feedback/Comments</label>
+                                        <textarea rows="4" placeholder="Provide detailed feedback..." required></textarea>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="cancel-btn">Cancel</button>
+                                        <button type="submit" class="save-btn">Submit Evaluation</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+
+                        <!-- Comments Modal -->
+                        <div class="modal" id="commentsModal">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h3>Project Comments</h3>
+                                    <button class="close-btn">&times;</button>
+                                </div>
+                                <div class="comments-section">
+                                    <div class="comments-list">
+                                        <!-- Previous comments will be listed here -->
+                                    </div>
+                                    <form id="commentForm">
+                                        <div class="form-group">
+                                            <label>Add New Comment</label>
+                                            <textarea rows="3" placeholder="Type your comment..." required></textarea>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="cancel-btn">Cancel</button>
+                                            <button type="submit" class="save-btn">Post Comment</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Add this inside the supervisor-actions div, after the Project Proposals panel -->
+                    <div class="action-panel">
+                        <div class="panel-header">
+                            <h3>Student Project Submissions</h3>
+                        </div>
+                        <div class="student-submissions">
+                            <table class="submission-table">
+                                <thead>
+                                    <tr>
+                                        <th>Student</th>
+                                        <th>Project Title</th>
+                                        <th>Submission Date</th>
+                                        <th>Files</th>
+                                        <th>Status</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="supervisorSubmissionsTableBody">
+                                    <!-- Example of a submission -->
+                                    <tr>
+                                        <td>John Doe</td>
+                                        <td>AI Learning System</td>
+                                        <td>Mar 25, 2024</td>
+                                        <td>
+                                            <div class="submission-files">
+                                                <span class="file-chip">
+                                                    <i class="fas fa-file-pdf"></i>
+                                                    Project_Report.pdf
+                                                </span>
+                                                <span class="file-chip">
+                                                    <i class="fas fa-file-code"></i>
+                                                    source_code.zip
+                                                </span>
+                                            </div>
+                                        </td>
+                                        <td><span class="submission-status pending">Pending Review</span></td>
+                                        <td>
+                                            <div class="submission-actions">
+                                                <button class="action-icon view-btn" title="View Details">
+                                                    <i class="fas fa-eye"></i>
+                                                </button>
+                                                <button class="action-icon download-btn" title="Download Files">
+                                                    <i class="fas fa-download"></i>
+                                                </button>
+                                                <button class="action-icon feedback-btn" title="Add Feedback">
+                                                    <i class="fas fa-comment"></i>
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- Submission Details Modal -->
+                    <div class="modal" id="submissionDetailsModal">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h3>Submission Details</h3>
+                                <button class="close-btn">&times;</button>
+                            </div>
+                            <div class="submission-details">
+                                <div class="student-info">
+                                    <h4>Student: John Doe</h4>
+                                    <p>Project: AI Learning System</p>
+                                </div>
+                                <div class="submission-files-list">
+                                    <h4>Submitted Files</h4>
+                                    <div class="file-list">
+                                        <!-- Files will be listed here -->
+                                    </div>
+                                </div>
+                                <div class="submission-feedback">
+                                    <h4>Feedback</h4>
+                                    <form id="feedbackForm">
+                                        <div class="form-group">
+                                            <label>Comments</label>
+                                            <textarea rows="4" placeholder="Add your feedback here..."></textarea>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Status</label>
+                                            <select>
+                                                <option value="approved">Approve</option>
+                                                <option value="revision">Needs Revision</option>
+                                                <option value="rejected">Reject</option>
+                                            </select>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="cancel-btn">Close</button>
+                                            <button type="submit" class="save-btn">Submit Feedback</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Add this inside the supervisor-actions div in the supervisor dashboard -->
+                    <div class="action-panel">
+                        <div class="panel-header">
+                            <h3>Presentation Slot Management</h3>
+                        </div>
+                        <div class="presentation-slots">
+                            <table class="booking-table">
+                                <thead>
+                                    <tr>
+                                        <th>Student</th>
+                                        <th>Project Title</th>
+                                        <th>Date</th>
+                                        <th>Time</th>
+                                        <th>Venue</th>
+                                        <th>Status</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="presentationSlotsTableBody">
+                                    <!-- Example slot -->
+                                    <tr>
+                                        <td>John Doe</td>
+                                        <td>AI Learning System</td>
+                                        <td>Mar 30, 2024</td>
+                                        <td>10:00 AM</td>
+                                        <td>Meeting Room 1</td>
+                                        <td><span class="booking-status pending">Pending</span></td>
+                                        <td>
+                                            <div class="booking-actions">
+                                                <button class="action-icon approve-booking-btn" title="Approve">
+                                                    <i class="fas fa-check"></i>
+                                                </button>
+                                                <button class="action-icon reject-booking-btn" title="Reject">
+                                                    <i class="fas fa-times"></i>
+                                                </button>
+                                                <button class="action-icon reschedule-btn" title="Suggest Reschedule">
+                                                    <i class="fas fa-calendar-alt"></i>
+                                                </button>
+                                                <button class="action-icon view-details-btn" title="View Details">
+                                                    <i class="fas fa-eye"></i>
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- Presentation Details Modal -->
+                    <div class="modal" id="presentationDetailsModal">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h3>Presentation Details</h3>
+                                <button class="close-btn">&times;</button>
+                            </div>
+                            <div class="presentation-details">
+                                <div class="student-info">
+                                    <h4>Student Information</h4>
+                                    <p><strong>Name:</strong> <span id="studentName"></span></p>
+                                    <p><strong>Project:</strong> <span id="projectTitle"></span></p>
+                                </div>
+                                <div class="slot-info">
+                                    <h4>Slot Information</h4>
+                                    <p><strong>Date:</strong> <span id="presentationDate"></span></p>
+                                    <p><strong>Time:</strong> <span id="presentationTime"></span></p>
+                                    <p><strong>Venue:</strong> <span id="presentationVenue"></span></p>
+                                    <p><strong>Status:</strong> <span id="presentationStatus"></span></p>
+                                </div>
+                                <div class="panel-members">
+                                    <h4>Panel Members</h4>
+                                    <ul id="panelMembersList">
+                                        <li>Dr. Smith (Chair)</li>
+                                        <li>Dr. Johnson</li>
+                                        <li>Prof. Williams</li>
+                                    </ul>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="cancel-btn">Close</button>
+                                    <button type="button" class="save-btn" id="updateSlotBtn">Update Slot</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Admin Dashboard -->
+        <div class="section" id="adminDashboard">
+            <h2>Admin Dashboard</h2>
+            <div class="dashboard-overview">
+                <div class="dashboard-stats">
+                    <div class="stat-card">
+                        <h3>Total Projects</h3>
+                        <div class="stat-number">45</div>
+                        <p>Active Projects</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Total Students</h3>
+                        <div class="stat-number">150</div>
+                        <p>Registered</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Total Supervisors</h3>
+                        <div class="stat-number">15</div>
+                        <p>Active</p>
+                    </div>
+                </div>
+                
+                <div class="admin-actions">
+                    <div class="action-panel">
+                        <h3>System Management</h3>
+                        <div class="admin-controls">
+                            <button class="admin-btn" id="manageUsersBtn"><i class="fas fa-user-plus"></i> Manage Users</button>
+                            <button class="admin-btn"><i class="fas fa-project-diagram"></i> Manage Projects</button>
+                            <button class="admin-btn"><i class="fas fa-cog"></i> System Settings</button>
+                            <button class="admin-btn"><i class="fas fa-file-export"></i> Generate Reports</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Add this new section for user management -->
+            <div class="user-management-panel" style="display: none;">
+                <div class="action-panel">
+                    <div class="panel-header">
+                        <h3>User Management</h3>
+                        <button class="add-user-btn" id="addUserBtn">
+                            <i class="fas fa-plus"></i> Add New User
+                        </button>
+                    </div>
+                    
+                    <!-- User Table -->
+                    <div class="table-container">
+                        <table class="user-table">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Email</th>
+                                    <th>Role</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="userTableBody">
+                                <tr>
+                                    <td>John Doe</td>
+                                    <td>john@example.com</td>
+                                    <td>Student</td>
+                                    <td><span class="status-badge active">Active</span></td>
+                                    <td>
+                                        <button class="action-icon edit-btn"><i class="fas fa-edit"></i></button>
+                                        <button class="action-icon delete-btn"><i class="fas fa-trash"></i></button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Jane Smith</td>
+                                    <td>jane@example.com</td>
+                                    <td>Supervisor</td>
+                                    <td><span class="status-badge active">Active</span></td>
+                                    <td>
+                                        <button class="action-icon edit-btn"><i class="fas fa-edit"></i></button>
+                                        <button class="action-icon delete-btn"><i class="fas fa-trash"></i></button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Add/Edit User Modal -->
+                <div class="modal" id="userModal">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h3 id="modalTitle">Add New User</h3>
+                            <button class="close-btn">&times;</button>
+                        </div>
+                        <form id="userForm">
+                            <div class="form-group">
+                                <label for="userName">Full Name</label>
+                                <input type="text" id="userName" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="userEmail">Email</label>
+                                <input type="email" id="userEmail" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="userRole">Role</label>
+                                <select id="userRole" required>
+                                    <option value="student">Student</option>
+                                    <option value="supervisor">Supervisor</option>
+                                    <option value="admin">Admin</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="userStatus">Status</label>
+                                <select id="userStatus" required>
+                                    <option value="active">Active</option>
+                                    <option value="inactive">Inactive</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="userPassword">Password</label>
+                                <input type="password" id="userPassword" required>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="cancel-btn">Cancel</button>
+                                <button type="submit" class="save-btn">Save</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Add inside the admin dashboard, after the system management panel -->
+            <div class="action-panel">
+                <div class="panel-header">
+                    <h3>Project Proposals Management</h3>
+                </div>
+                <div class="proposals-list">
+                    <table class="proposal-table">
+                        <thead>
+                            <tr>
+                                <th>Student</th>
+                                <th>Project Title</th>
+                                <th>Field</th>
+                                <th>Submission Date</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="adminProposalsTableBody">
+                            <!-- Proposals will be listed here -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Add inside the admin dashboard, after the Project Proposals Management panel -->
+            <div class="action-panel">
+                <div class="panel-header">
+                    <h3>Announcements Management</h3>
+                    <button class="add-announcement-btn" id="addAnnouncementBtn">
+                        <i class="fas fa-bullhorn"></i> Add Announcement
+                    </button>
+                </div>
+                <div class="announcements-list">
+                    <table class="announcement-table">
+                        <thead>
+                            <tr>
+                                <th>Title</th>
+                                <th>Content</th>
+                                <th>Posted Date</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="announcementTableBody">
+                            <tr>
+                                <td>FYP Registration Deadline</td>
+                                <td>Registration closes on March 30, 2024</td>
+                                <td>March 15, 2024</td>
+                                <td><span class="status-badge active">Active</span></td>
+                                <td>
+                                    <button class="action-icon edit-btn" title="Edit"><i class="fas fa-edit"></i></button>
+                                    <button class="action-icon delete-btn" title="Delete"><i class="fas fa-trash"></i></button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Announcement Modal -->
+            <div class="modal" id="announcementModal">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3 id="announcementModalTitle">Add New Announcement</h3>
+                        <button class="close-btn">&times;</button>
+                    </div>
+                    <form id="announcementForm">
+                        <div class="form-group">
+                            <label for="announcementTitle">Title</label>
+                            <input type="text" id="announcementTitle" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="announcementContent">Content</label>
+                            <textarea id="announcementContent" rows="4" required></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="announcementStatus">Status</label>
+                            <select id="announcementStatus" required>
+                                <option value="active">Active</option>
+                                <option value="inactive">Inactive</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="expiryDate">Expiry Date (Optional)</label>
+                            <input type="date" id="expiryDate">
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="cancel-btn">Cancel</button>
+                            <button type="submit" class="save-btn">Save Announcement</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Supervisor Proposal Modal -->
+        <div class="modal" id="supervisorProposalModal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>Submit Proposal to Supervisor</h3>
+                    <button class="close-btn">&times;</button>
+                </div>
+                <form id="supervisorProposalForm">
+                    <div class="form-group">
+                        <label for="supervisorSelect">Select Supervisor</label>
+                        <select id="supervisorSelect" required>
+                            <option value="">Choose a supervisor...</option>
+                            <option value="1">Dr. Smith - AI & Machine Learning</option>
+                            <option value="2">Dr. Johnson - Web Development</option>
+                            <option value="3">Dr. Williams - Mobile Development</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="projectTitle">Project Title</label>
+                        <input type="text" id="projectTitle" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="projectDescription">Project Description</label>
+                        <textarea id="projectDescription" rows="4" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="projectObjectives">Project Objectives</label>
+                        <textarea id="projectObjectives" rows="3" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="projectFiles">Project Files</label>
+                        <div class="file-upload-container">
+                            <input type="file" id="projectFiles" multiple class="file-input">
+                            <div class="file-list" id="fileList">
+                                <!-- Selected files will be listed here -->
+                            </div>
+                        </div>
+                        <small>You can upload multiple files (documentation, diagrams, etc.)</small>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="cancel-btn">Cancel</button>
+                        <button type="submit" class="save-btn">Submit Proposal</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Admin Proposal Modal -->
+        <div class="modal" id="adminProposalModal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>Submit Proposal to Admin</h3>
+                    <button class="close-btn">&times;</button>
+                </div>
+                <form id="adminProposalForm">
+                    <div class="form-group">
+                        <label for="adminProjectTitle">Project Title</label>
+                        <input type="text" id="adminProjectTitle" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="projectField">Field of Study</label>
+                        <select id="projectField" required>
+                            <option value="ai">Artificial Intelligence</option>
+                            <option value="ml">Machine Learning</option>
+                            <option value="web">Web Development</option>
+                            <option value="mobile">Mobile Development</option>
+                            <option value="security">Cybersecurity</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="adminProjectDescription">Project Description</label>
+                        <textarea id="adminProjectDescription" rows="4" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="projectJustification">Project Justification</label>
+                        <textarea id="projectJustification" rows="3" required 
+                            placeholder="Explain why this project should be approved..."></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="projectFiles">Project Files</label>
+                        <div class="file-upload-container">
+                            <input type="file" id="projectFiles" multiple class="file-input">
+                            <div class="file-list" id="fileList">
+                                <!-- Selected files will be listed here -->
+                            </div>
+                        </div>
+                        <small>You can upload multiple files (documentation, diagrams, etc.)</small>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="cancel-btn">Cancel</button>
+                        <button type="submit" class="save-btn">Submit for Approval</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Add this new section after the support section -->
+        <div class="section" id="profile">
+            <h2>Profile Settings</h2>
+            <div class="profile-container">
+                <div class="action-panel">
+                    <div class="profile-header">
+                        <div class="profile-avatar">
+                            <img src="https://via.placeholder.com/150" alt="Profile Picture" id="profilePicture">
+                            <button class="change-avatar-btn">
+                                <i class="fas fa-camera"></i>
+                                <input type="file" id="avatarInput" accept="image/*" hidden>
+                            </button>
+                        </div>
+                        <div class="profile-info">
+                            <h3>John Doe</h3>
+                            <p class="user-role">Student</p>
+                            <p class="user-id">ID: TP054321</p>
+                        </div>
+                    </div>
+
+                    <form id="profileForm" class="profile-form">
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="fullName">Full Name</label>
+                                <input type="text" id="fullName" value="John Doe" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Email</label>
+                                <input type="email" id="email" value="john@example.com" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="phone">Phone Number</label>
+                                <input type="tel" id="phone" value="+60123456789">
+                            </div>
+                            <div class="form-group">
+                                <label for="department">Department</label>
+                                <input type="text" id="department" value="Faculty of Computing and Informatics" readonly>
+                            </div>
+                        </div>
+
+                        <div class="form-divider">
+                            <h4>Change Password</h4>
+                            <small>Leave blank if you don't want to change the password</small>
+                        </div>
+
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="currentPassword">Current Password</label>
+                                <input type="password" id="currentPassword">
+                            </div>
+                            <div class="form-group">
+                                <label for="newPassword">New Password</label>
+                                <input type="password" id="newPassword">
+                            </div>
+                            <div class="form-group">
+                                <label for="confirmPassword">Confirm New Password</label>
+                                <input type="password" id="confirmPassword">
+                            </div>
+                        </div>
+
+                        <div class="form-divider">
+                            <h4>Notification Settings</h4>
+                        </div>
+
+                        <div class="notification-settings">
+                            <div class="setting-item">
+                                <label class="toggle-switch">
+                                    <input type="checkbox" checked>
+                                    <span class="toggle-slider"></span>
+                                </label>
+                                <div class="setting-info">
+                                    <h5>Email Notifications</h5>
+                                    <p>Receive notifications about project updates via email</p>
+                                </div>
+                            </div>
+                            <div class="setting-item">
+                                <label class="toggle-switch">
+                                    <input type="checkbox" checked>
+                                    <span class="toggle-slider"></span>
+                                </label>
+                                <div class="setting-info">
+                                    <h5>System Notifications</h5>
+                                    <p>Receive in-system notifications about activities</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-actions">
+                            <button type="button" class="cancel-btn">Cancel</button>
+                            <button type="submit" class="save-btn">Save Changes</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Add this new section after the support section -->
+        <div class="section" id="communication">
+            <h2>Communication Center</h2>
+            <div class="communication-container">
+                <!-- Communication Tabs -->
+                <div class="comm-tabs">
+                    <button class="tab-btn active" data-tab="chat">
+                        <i class="fas fa-comments"></i> Chat Room
+                    </button>
+                    <button class="tab-btn" data-tab="email">
+                        <i class="fas fa-envelope"></i> Email
+                    </button>
+                    <button class="tab-btn" data-tab="forum">
+                        <i class="fas fa-users"></i> Forum
+                    </button>
+                </div>
+
+                <!-- Chat Room Section -->
+                <div class="comm-content chat-section active" id="chatSection">
+                    <div class="chat-container">
+                        <div class="chat-sidebar">
+                            <div class="chat-header">
+                                <h3>Active Users</h3>
+                            </div>
+                            <div class="users-list">
+                                <div class="user-item online">
+                                    <span class="user-status"></span>
+                                    <span class="user-name">Dr. Smith</span>
+                                </div>
+                                <div class="user-item online">
+                                    <span class="user-status"></span>
+                                    <span class="user-name">John Doe</span>
+                                </div>
+                                <div class="user-item">
+                                    <span class="user-status"></span>
+                                    <span class="user-name">Jane Smith</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="chat-main">
+                            <div class="chat-messages">
+                                <!-- Messages will be added here -->
+                            </div>
+                            <div class="chat-input">
+                                <input type="text" placeholder="Type your message..." id="messageInput">
+                                <button class="send-btn">
+                                    <i class="fas fa-paper-plane"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Email Section -->
+                <div class="comm-content email-section" id="emailSection">
+                    <div class="email-container">
+                        <div class="email-sidebar">
+                            <button class="compose-btn">
+                                <i class="fas fa-pen"></i> Compose
+                            </button>
+                            <div class="email-folders">
+                                <div class="folder active">
+                                    <i class="fas fa-inbox"></i> Inbox
+                                    <span class="badge">3</span>
+                                </div>
+                                <div class="folder">
+                                    <i class="fas fa-paper-plane"></i> Sent
+                                </div>
+                                <div class="folder">
+                                    <i class="fas fa-star"></i> Important
+                                </div>
+                                <div class="folder">
+                                    <i class="fas fa-trash"></i> Trash
+                                </div>
+                            </div>
+                        </div>
+                        <div class="email-list">
+                            <div class="email-item unread">
+                                <div class="email-sender">Dr. Smith</div>
+                                <div class="email-subject">Project Review Meeting</div>
+                                <div class="email-preview">Let's schedule a meeting to discuss...</div>
+                                <div class="email-date">10:30 AM</div>
+                            </div>
+                            <!-- More email items -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Forum Section -->
+                <div class="comm-content forum-section" id="forumSection">
+                    <div class="forum-container">
+                        <div class="forum-header">
+                            <h3>Discussion Forums</h3>
+                            <button class="new-topic-btn">
+                                <i class="fas fa-plus"></i> New Topic
+                            </button>
+                        </div>
+                        <div class="forum-categories">
+                            <div class="category">
+                                <h4>General Discussion</h4>
+                                <div class="topic-list">
+                                    <div class="topic-item">
+                                        <div class="topic-info">
+                                            <h5>Project Guidelines Discussion</h5>
+                                            <p>Started by John Doe • 5 replies • 2 days ago</p>
+                                        </div>
+                                        <div class="topic-stats">
+                                            <span><i class="fas fa-eye"></i> 45</span>
+                                            <span><i class="fas fa-comment"></i> 5</span>
+                                        </div>
+                                    </div>
+                                    <!-- More topics -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Compose Email Modal -->
+            <div class="modal" id="composeModal">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3>Compose Email</h3>
+                        <button class="close-btn">&times;</button>
+                    </div>
+                    <form id="emailForm">
+                        <div class="form-group">
+                            <label for="emailTo">To:</label>
+                            <input type="email" id="emailTo" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="emailSubject">Subject:</label>
+                            <input type="text" id="emailSubject" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="emailBody">Message:</label>
+                            <textarea id="emailBody" rows="10" required></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="emailAttachments">Attachments:</label>
+                            <input type="file" id="emailAttachments" multiple>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="cancel-btn">Cancel</button>
+                            <button type="submit" class="send-btn">Send</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- New Forum Topic Modal -->
+            <div class="modal" id="newTopicModal">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3>Create New Topic</h3>
+                        <button class="close-btn">&times;</button>
+                    </div>
+                    <form id="topicForm">
+                        <div class="form-group">
+                            <label for="topicTitle">Title:</label>
+                            <input type="text" id="topicTitle" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="topicCategory">Category:</label>
+                            <select id="topicCategory" required>
+                                <option value="general">General Discussion</option>
+                                <option value="technical">Technical</option>
+                                <option value="questions">Questions</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="topicContent">Content:</label>
+                            <textarea id="topicContent" rows="6" required></textarea>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="cancel-btn">Cancel</button>
+                            <button type="submit" class="save-btn">Create Topic</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html> 

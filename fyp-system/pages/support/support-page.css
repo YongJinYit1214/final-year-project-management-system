@@ -1,0 +1,211 @@
+/* Support Section Styles */
+.support-container {
+    display: grid;
+    gap: 2rem;
+    padding: 1.5rem;
+}
+
+/* Support Categories */
+.support-categories {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.category-card {
+    background: white;
+    padding: 2rem;
+    border-radius: 12px;
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+.category-card:hover {
+    transform: translateY(-5px);
+}
+
+.category-card i {
+    font-size: 2.5rem;
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+}
+
+.category-card h3 {
+    color: #2c3e50;
+    margin-bottom: 0.8rem;
+}
+
+.category-card p {
+    color: #666;
+    margin-bottom: 1.5rem;
+}
+
+/* Action Panels */
+.action-panel {
+    background: white;
+    border-radius: 12px;
+    padding: 1.5rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.panel-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+
+.panel-header h3 {
+    color: #2c3e50;
+    font-size: 1.25rem;
+}
+
+/* Buttons */
+.new-feedback-btn, .view-all-btn {
+    background: linear-gradient(45deg, var(--primary-color), var(--accent-color));
+    color: white;
+    border: none;
+    padding: 0.8rem 1.5rem;
+    border-radius: 8px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: all 0.3s ease;
+}
+
+.new-feedback-btn:hover, .view-all-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2);
+}
+
+/* Feedback Items */
+.feedback-list {
+    max-height: 500px;
+    overflow-y: auto;
+    padding-right: 0.5rem;
+}
+
+.feedback-item {
+    background: #f8fafc;
+    border-radius: 10px;
+    padding: 1.2rem;
+    margin-bottom: 1rem;
+    border-left: 4px solid var(--primary-color);
+}
+
+.feedback-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.8rem;
+}
+
+.feedback-type {
+    padding: 0.25rem 0.75rem;
+    border-radius: 20px;
+    font-size: 0.875rem;
+    font-weight: 500;
+}
+
+.feedback-type.technical { 
+    background: #e1f7e1; 
+    color: #27ae60; 
+}
+
+.feedback-type.suggestion { 
+    background: #e8f4f8; 
+    color: #3498db; 
+}
+
+.feedback-subject {
+    font-size: 1.1rem;
+    color: #2c3e50;
+    margin-bottom: 0.5rem;
+}
+
+.feedback-description {
+    color: #666;
+    margin-bottom: 1rem;
+    line-height: 1.5;
+}
+
+.feedback-footer {
+    display: flex;
+    justify-content: space-between;
+    color: #666;
+    font-size: 0.875rem;
+}
+
+/* FAQ Styles */
+.faq-item {
+    border: 1px solid #eee;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+    background: #f8fafc;
+    transition: all 0.3s ease;
+}
+
+.faq-question {
+    padding: 1.2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    font-weight: 500;
+    color: #2c3e50;
+}
+
+.faq-answer {
+    padding: 0 1.2rem 1.2rem;
+    color: #666;
+    line-height: 1.6;
+    display: none;
+}
+
+.faq-item.active {
+    background: white;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.faq-item.active .faq-answer {
+    display: block;
+}
+
+.faq-item.active .faq-question i {
+    transform: rotate(180deg);
+}
+
+/* Category Button Styles */
+.contact-support-btn, .view-docs-btn, .join-community-btn {
+    background: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 0.8rem 1.5rem;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    width: 100%;
+}
+
+.contact-support-btn:hover, .view-docs-btn:hover, .join-community-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2);
+}
+
+/* File input styling */
+input[type="file"] {
+    padding: 0.5rem;
+    border: 1px dashed #ddd;
+    border-radius: 4px;
+    width: 100%;
+}
+
+small {
+    color: #666;
+    font-size: 0.875rem;
+    margin-top: 0.25rem;
+    display: block;
+}

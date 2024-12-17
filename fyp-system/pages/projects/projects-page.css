@@ -1,0 +1,389 @@
+/* Add these styles at the top of your projects-page.css */
+body {
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    background-color: #f4f4f4;
+}
+
+#projectProposals {
+    padding-top: 70px; /* Add padding to account for fixed navbar */
+}
+
+/* General Styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+    color: #333;
+}
+
+h2, h3, h4 {
+    margin: 0;
+    padding: 10px 0;
+    color: #222;
+}
+
+/* Header Section */
+.projects-header {
+    text-align: center;
+    background-color: #0066cc;
+    color: white;
+    padding: 20px;
+}
+
+.projects-header h2 {
+    margin: 0;
+}
+
+/* Status Overview */
+.project-status-overview {
+    display: flex;
+    gap: 2rem;
+    justify-content: space-evenly;
+    padding: 20px;
+    background-color: #ffffff;
+    margin-bottom: 20px;
+}
+
+.status-card {
+    text-align: center;
+    width: 100%;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    background-color: #f9f9f9;
+    gap: 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.status-card h3 {
+    color: #0066cc;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+/* Action Cards */
+.project-actions-container {
+    display: flex;
+    gap: 2rem;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 20px;
+}
+
+.action-card {
+    flex: 1 1 calc(25% - 40px);
+    max-width: 300px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    background-color: #ffffff;
+    text-align: center;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    padding: 15px;
+    transition: transform 0.2s ease;
+}
+
+.action-card:hover {
+    transform: translateY(-5px);
+}
+
+.action-icon {
+    background: none;
+    border: none;
+    color: var(--primary-color);
+    cursor: pointer;
+    padding: 4px;
+    margin: 0 2px;
+    border-radius: 4px;
+    transition: all 0.2s ease;
+    font-size: 0.9rem;
+}
+
+.action-icon i {
+    font-size: 0.9rem;
+}
+
+.action-icon:hover {
+    background: rgba(37, 99, 235, 0.1);
+    transform: translateY(-1px);
+}
+
+.action-btn {
+    margin-top: 10px;
+    padding: 10px 20px;
+    background-color: #0066cc;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+.action-btn:hover {
+    background-color: #004c99;
+}
+
+/* Available Projects */
+.available-projects {
+    background-color: #ffffff;
+    padding: 20px;
+    margin-top: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.filter-controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.filter-controls select, 
+.filter-controls input {
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+}
+
+/* Timeline View */
+.project-timeline-view {
+    background-color: #ffffff;
+    padding: 20px;
+    margin-top: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.timeline-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.timeline-phases {
+    flex: 2;
+    border-right: 1px solid #ddd;
+    padding-right: 20px;
+}
+
+.timeline-milestones {
+    flex: 1;
+    padding-left: 20px;
+}
+
+.phase {
+    margin-bottom: 20px;
+}
+
+.phase-header h4 {
+    margin-bottom: 5px;
+}
+
+.phase-progress {
+    position: relative;
+    height: 10px;
+    background-color: #ddd;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    overflow: hidden;
+}
+
+.phase-progress .progress-bar {
+    height: 100%;
+    background-color: #0066cc;
+}
+
+.status {
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.status.completed {
+    color: #28a745;
+}
+
+.status.in-progress {
+    color: #ffc107;
+}
+
+.status.pending {
+    color: #dc3545;
+}
+
+/* Submission Modal */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal-content {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    width: 90%;
+    max-width: 500px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.modal-header .close-btn {
+    background: none;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    font-weight: bold;
+    display: block;
+    margin-bottom: 5px;
+}
+
+.form-group input, 
+.form-group textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+/* Buttons */
+.save-btn {
+    background-color: #0066cc;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.save-btn:hover {
+    background-color: #004c99;
+}
+
+.cancel-btn {
+    background-color: #dc3545;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.cancel-btn:hover {
+    background-color: #a71d2a;
+}
+
+/* Table */
+.submission-table, .plan-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.submission-table th, .plan-table th,
+.submission-table td, .plan-table td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: left;
+}
+
+.submission-table th, .plan-table th {
+    background-color: #0066cc;
+    color: white;
+    font-weight: bold;
+}
+
+.submission-table tbody tr:nth-child(even),
+.plan-table tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+/* Update the booking table to match planning table style */
+.booking-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.booking-table th,
+.booking-table td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: left;
+}
+
+.booking-table th {
+    background-color: #0066cc;
+    color: white;
+    font-weight: bold;
+}
+
+.booking-table tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+/* Make status badges consistent */
+.status-badge {
+    padding: 0.25rem 0.75rem;
+    border-radius: 15px;
+    font-size: 0.85rem;
+    font-weight: 500;
+}
+
+.status-badge.pending {
+    background: #fff3cd;
+    color: #856404;
+}
+
+.status-badge.active,
+.status-badge.confirmed,
+.status-badge.completed {
+    background: #d4edda;
+    color: #155724;
+}
+
+/* Add hover effect */
+.booking-table tbody tr:hover {
+    background-color: #f5f5f5;
+}
+
+/* Make table cells with actions more compact */
+.plan-table td:last-child,
+.proposal-table td:last-child,
+.booking-table td:last-child {
+    padding: 8px 16px;
+    white-space: nowrap;
+    width: 1%;
+}
