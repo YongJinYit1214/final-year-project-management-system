@@ -1,6 +1,80 @@
+/* Google fonts - Poppins */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
+
+/* General Styles */
+body {
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4; /* Neutral color */
+    color: black;
+}
+
+/* Navbar styles */
+.navbar {
+    background-color: #0951a3;
+    color: rgb(0, 0, 0);
+    width: 100%;
+    position: fixed;
+    top: 0;
+    z-index: 1000;
+}
+
+.nav-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    display: flex;
+    align-items: center;
+    height: 70px;
+    position: relative;
+    width: 100%;
+}
+
+.logo-section img {
+    height: 100px;
+    width: auto;
+    margin-left: -90px;
+    margin-top: 5px;
+}
+
+.nav-section {
+    flex: 1;
+    display: flex;
+    justify-content: flex-start;
+    padding-left: 1rem;
+}
+
+.nav-links {
+    display: flex;
+    gap: 15px;
+    font-size: 1.1rem;
+    font-weight: 500;
+    align-items: center;
+}
+
+.nav-link {
+    color: white;
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+    border-radius: 30px;
+    transition: all 0.3s ease;
+}
+
+.nav-link:hover {
+    transform: scale(1.15);
+    background-color: whitesmoke;
+    color: #0951a3;
+}
+
+.nav-link.active {
+    background-color: whitesmoke;
+    color: #0951a3;
+}
+
 /* Section Styles */
 .section {
-    background-color: var(--background-color);
+    /* background-color: var(--background-color); */
     padding: 0.2rem;
     border-radius: 12px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -10,7 +84,7 @@
 
 .section h2 {
     font-size: 1.5rem;
-    color: #000000;
+    color: #0066cc;
     margin-left: 1.5rem;
     margin-top: 1rem;
     margin-bottom: 1rem;
@@ -40,97 +114,6 @@
 .stat-card:hover {
     transform: translateY(-5px);
     box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
-}
-
-/* Weekly Goals Styles */
-.weekly-goals {
-    background: linear-gradient(to bottom right, #fff, #f8fafc);
-    border-radius: 15px;
-    padding: 1.5rem;
-    margin: 1.5rem;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
-    border: 1px solid rgba(37, 99, 235, 0.1);
-}
-
-.section-header {
-    background: linear-gradient(to right, #f0f7ff, #fff);
-    padding: 1.2rem;
-    border-bottom: 1px solid #eef2f7;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 1.5rem;
-}
-
-.add-goal-btn {
-    background: linear-gradient(45deg, var(--primary-color), var(--accent-color));
-    color: white;
-    border: none;
-    padding: 0.8rem 1.5rem;
-    border-radius: 8px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    gap: 0.8rem;
-    font-weight: 500;
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 15px rgba(37, 99, 235, 0.2);
-}
-
-.add-goal-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(37, 99, 235, 0.3);
-}
-
-/* Goal Items */
-.goal-item {
-    background: white;
-    border-radius: 8px;
-    padding: 1rem;
-    display: grid;
-    gap: 0.5rem;
-    border: 1px solid #eef2f7;
-    transition: all 0.3s ease;
-}
-
-.goal-item:hover {
-    transform: translateX(5px);
-    border-left: 4px solid var(--primary-color);
-}
-
-/* Status Badges */
-.goal-priority {
-    padding: 0.25rem 0.75rem;
-    border-radius: 15px;
-    font-size: 0.85rem;
-    font-weight: 500;
-}
-
-.priority-high {
-    background: #fee2e2;
-    color: #991b1b;
-}
-
-.priority-medium {
-    background: #fff3cd;
-    color: #856404;
-}
-
-.priority-low {
-    background: #d4edda;
-    color: #155724;
-}
-
-/* Add CSS Variables */
-:root {
-    --primary-color: #2563eb;
-    --background-color: #f0f7ff;
-    --text-primary: #333333;
-    --accent-color: #3b82f6;
-    --success-color: #10b981;
-    --warning-color: #f59e0b;
-    --danger-color: #ef4444;
-    --info-color: #06b6d4;
 }
 
 /* Modal Styles */
@@ -233,7 +216,7 @@
 }
 
 .stat-subtitle {
-    color: #666;
+    color: black;
     font-size: 0.9rem;
     margin-top: 0.5rem;
 }
@@ -245,6 +228,118 @@
     margin: 0.5rem 0;
 }
 
+/* Project Timeline Header Text */
+.project-timeline h3{
+    font-size: 1.5rem;
+    color: #0066cc;
+    margin-left: 1.5rem;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    font-weight: 600;
+}
+
+/* Weekly Goals Styles */
+.weekly-goals {
+    background: linear-gradient(to bottom right, #fff, #f8fafc);
+    border-radius: 15px;
+    padding: 1.5rem;
+    margin: 1.5rem;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    border: 1px solid rgba(37, 99, 235, 0.1);
+}
+
+.section-header {
+    background: linear-gradient(to right, #f0f7ff, #fff);
+    padding: 1.2rem;
+    border-bottom: 1px solid #eef2f7;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+
+/* Add New Goal Button */
+.add-goal-btn {
+    background: #0066cc;
+    color: white;
+    border: none;
+    padding: 0.8rem 1.5rem;
+    border-radius: 8px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    font-weight: bold;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(37, 99, 235, 0.2);
+}
+
+.add-goal-btn:hover {
+    background-color: #004c99;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(37, 99, 235, 0.3);
+}
+
+/* Current Week Goals Header Text */
+.current-week h4{
+    margin-left: 1.2rem;
+}
+
+/* Goal Items */
+.goal-item {
+    background: white;
+    border-radius: 8px;
+    padding: 1rem;
+    display: grid;
+    gap: 0.5rem;
+    border: 1px solid #eef2f7;
+    transition: all 0.3s ease;
+}
+
+.goal-item:hover {
+    transform: translateX(5px);
+    border-left: 4px solid var(--primary-color);
+}
+
+/* Status Badges */
+.goal-priority {
+    padding: 0.3rem 0.75rem;
+    border-radius: 15px;
+    font-size: 0.85rem;
+    font-weight: 500;
+}
+
+/* High Priority Status */
+.priority-high {
+    background: #fee2e2;
+    color: #991b1b;
+}
+
+/* Med Priority Status */
+.priority-medium {
+    background: #fff3cd;
+    color: #856404;
+}
+
+/* Low Priority Status */
+.priority-low {
+    background: #d4edda;
+    color: #155724;
+}
+
+/* Add CSS Variables */
+:root {
+    --primary-color: #2563eb;
+    --background-color: #f0f7ff;
+    --text-primary: #333333;
+    --accent-color: #3b82f6;
+    --high-color: #ef4444;
+    --warning-color: #f59e0b;
+    --completed-color: #10b981;
+    --info-color: #06b6d4;
+}
+
 /* Goal Item Enhancements */
 .goal-item {
     background: white;
@@ -252,6 +347,17 @@
     padding: 1.2rem;
     margin-bottom: 1rem;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    
+}
+
+/* High priority status card */
+.high {
+    border-left: 4px solid var(--high-color);
+}
+
+/* Med priority status card */
+.medium {
+    border-left: 4px solid var(--warning-color);
 }
 
 .goal-header {
@@ -286,11 +392,13 @@
     color: var(--primary-color);
 }
 
+/* Completed status card */
 .completed {
     background: #f8fafc;
-    border-left: 4px solid var(--success-color);
+    border-left: 4px solid var(--completed-color);
 }
 
+/* Completed Status */
 .completed .goal-priority {
     background: #d1fae5;
     color: #065f46;

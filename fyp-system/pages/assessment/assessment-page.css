@@ -1,8 +1,82 @@
+/* Google fonts - Poppins */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
+
+/* General Styles */
+body {
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4; /* Neutral color */
+    color: black;
+}
+
+/* Navbar styles */
+.navbar {
+    background-color: #0951a3;
+    color: rgb(0, 0, 0);
+    width: 100%;
+    position: fixed;
+    top: 0;
+    z-index: 1000;
+}
+
+.nav-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    display: flex;
+    align-items: center;
+    height: 70px;
+    position: relative;
+    width: 100%;
+}
+
+.logo-section img {
+    height: 100px;
+    width: auto;
+    margin-left: -90px;
+    margin-top: 5px;
+}
+
+.nav-section {
+    flex: 1;
+    display: flex;
+    justify-content: flex-start;
+    padding-left: 1rem;
+}
+
+.nav-links {
+    display: flex;
+    gap: 15px;
+    font-size: 1.1rem;
+    font-weight: 500;
+    align-items: center;
+}
+
+.nav-link {
+    color: white;
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+    border-radius: 30px;
+    transition: all 0.3s ease;
+}
+
+.nav-link:hover {
+    transform: scale(1.15);
+    background-color: whitesmoke;
+    color: #0951a3;
+}
+
+.nav-link.active {
+    background-color: whitesmoke;
+    color: #0951a3;
+}
+
 .section h2 {
     font-size: 1.5rem;
-    color: #000000;
+    color: #0066cc;
     margin-left: 1.5rem;
-    margin-top: 1rem;
+    margin-top: 100px;
     margin-bottom: 1rem;
     font-weight: 600;
 }
@@ -128,15 +202,17 @@
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
+/* Midterm Evaluation Breakdown */
 .rubric-container h3 {
-    color: #1e293b;
+    color: black;
+    margin-top: 0rem;
     margin-bottom: 1.5rem;
     font-size: 1.25rem;
 }
 
 .rubric-section {
     background: #f8fafc;
-    padding: 1.5rem;
+    padding: 0rem 1.5rem 1.5rem 1.5rem;
     border-radius: 8px;
 }
 
@@ -148,6 +224,7 @@
     border-bottom: 1px solid #e2e8f0;
 }
 
+/* Project Planning, Technical Implementation, Documentation, Presentation */
 .criteria h4 {
     color: #334155;
     margin-bottom: 0.5rem;
@@ -163,12 +240,19 @@
     color: var(--primary-color);
 }
 
+/* total-marks */
 .total-marks {
-    text-align: right;
-    padding: 1rem;
+    text-align: center;
+    padding: 0.5rem;
     margin-top: 1rem;
-    background: white;
-    border-radius: 8px;
+    background: #b6f5cb;
+    border-radius: 10px;
+}
+
+/* Total Score Font */
+.total-marks h4 {
+    font-size: x-large;
+    font-weight: 600;
 }
 
 /* Feedback Section */

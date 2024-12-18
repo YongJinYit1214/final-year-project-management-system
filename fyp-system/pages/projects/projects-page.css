@@ -1,28 +1,86 @@
-/* Add these styles at the top of your projects-page.css */
+/* Google fonts - Poppins */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
+
+/* General Styles */
 body {
+    font-family: 'Poppins', sans-serif;
     margin: 0;
     padding: 0;
-    min-height: 100vh;
     background-color: #f4f4f4;
+    color: black;
 }
 
 #projectProposals {
     padding-top: 70px; /* Add padding to account for fixed navbar */
 }
 
-/* General Styles */
-body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #f4f4f4;
-    color: #333;
+/* Navbar styles */
+.navbar {
+    background-color: #0951a3;
+    color: rgb(0, 0, 0);
+    width: 100%;
+    position: fixed;
+    top: 0;
+    z-index: 1000;
+}
+
+.nav-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    display: flex;
+    align-items: center;
+    height: 70px;
+    position: relative;
+    width: 100%;
+}
+
+.logo-section img {
+    height: 100px;
+    width: auto;
+    margin-left: -90px;
+    margin-top: 5px;
+}
+
+.nav-section {
+    flex: 1;
+    display: flex;
+    justify-content: flex-start;
+    padding-left: 1rem;
+}
+
+.nav-links {
+    display: flex;
+    gap: 15px;
+    font-size: 1.1rem;
+    font-weight: 500;
+    align-items: center;
+}
+
+.nav-link {
+    color: white;
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+    border-radius: 30px;
+    transition: all 0.3s ease;
+}
+
+.nav-link:hover {
+    transform: scale(1.15);
+    background-color: whitesmoke;
+    color: #0951a3;
+}
+
+.nav-link.active {
+    background-color: whitesmoke;
+    color: #0951a3;
 }
 
 h2, h3, h4 {
     margin: 0;
     padding: 10px 0;
-    color: #222;
+    padding-left: 20px;
+    color: black;
 }
 
 /* Header Section */
@@ -42,11 +100,12 @@ h2, h3, h4 {
     display: flex;
     gap: 2rem;
     justify-content: space-evenly;
-    padding: 20px;
+    padding: 30px;
     background-color: #ffffff;
     margin-bottom: 20px;
 }
 
+/* Current Project, Supervisor, Project Status */
 .status-card {
     text-align: center;
     width: 100%;
@@ -58,8 +117,10 @@ h2, h3, h4 {
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
+/* Current Project, Supervisor, Project Status */
 .status-card h3 {
     color: #0066cc;
+    padding-left: 0px;
     font-weight: bold;
     margin-bottom: 10px;
 }
@@ -71,6 +132,11 @@ h2, h3, h4 {
     flex-wrap: wrap;
     justify-content: center;
     padding: 20px;
+}
+
+/*View Available Projects, Submit to Supervisor, Submit to Admin, Project Timeline*/
+.action-card h4 {
+    padding-left: 0px;
 }
 
 .action-card {
@@ -92,7 +158,7 @@ h2, h3, h4 {
 .action-icon {
     background: none;
     border: none;
-    color: var(--primary-color);
+    color: #e92135;
     cursor: pointer;
     padding: 4px;
     margin: 0 2px;
@@ -102,7 +168,19 @@ h2, h3, h4 {
 }
 
 .action-icon i {
-    font-size: 0.9rem;
+    font-size: 2rem;
+}
+
+.action-icon2 {
+    background: none;
+    border: none;
+    color: black;
+    cursor: pointer;
+    padding: 4px;
+    margin: 0 2px;
+    border-radius: 4px;
+    transition: all 0.2s ease;
+    font-size: 1rem;
 }
 
 .action-icon:hover {
@@ -120,11 +198,12 @@ h2, h3, h4 {
     cursor: pointer;
     font-size: 14px;
     font-weight: bold;
-    transition: background-color 0.3s ease;
+    transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
 .action-btn:hover {
     background-color: #004c99;
+    transform: scale(1.15);
 }
 
 /* Available Projects */
@@ -305,11 +384,76 @@ h2, h3, h4 {
     background-color: #a71d2a;
 }
 
+/* Submit Project */
+.submit-project-btn {
+    margin-top: 10px;
+    margin-left: 20px;
+    padding: 10px 20px;
+    background-color: #0066cc;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: bold;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.submit-project-btn:hover {
+    background-color: #004c99;
+    transform: scale(1.15);
+}
+
+/* Project Planning */
+.add-plan-btn {
+    margin-top: 10px;
+    margin-left: 20px;
+    padding: 10px 20px;
+    background-color: #0066cc;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: bold;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.add-plan-btn:hover {
+    background-color: #004c99;
+    transform: scale(1.15);
+}
+
+/* Presentation Slot Booking */
+.book-slot-btn {
+    margin-top: 10px;
+    margin-left: 20px;
+    padding: 10px 20px;
+    background-color: #0066cc;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: bold;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.book-slot-btn:hover {
+    background-color: #004c99;
+    transform: scale(1.15);
+}
+
 /* Table */
+/* Project Submissions & Project Planning Table*/
 .submission-table, .plan-table {
-    width: 100%;
+    width: 97%;
     border-collapse: collapse;
     margin-top: 20px;
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-bottom: 30px;
+
 }
 
 .submission-table th, .plan-table th,
@@ -331,10 +475,14 @@ h2, h3, h4 {
 }
 
 /* Update the booking table to match planning table style */
+/* Presentation Slot Booking Table */
 .booking-table {
-    width: 100%;
+    width: 97%;
     border-collapse: collapse;
     margin-top: 20px;
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-bottom: 20px;
 }
 
 .booking-table th,

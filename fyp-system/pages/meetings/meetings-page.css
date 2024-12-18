@@ -1,10 +1,75 @@
+/* Google fonts - Poppins */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
+
 /* General Styles */
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Poppins', sans-serif;
     margin: 0;
     padding: 0;
     background-color: #f4f4f4; /* Neutral color */
-    color: #333;
+    color: black;
+}
+
+/* Navbar styles */
+.navbar {
+    background-color: #0951a3;
+    color: rgb(0, 0, 0);
+    width: 100%;
+    position: fixed;
+    top: 0;
+    z-index: 1000;
+}
+
+.nav-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    display: flex;
+    align-items: center;
+    height: 70px;
+    position: relative;
+    width: 100%;
+}
+
+.logo-section img {
+    height: 100px;
+    width: auto;
+    margin-left: -90px;
+    margin-top: 5px;
+}
+
+.nav-section {
+    flex: 1;
+    display: flex;
+    justify-content: flex-start;
+    padding-left: 1rem;
+}
+
+.nav-links {
+    display: flex;
+    gap: 15px;
+    font-size: 1.1rem;
+    font-weight: 500;
+    align-items: center;
+}
+
+.nav-link {
+    color: white;
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+    border-radius: 30px;
+    transition: all 0.3s ease;
+}
+
+.nav-link:hover {
+    transform: scale(1.15);
+    background-color: whitesmoke;
+    color: #0951a3;
+}
+
+.nav-link.active {
+    background-color: whitesmoke;
+    color: #0951a3;
 }
 
 h2, h3 {
@@ -13,7 +78,7 @@ h2, h3 {
     color: #0066cc; /* Primary color */
 }
 
-/* Section Styles */
+/* Meetings Management Section Styles */
 .section {
     padding: 20px;
     margin: 20px auto;
@@ -21,6 +86,7 @@ h2, h3 {
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     border-radius: 10px;
     max-width: 1200px;
+    margin-top: 100px;
 }
 
 .section h2 {
@@ -47,9 +113,10 @@ h2, h3 {
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
+/* Upcoming Meetings, Meeting Logs (Header) */
 .upcoming-meetings h3, .meeting-logs h3 {
     margin-bottom: 20px;
-    color: #4ca6ff; /* Secondary color */
+    color: #0066cc; /* Secondary color */
     font-size: 20px;
 }
 
@@ -145,7 +212,7 @@ h2, h3 {
 }
 
 .meeting-info i {
-    color: var(--primary-color);
+    color: #e92135;
     width: 16px;
 }
 
@@ -191,48 +258,54 @@ h2, h3 {
     border: none;
     border-radius: 6px;
     font-size: 0.9rem;
-    font-weight: 500;
+    font-weight: 600;
     cursor: pointer;
     transition: all 0.3s ease;
 }
 
 .join-btn {
-    background-color: #2563eb;
+    background-color: #0066cc;
     color: white;
+    transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
 .join-btn:hover {
-    background-color: #1d4ed8;
+    background-color: #004c99;
+    transform: scale(1.15);
 }
 
 .reschedule-btn {
-    background-color: #f8fafc;
-    color: #475569;
+    background-color: #0066cc;
+    color: white;
     border: 1px solid #e2e8f0;
+    transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
 .reschedule-btn:hover {
-    background-color: #f1f5f9;
+    background-color: #004c99;
+    transform: scale(1.15);
 }
 
 .view-notes-btn {
-    background-color: #f8fafc;
-    color: #475569;
-    border: 1px solid #e2e8f0;
+    background-color: #0066cc;
+    color: white;
+    transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
 .view-notes-btn:hover {
-    background-color: #f1f5f9;
+    background-color: #004c99;
+    transform: scale(1.15);
 }
 
 /* Schedule Button Enhancement */
 .schedule-btn {
-    background: linear-gradient(45deg, #2563eb, #3b82f6);
+    background: #0066cc;
+    font-size: 1rem;
     border: none;
     padding: 0.8rem 1.5rem;
     color: white;
     border-radius: 8px;
-    font-weight: 500;
+    font-weight: bold;
     cursor: pointer;
     transition: all 0.3s ease;
     display: inline-flex;
@@ -242,6 +315,7 @@ h2, h3 {
 }
 
 .schedule-btn:hover {
+    background: #004c99;
     transform: translateY(-2px);
     box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2);
 }

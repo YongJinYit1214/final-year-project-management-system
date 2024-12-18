@@ -1,6 +1,5 @@
 .section {
-    padding: 2.5rem;
-    margin-top: 70px;
+    padding: 0rem 2.5rem 2.5rem 2.5rem;
     background-color: #f5f7fa;
     min-height: calc(100vh - 70px);
 }

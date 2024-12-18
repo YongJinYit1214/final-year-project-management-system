@@ -1,3 +1,77 @@
+/* Google fonts - Poppins */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
+
+/* General Styles */
+body {
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4; /* Neutral color */
+    color: black;
+}
+
+/* Navbar styles */
+.navbar {
+    background-color: #0951a3;
+    color: rgb(0, 0, 0);
+    width: 100%;
+    position: fixed;
+    top: 0;
+    z-index: 1000;
+}
+
+.nav-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    display: flex;
+    align-items: center;
+    height: 70px;
+    position: relative;
+    width: 100%;
+}
+
+.logo-section img {
+    height: 100px;
+    width: auto;
+    margin-left: -90px;
+    margin-top: 5px;
+}
+
+.nav-section {
+    flex: 1;
+    display: flex;
+    justify-content: flex-start;
+    padding-left: 1rem;
+}
+
+.nav-links {
+    display: flex;
+    gap: 15px;
+    font-size: 1.1rem;
+    font-weight: 500;
+    align-items: center;
+}
+
+.nav-link {
+    color: white;
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+    border-radius: 30px;
+    transition: all 0.3s ease;
+}
+
+.nav-link:hover {
+    transform: scale(1.15);
+    background-color: whitesmoke;
+    color: #0951a3;
+}
+
+.nav-link.active {
+    background-color: whitesmoke;
+    color: #0951a3;
+}
+
 /* Email Styles */
 .email-container {
     display: grid;
@@ -17,13 +91,13 @@
 }
 
 .compose-btn {
-    width: 100%;
+    width: 85%;
     text-decoration: none;
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    gap: 0.5rem;
-    padding: 0.8rem 1.5rem;
+    gap: 0.8rem;
+    padding: 0.8rem 1rem;
     border-radius: 8px;
     background: var(--primary-color);
     color: rgb(0, 0, 0);
@@ -32,6 +106,7 @@
 }
 
 .compose-btn:hover {
+    background: #e0f2fe;
     transform: translateY(-2px);
     box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2);
 }
@@ -152,7 +227,7 @@
     text-decoration: none;
     padding: 0.75rem 1.5rem;
     border-radius: 4px;
-    background: #f8f9fa;
+    background: white;
     color: #2c3e50;
     display: flex;
     align-items: center;
@@ -161,13 +236,13 @@
 }
 
 .tab-btn:hover {
-    background: #e0f2fe;
-    color: var(--primary-color);
-    transform: translateY(-2px);
+    background: #0066cc;
+    color: white;
+    transform: translateY(-3px);
 }
 
 .tab-btn.active {
-    background: var(--primary-color);
+    background: #004c99;
     color: white;
 }
 

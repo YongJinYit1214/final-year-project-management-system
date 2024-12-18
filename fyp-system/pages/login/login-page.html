@@ -5,66 +5,63 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FCI FYP System - Login</title>
-    <link rel="stylesheet" href="../../index.css">
+    <!-- <link rel="stylesheet" href="../../index.css"> -->
     <link rel="stylesheet" href="./login-page.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
 </head>
 <body>
-<!-- Add navbar at the top -->
-<nav class="navbar">
-    <div class="nav-container">
-        <div class="logo-section">
-            <a href="../../index.html"><img src="../../assets/images/mmu-logo-white.png" alt="MMU Logo"></a>
-        </div>
-        <div class="nav-section">
-            <div class="nav-links">
-                <a href="../../index.html" class="nav-link" id="homeLink">Home</a>
-                <a href="../projects/projects-page.html" class="nav-link" id="projectsLink">Projects</a>
-                <a href="../meetings/meetings-page.html" class="nav-link" id="meetingsLink">Meetings</a>
-                <a href="../progress/progress-page.html" class="nav-link" id="progressLink">Progress</a>
-                <a href="../assessment/assessment-page.html" class="nav-link" id="assessmentLink">Assessment</a>
-                <a href="../support/support-page.html" class="nav-link" id="supportLink">Support</a>
-                <a href="../communication/communication-page.html" class="nav-link" id="communicationLink">Communication</a>
-                <a href="../profile/profile-page.html" class="nav-link" id="profileLink">Profile</a>
-                <a href="../login/login-page.html" class="nav-link active" id="loginBtn">Login</a>
-                <a href="../register/register-page.html" class="nav-link" id="registerBtn">Register</a>
+    <!-- Add navbar at the top -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo-section">
+                <a href="../../index.html"><img src="../../assets/images/mmu-logo-white.png" alt="MMU Logo"></a>
             </div>
+            <div class="nav-section">
+                <div class="nav-links">
+                    <a href="../../index.html" class="nav-link" id="homeLink">Home</a>
+                    <a href="../projects/projects-page.html" class="nav-link" id="projectsLink">Projects</a>
+                    <a href="../meetings/meetings-page.html" class="nav-link" id="meetingsLink">Meetings</a>
+                    <a href="../progress/progress-page.html" class="nav-link" id="progressLink">Progress</a>
+                    <a href="../assessment/assessment-page.html" class="nav-link" id="assessmentLink">Assessment</a>
+                    <a href="../support/support-page.html" class="nav-link" id="supportLink">Support</a>
+                    <a href="../communication/communication-page.html" class="nav-link" id="communicationLink">Communication</a>
+                    <a href="../profile/profile-page.html" class="nav-link" id="profileLink">Profile</a>
+                    <a href="../login/login-page.html" class="nav-link active" id="loginBtn">Login</a>
+                    <a href="../register/register-page.html" class="nav-link" id="registerBtn">Register</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Login Section -->
+    <div class="login-container">
+        <div class="form-container" id="loginForm">
+            <div class="form-logo-section">
+                <img src="../../assets/images/mmu-logo.png" alt="MMU Logo">
+            </div>
+            <h2>Welcome Back</h2>
+            <p class="subtitle">Please login to your account</p>
+            
+            <div class="alert" id="loginAlert" style="display: none;"></div>
+            
+            <form id="loginFormElement">
+                <div class="form-group">
+                    <input type="email" name="email" placeholder="Email" required>
+                </div>
+                <div class="form-group">
+                    <input type="password" name="password" placeholder="Password" required>
+                </div>
+                <div class="form-options">
+                    <label class="remember-me">
+                        <input type="checkbox" name="remember">
+                        Remember me
+                    </label>
+                    <a href="#" class="forgot-password">Forgot Password?</a>
+                </div>
+                <button type="submit">Login</button>
+                <p class="form-footer">Don't have an account? <a href="../register/register-page.html">Register here</a></p>
+            </form>
         </div>
     </div>
-</nav>
-
-<!-- Login Section -->
-<div class="login-container">
-    <div class="form-container" id="loginForm">
-        <div class="logo-section">
-            <img src="../../assets/images/mmu-logo.png" alt="MMU Logo">
-        </div>
-        <h2>Welcome Back</h2>
-        <p class="subtitle">Please login to your account</p>
-        
-        <div class="alert" id="loginAlert" style="display: none;"></div>
-        
-        <form id="loginFormElement">
-            <div class="form-group">
-                <input type="email" name="email" placeholder="Email" required>
-            </div>
-            <div class="form-group">
-                <input type="password" name="password" placeholder="Password" required>
-            </div>
-            <div class="form-options">
-                <label class="remember-me">
-                    <input type="checkbox" name="remember">
-                    Remember me
-                </label>
-                <a href="#" class="forgot-password">Forgot Password?</a>
-            </div>
-            <button type="submit">Login</button>
-            <p class="form-footer">Don't have an account? <a href="../register/register-page.html">Register here</a></p>
-        </form>
-    </div>
-</div>
-
-<script src="../../components/common/navbar.js"></script>
-<script src="./login-page.js"></script>
 </body>
 </html>

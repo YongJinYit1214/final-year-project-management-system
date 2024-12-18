@@ -1,5 +1,9 @@
+/* Google fonts - Poppins */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
+
 /* Add these styles at the top of your index.css */
 body {
+    font-family: 'Poppins', sans-serif;
     margin: 0;
     padding: 0;
     min-height: 100vh;
@@ -7,7 +11,7 @@ body {
 }
 
 #homeSection {
-    padding-top: 70px; /* Add padding to account for fixed navbar height */
+    padding-top: 69px; /* Add padding to account for fixed navbar height */
 }
 
 /* Update carousel container styling */
@@ -130,7 +134,8 @@ body {
 .dashboard-card {
     background-color: white;
     padding: 2.5rem;
-    height: 100%;
+    margin-bottom: 2rem;
+    height: 85%;
     display: flex;
     flex-direction: column;
     border-radius: 20px;
@@ -372,9 +377,10 @@ body {
 }
 
 .logo-section img {
-    height: 50px;
+    height: 100px;
     width: auto;
-    margin-left: -10px;
+    margin-left: -90px;
+    margin-top: 5px;
 }
 
 .nav-section {

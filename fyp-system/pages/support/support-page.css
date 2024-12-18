@@ -1,7 +1,80 @@
+/* Google fonts - Poppins */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
+
+/* General Styles */
+body {
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4; /* Neutral color */
+    color: black;
+}
+
+/* Navbar styles */
+.navbar {
+    background-color: #0951a3;
+    color: rgb(0, 0, 0);
+    width: 100%;
+    position: fixed;
+    top: 0;
+    z-index: 1000;
+}
+
+.nav-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    display: flex;
+    align-items: center;
+    height: 70px;
+    position: relative;
+    width: 100%;
+}
+
+.logo-section img {
+    height: 100px;
+    width: auto;
+    margin-left: -90px;
+    margin-top: 5px;
+}
+
+.nav-section {
+    flex: 1;
+    display: flex;
+    justify-content: flex-start;
+    padding-left: 1rem;
+}
+
+.nav-links {
+    display: flex;
+    gap: 15px;
+    font-size: 1.1rem;
+    font-weight: 500;
+    align-items: center;
+}
+
+.nav-link {
+    color: white;
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+    border-radius: 30px;
+    transition: all 0.3s ease;
+}
+
+.nav-link:hover {
+    transform: scale(1.15);
+    background-color: whitesmoke;
+    color: #0951a3;
+}
+
+.nav-link.active {
+    background-color: whitesmoke;
+    color: #0951a3;
+}
+
 /* Support Section Styles */
 .support-container {
     display: grid;
-    gap: 2rem;
     padding: 1.5rem;
 }
 
@@ -28,7 +101,7 @@
 
 .category-card i {
     font-size: 2.5rem;
-    color: var(--primary-color);
+    color: #e92135;
     margin-bottom: 1rem;
 }
 
@@ -140,42 +213,69 @@
 }
 
 /* FAQ Styles */
+.faq-list {
+    display: grid;
+    gap: 1rem;
+}
+
 .faq-item {
-    border: 1px solid #eee;
-    border-radius: 8px;
-    margin-bottom: 1rem;
-    background: #f8fafc;
-    transition: all 0.3s ease;
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .faq-question {
-    padding: 1.2rem;
+    padding: 1.5rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
     cursor: pointer;
-    font-weight: 500;
+    transition: background-color 0.3s ease;
+}
+
+.faq-question:hover {
+    background-color: #f8fafc;
+}
+
+.faq-question h4 {
     color: #2c3e50;
+    font-size: 1.1rem;
+    margin: 0;
+}
+
+.faq-question i {
+    color: var(--primary-color);
+    transition: transform 0.3s ease;
 }
 
 .faq-answer {
-    padding: 0 1.2rem 1.2rem;
-    color: #666;
+    padding: 0;
+    max-height: 0;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    background-color: #f8fafc;
+}
+
+.faq-answer p {
+    margin: 0;
+    padding: 1.5rem;
+    color: #64748b;
     line-height: 1.6;
-    display: none;
 }
 
-.faq-item.active {
-    background: white;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-}
-
-.faq-item.active .faq-answer {
-    display: block;
+/* Active state */
+.faq-item.active .faq-question {
+    background-color: #f8fafc;
 }
 
 .faq-item.active .faq-question i {
     transform: rotate(180deg);
+}
+
+.faq-item.active .faq-answer {
+    max-height: 500px;
+    border-top: 1px solid #e2e8f0;
 }
 
 /* Category Button Styles */

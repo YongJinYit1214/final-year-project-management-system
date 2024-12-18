@@ -1,28 +1,100 @@
-/* General page styles */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Arial', sans-serif;
-}
+/* Google fonts - Poppins */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
 
+/* General Styles */
 body {
-    background-color: #f4f4f9;
+    font-family: 'Poppins', sans-serif;
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    /* height: 100vh; */
+    margin-bottom: 30px;
+    padding: 0;
+    background-color: #f4f4f4; /* Neutral color */
+    color: black;
+}
+
+/* Navbar styles */
+.navbar {
+    background-color: #0951a3;
+    color: rgb(0, 0, 0);
+    width: 100%;
+    position: fixed;
+    top: 0;
+    z-index: 1000;
+    height: 70px;
+}
+
+.nav-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    display: flex;
+    align-items: center;
+    height: 70px;
+    position: relative;
+    width: 100%;
+}
+
+/* Navbar MMU Logo */
+.logo-section img {
+    height: 100px;
+    width: auto;
+    margin-left: -90px;
+    margin-top: 5px;
+}
+
+.nav-section {
+    flex: 1;
+    display: flex;
+    justify-content: flex-start;
+    padding-left: 1rem;
+}
+
+.nav-links {
+    display: flex;
+    gap: 15px;
+    font-size: 1.1rem;
+    font-weight: 500;
+    align-items: center;
+}
+
+.nav-link {
+    color: white;
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+    border-radius: 30px;
+    transition: all 0.3s ease;
+}
+
+.nav-link:hover {
+    transform: scale(1.15);
+    background-color: whitesmoke;
+    color: #0951a3;
+}
+
+.nav-link.active {
+    background-color: whitesmoke;
+    color: #0951a3;
 }
 
 /* Container for the registration form */
 .form-container {
+    margin-top: 90px;
     background-color: white;
-    padding: 40px;
+    padding: 30px 60px 20px 60px;
     width: 100%;
-    max-width: 450px;
+    max-width: 800px;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     text-align: center;
+}
+
+/* MMU Logo */
+.form-logo-section img{
+    height: 50px;
+    width: auto;
+    transform: scale(3.5);
 }
 
 h2 {
@@ -42,40 +114,86 @@ input[type="password"] {
     border-radius: 5px;
     font-size: 1em;
     outline: none;
+    box-sizing: border-box;
 }
 
 input[type="text"]:focus,
 input[type="email"]:focus,
 input[type="password"]:focus {
     border-color: #3498db;
+    border-width: 2px;
+}
+
+/* Password validation (coming soon) */
+/* Password must contains */
+.content p {
+    text-align: left;
+    margin-top: 10px;
+    margin-left: 13px;
+    color: black;
+}
+
+.content .requirement-list {
+    margin-top: 10px;
+    padding-left: 13px;
+}
+
+.requirement-list li {
+    list-style: none;
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.requirement-list li i {
+    width: 20px;
+    color: #aaa;
+    font-size: 0.6rem;
+}
+
+.requirement-list li.valid i {
+    font-size: 1.2rem;
+    color: #4285F4;
+}
+.requirement-list li span {
+    margin-left: 12px;
+    color: #333;
+}
+.requirement-list li.valid span {
+    color: #999;
 }
 
 /* Submit button styles */
 button[type="submit"] {
     width: 100%;
     padding: 12px;
-    background-color: #3498db;
+    margin-top: 30px;
+    background-color: #0066cc;
     color: white;
     border: none;
     border-radius: 5px;
     font-size: 1.1em;
+    font-weight: bold;
     cursor: pointer;
-    transition: background-color 0.3s;
+    transition: background-color 0.3s ease-out;
 }
 
 button[type="submit"]:hover {
-    background-color: #2980b9;
+    background-color: #004c99;
 }
 
 /* Footer link styles */
 .form-footer {
     margin-top: 20px;
-    font-size: 0.9em;
+    margin-bottom: 0px;
+    font-size: 1em;
     color: #777;
 }
 
+/* Login here */
 .form-footer a {
-    color: #3498db;
+    margin-left: 10px;
+    color: #0066cc;
     text-decoration: none;
     font-weight: bold;
 }
