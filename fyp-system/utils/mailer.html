@@ -1,8 +1,0 @@
-<?php
-class Mailer {
-    public static function send($to, $subject, $message, $headers = []) {
-        $headersString = implode("\r\n", $headers);
-        return mail($to, $subject, $message, $headersString);
-    }
-}
-?>
