@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FCI FYP System - Register</title>
+    <!-- <link rel="stylesheet" href="../../index.css"> -->
+    <link rel="stylesheet" href="./register-page.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+
+<body>
+    <!-- Navbar at the top -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo-section">
+                <a href="../../index.html"><img src="../../assets/images/mmu-logo-white.png" alt="MMU Logo"></a>
+            </div>
+            <div class="nav-section">
+                <div class="nav-links">
+                    <a href="../../index.html" class="nav-link" id="homeLink">Home</a>
+                    <a href="../projects/projects-page.html" class="nav-link" id="projectsLink">Projects</a>
+                    <a href="../meetings/meetings-page.html" class="nav-link" id="meetingsLink">Meetings</a>
+                    <a href="../progress/progress-page.html" class="nav-link" id="progressLink">Progress</a>
+                    <a href="../assessment/assessment-page.html" class="nav-link" id="assessmentLink">Assessment</a>
+                    <a href="../support/support-page.html" class="nav-link" id="supportLink">Support</a>
+                    <a href="../communication/communication-page.html" class="nav-link"
+                        id="communicationLink">Communication</a>
+                    <a href="../profile/profile-page.html" class="nav-link" id="profileLink">Profile</a>
+                    <a href="../login/login-page.html" class="nav-link" id="loginBtn">Login</a>
+                    <a href="../register/register-page.html" class="nav-link active" id="registerBtn">Register</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Registration Form -->
+    <div class="form-container" id="registrationForm">
+        <div class="form-logo-section">
+            <img src="../../assets/images/mmu-logo.png" alt="MMU Logo">
+        </div>
+        <h2>Student Registration</h2>
+        <form id="registerFormElement">
+            <input type="text" name="student_id" placeholder="Student ID" required pattern="^\d{10}$" title="Please enter a valid Student ID, Student ID must be exactly 10 digits">
+            <select name="specialization" id="specialization" required>
+                <option value="" disabled selected>Select Your Specialization</option>
+                <option value="SE">Software Engineering</option>
+                <option value="DS">Data Science</option>
+                <option value="GD">Game Development</option>
+                <option value="CS">Cybersecurity</option>
+            </select>
+            <input type="email" name="email" placeholder="Student Email" required>
+            <input type="text" name="name" placeholder="Full Name" required pattern="^^[a-zA-Z\s\p{P}\p{S}]+$" title="Full Name must contain only letters and spaces">
+            <div class="password-input-group">
+                <input type="password" name="password" id="password" placeholder="Password" required pattern="^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).{8,}$">
+                <button type="button" class="password-toggle" onclick="togglePassword('password')">
+                    <i class="fas fa-eye"></i>
+                </button>
+            </div>
+            <div class="content">
+                <p>Password must contains</p>
+                <ul class="requirement-list">
+                    <li>
+                        <i class="fa-solid fa-circle"></i>
+                        <span>At least 8 characters long</span>
+                    </li>
+                    <li>
+                        <i class="fa-solid fa-circle"></i>
+                        <span>At least 1 number (0...9)</span>
+                    </li>
+                    <li>
+                        <i class="fa-solid fa-circle"></i>
+                        <span>At least 1 lowercase letter (a...z)</span>
+                    </li>
+                    <li>
+                        <i class="fa-solid fa-circle"></i>
+                        <span>At least 1 special symbol (!,@,#,$,%,^,&,*)</span>
+                    </li>
+                    <li>
+                        <i class="fa-solid fa-circle"></i>
+                        <span>At least 1 uppercase letter (A...Z)</span>
+                    </li>
+                </ul>
+            </div>
+            <div class="password-input-group">
+                <input type="password" name="confirm_password" id="confirm_password" placeholder="Confirm Password" required pattern="^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).{8,}$" title="Please enter the same password as above">
+                <button type="button" class="password-toggle" onclick="togglePassword('confirm_password')">
+                    <i class="fas fa-eye"></i>
+                </button>
+            </div>
+            <div class="phone-input-group">
+                <select name="country_code" id="country_code" required>
+                    <option value="+60">🇲🇾 +60 (Malaysia)</option>
+                    <option value="+65">🇸🇬 +65 (Singapore)</option>
+                    <option value="+62">🇮🇩 +62 (Indonesia)</option>
+                    <option value="+66">🇹🇭 +66 (Thailand)</option>
+                    <option value="+84">🇻🇳 +84 (Vietnam)</option>
+                    <option value="+63">🇵🇭 +63 (Philippines)</option>
+                    <option value="+95">🇲🇲 +95 (Myanmar)</option>
+                    <option value="+673">🇧🇳 +673 (Brunei)</option>
+                    <option value="+855">🇰🇭 +855 (Cambodia)</option>
+                    <option value="+856">🇱🇦 +856 (Laos)</option>
+                </select>
+                <input type="text" name="phone_number" placeholder="Phone Number" required pattern="^\d{8,10}$" title="Phone number should be between 8-10 digits">
+            </div>
+            <button type="submit">Register</button>
+            <p class="form-footer">Already have an account? <a href="../login/login-page.html">Login here</a></p>
+        </form>
+    </div>
+    <footer>
+        <p>&copy; 2024 Faculty of Computing and Informatics, Multimedia University. All Rights Reserved.</p>
+    </footer>
+    
+    <script>
+    function togglePassword(inputId) {
+        const input = document.getElementById(inputId);
+        const button = input.nextElementSibling;
+        const icon = button.querySelector('i');
+        
+        if (input.type === 'password') {
+            input.type = 'text';
+            icon.classList.remove('fa-eye');
+            icon.classList.add('fa-eye-slash');
+        } else {
+            input.type = 'password';
+            icon.classList.remove('fa-eye-slash');
+            icon.classList.add('fa-eye');
+        }
+    }
+    </script>
+</body>
+
+</html>
