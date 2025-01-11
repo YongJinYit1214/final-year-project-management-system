@@ -218,7 +218,7 @@ h2:after {
 }
 
 /* View Details Button */
-.view-btn {
+.view-details-btn {
     background-color: #0066cc;
     color: white;
     margin-top: 1rem;
@@ -231,7 +231,7 @@ h2:after {
     transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
-.view-btn:hover {
+.view-details-btn:hover {
     background-color: #004c99;
     transform: scale(1.15);
 }
@@ -255,8 +255,8 @@ h2:after {
 .evaluation-table th,
 .evaluation-table td {
     border: 2px solid #ddd;
-    padding: 20px 40px;
-    text-align: left;
+    padding: 20px 20px;
+    text-align: center;
     font-size: 1.1rem;
 }
 
@@ -479,22 +479,58 @@ footer p {
 }
 
 .file-chip i {
-    color: #0066cc;
+    color: #e92135;
 }
 
 /* Adjust table cell for files */
 .submission-table td {
-    vertical-align: top;
+    vertical-align: center;
     min-width: 200px; /* Ensure enough space for file chips */
 }
 
 .submission-table td .submission-files {
-    max-width: 300px; /* Limit width to force wrapping */
+    max-width: 500px; /* Limit width to force wrapping */
 }
 
 /* Rejection Modal Styles */
 #rejectReasonModal .modal-content {
     max-width: 500px;
+}
+
+/* Adjust column widths in submission-table */
+.submission-table {
+    table-layout: fixed; /* Ensure table respects specified column widths */
+    width: 100%;
+}
+
+.submission-table th:nth-child(1), /* Student column */
+.submission-table td:nth-child(1) {
+    width: 11%;  /* Column Width */
+}
+
+.submission-table th:nth-child(3), /* Submission Date column */
+.submission-table td:nth-child(3) {
+    width: 13%; /* Column Width */
+}
+.submission-table th:nth-child(4), /* Files column */
+.submission-table td:nth-child(4) {
+    width: 30%; /* Column Width */
+}
+
+.submission-table th:nth-child(5), /* Status column */
+.submission-table td:nth-child(5) {
+    width: 12%; /* Column Width */
+}
+
+.submission-table th:nth-child(6), /* Actions column */
+.submission-table td:nth-child(6) {
+    width: 11%;/* Column Width */
+}
+
+/* Presentation Slot Management Table */
+.booking-table th:nth-child(7), /* Actions column */
+.booking-table td:nth-child(7) {
+    width: 13%; /* Column Width */
 }
 
 #rejectReason {
