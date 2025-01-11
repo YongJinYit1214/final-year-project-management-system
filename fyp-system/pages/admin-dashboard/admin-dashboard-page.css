@@ -174,8 +174,8 @@ h2:after {
 .planning-table th,
 .planning-table td {
     border: 2px solid #ddd;
-    padding: 20px 40px;
-    text-align: left;
+    padding: 20px;
+    text-align: center;
     font-size: 1.1rem;
 }
 
@@ -187,7 +187,7 @@ h2:after {
     background-color: #0066cc;
     color: white;
     font-weight: bold;
-    padding: 20px 40px;
+    padding: 20px;
     font-size: 1.1rem;
 }
 
