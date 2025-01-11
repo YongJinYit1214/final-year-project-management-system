@@ -144,9 +144,15 @@ h2:after {
     overflow: hidden;
 }
 
+/* Add subtle animations */
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); }
+}
+
 .stat-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+    animation: pulse 1.5s infinite;
 }
 
 .stat-card h3 {
@@ -432,17 +438,6 @@ h2:after {
 /* Add spacing between tables */
 .table-section {
     margin-bottom: 2.5rem;
-}
-
-/* Add subtle animations */
-@keyframes pulse {
-    0% { transform: scale(1); }
-    50% { transform: scale(1.05); }
-    100% { transform: scale(1); }
-}
-
-.stat-card:hover {
-    animation: pulse 1.5s infinite;
 }
 
 /* Footer styles */
