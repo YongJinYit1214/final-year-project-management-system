@@ -1,0 +1,615 @@
+/* Google fonts - Poppins */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
+
+/* General Styles */
+body {
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+    color: black;
+}
+
+#projectProposals {
+    padding-top: 70px; /* Add padding to account for fixed navbar */
+}
+
+/* Navbar styles */
+.navbar {
+    background-color: #0951a3;
+    color: rgb(0, 0, 0);
+    width: 100%;
+    position: fixed;
+    top: 0;
+    z-index: 1000;
+}
+
+.nav-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    display: flex;
+    align-items: center;
+    height: 70px;
+    position: relative;
+    width: 100%;
+}
+
+.logo-section img {
+    height: 100px;
+    width: auto;
+    margin-left: -90px;
+    margin-top: 5px;
+}
+
+.nav-section {
+    flex: 1;
+    display: flex;
+    justify-content: flex-start;
+    padding-left: 1rem;
+}
+
+.nav-links {
+    display: flex;
+    gap: 15px;
+    font-size: 1.1rem;
+    font-weight: 500;
+    align-items: center;
+}
+
+.nav-link {
+    color: white;
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+    border-radius: 30px;
+    transition: all 0.3s ease;
+}
+
+.nav-link:hover {
+    transform: scale(1.15);
+    background-color: whitesmoke;
+    color: #0951a3;
+}
+
+.nav-link.active {
+    background-color: whitesmoke;
+    color: #0951a3;
+}
+
+h2, h3, h4 {
+    margin: 0;
+    padding: 10px 0;
+    padding-left: 20px;
+    color: black;
+}
+
+/* Header Section */
+.projects-header {
+    text-align: center;
+    background-color: #0066cc;
+    color: white;
+    padding: 20px;
+}
+
+.projects-header h2 {
+    margin: 0;
+}
+
+/* Status Overview */
+.project-status-overview {
+    display: flex;
+    gap: 2rem;
+    justify-content: space-evenly;
+    padding: 30px;
+    background-color: #ffffff;
+    margin-bottom: 20px;
+}
+
+/* Current Project, Supervisor, Project Status */
+.status-card {
+    text-align: center;
+    width: 100%;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    background-color: #f9f9f9;
+    gap: 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Current Project, Supervisor, Project Status */
+.status-card h3 {
+    color: #0066cc;
+    padding-left: 0px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+/* Action Cards */
+.project-actions-container {
+    display: flex;
+    gap: 2rem;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 20px;
+}
+
+/*View Available Projects, Submit to Supervisor, Submit to Admin, Project Timeline*/
+.action-card h4 {
+    padding-left: 0px;
+}
+
+.action-card {
+    flex: 1 1 calc(25% - 40px);
+    max-width: 300px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    background-color: #ffffff;
+    text-align: center;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    padding: 15px;
+    transition: transform 0.2s ease;
+}
+
+.action-card:hover {
+    transform: translateY(-5px);
+}
+
+.action-icon {
+    background: none;
+    border: none;
+    color: #e92135;
+    cursor: pointer;
+    padding: 4px;
+    margin: 0 2px;
+    border-radius: 4px;
+    transition: all 0.2s ease;
+    font-size: 0.9rem;
+}
+
+.action-icon i {
+    font-size: 2rem;
+}
+
+.action-icon2 {
+    background: none;
+    border: none;
+    color: black;
+    cursor: pointer;
+    padding: 4px;
+    margin: 0 2px;
+    border-radius: 4px;
+    transition: all 0.2s ease;
+    font-size: 1rem;
+}
+
+.action-icon:hover {
+    background: rgba(37, 99, 235, 0.1);
+    transform: translateY(-1px);
+}
+
+.action-btn {
+    margin-top: 10px;
+    padding: 10px 20px;
+    background-color: #0066cc;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: bold;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.action-btn:hover {
+    background-color: #004c99;
+    transform: scale(1.15);
+}
+
+/* Available Projects */
+.available-projects {
+    background-color: #ffffff;
+    padding: 20px;
+    margin-top: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.filter-controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.filter-controls select, 
+.filter-controls input {
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+}
+
+/* Timeline View */
+.project-timeline-view {
+    background-color: #ffffff;
+    padding: 20px;
+    margin-top: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.timeline-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.timeline-phases {
+    flex: 2;
+    border-right: 1px solid #ddd;
+    padding-right: 20px;
+}
+
+.timeline-milestones {
+    flex: 1;
+    padding-left: 20px;
+}
+
+.phase {
+    margin-bottom: 20px;
+}
+
+.phase-header h4 {
+    margin-bottom: 5px;
+}
+
+.phase-progress {
+    position: relative;
+    height: 10px;
+    background-color: #ddd;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    overflow: hidden;
+}
+
+.phase-progress .progress-bar {
+    height: 100%;
+    background-color: #0066cc;
+}
+
+.status {
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.status.completed {
+    color: #28a745;
+}
+
+.status.in-progress {
+    color: #ffc107;
+}
+
+.status.pending {
+    color: #dc3545;
+}
+
+/* Submission Modal */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal-content {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    width: 90%;
+    max-width: 500px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.modal-header .close-btn {
+    background: none;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    font-weight: bold;
+    display: block;
+    margin-bottom: 5px;
+}
+
+.form-group input, 
+.form-group textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+/* Buttons */
+.save-btn {
+    background-color: #0066cc;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.save-btn:hover {
+    background-color: #004c99;
+}
+
+.cancel-btn {
+    background-color: #dc3545;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.cancel-btn:hover {
+    background-color: #a71d2a;
+}
+
+/* Submit Project */
+.submit-project-btn {
+    margin-top: 10px;
+    margin-right: 50px;
+    padding: 10px 20px;
+    background-color: #0066cc;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: bold;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.submit-project-btn:hover {
+    background-color: #004c99;
+    transform: scale(1.15);
+}
+
+/* Project Planning */
+.add-plan-btn {
+    margin-top: 10px;
+    margin-right: 50px;
+    padding: 10px 20px;
+    background-color: #0066cc;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: bold;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.add-plan-btn:hover {
+    background-color: #004c99;
+    transform: scale(1.15);
+}
+
+/* Presentation Slot Booking */
+.book-slot-btn {
+    margin-top: 10px;
+    margin-right: 50px;
+    padding: 10px 20px;
+    background-color: #0066cc;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: bold;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.book-slot-btn:hover {
+    background-color: #004c99;
+    transform: scale(1.15);
+}
+
+/* Project Submissions & Project Planning Table*/
+.submission-table, .plan-table {
+    width: 97%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-bottom: 30px;
+
+}
+
+.submission-table th, .plan-table th,
+.submission-table td, .plan-table td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: left;
+}
+
+.submission-table th, .plan-table th {
+    background-color: #0066cc;
+    color: white;
+    font-weight: bold;
+}
+
+.submission-table tbody tr:nth-child(even),
+.plan-table tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+/* Presentation Slot Booking Table */
+.booking-table {
+    width: 97%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-bottom: 20px;
+    table-layout: auto;
+}
+
+.booking-table th,
+.booking-table td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: left;
+}
+
+.booking-table th {
+    background-color: #0066cc;
+    color: white;
+    font-weight: bold;
+}
+
+.booking-table tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.booking-table td:nth-child(5) {
+    min-width: 150px;
+    text-align: left;
+}
+
+/* Make status badges consistent */
+.status-badge {
+    padding: 8px 16px;
+    border-radius: 15px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    display: inline-block;
+    text-align: center;
+    min-width: 100px;
+}
+
+.status-badge.pending {
+    background: #fff3cd;
+    color: #856404;
+}
+
+.status-badge.active,
+.status-badge.confirmed,
+.status-badge.completed {
+    background: #d4edda;
+    color: #155724;
+}
+
+/* Add hover effect */
+.booking-table tbody tr:hover {
+    background-color: #f5f5f5;
+}
+
+/* Make table cells with actions more compact */
+.plan-table td:last-child,
+.proposal-table td:last-child,
+.booking-table td:last-child {
+    padding: 8px 16px;
+    white-space: nowrap;
+    width: 1%;
+}
+
+/* Footer styles */
+footer {
+    text-align: center;
+    padding: 20px;
+    margin-top: 40px;
+    background-color: #f5f5f5;
+    border-top: 1px solid #e0e0e0;
+}
+
+footer p {
+    margin: 0;
+    color: #666;
+    font-size: 0.9rem;
+}
+
+.booking-table td:nth-child(1),
+.booking-table td:nth-child(2) {
+    width: 13%;
+}
+
+.booking-table td:nth-child(3) {
+    width: 18%;
+}
+
+.booking-table td:nth-child(4) {
+    width: 28%;
+}
+
+.booking-table td:nth-child(5) {
+    width: 18%;
+}
+
+/* Update/Add these styles */
+.panel-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+
+.panel-header h3 {
+    color: #2c3e50;
+    font-size: 1.25rem;
+    margin: 0; /* Remove default margin */
+}
+
+.submit-project-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.6rem 1.2rem;
+    background: #0066cc;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.submit-project-btn:hover {
+    background: #0052a3;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 102, 204, 0.2);
+}
+
+.submit-project-btn i {
+    font-size: 0.9rem;
+}
