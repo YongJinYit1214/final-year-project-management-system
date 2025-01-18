@@ -32,6 +32,13 @@ CREATE TABLE supervisors (
     FOREIGN KEY (supervisor_id) REFERENCES users(user_id) ON DELETE CASCADE
 );
 
+-- Admin table
+CREATE TABLE admins (
+    admin_id INT PRIMARY KEY,
+    department VARCHAR(100) NOT NULL,
+    FOREIGN KEY (admin_id) REFERENCES users(user_id) ON DELETE CASCADE
+);
+
 -- Project proposals table
 CREATE TABLE project_proposals (
     proposal_id INT PRIMARY KEY AUTO_INCREMENT,
