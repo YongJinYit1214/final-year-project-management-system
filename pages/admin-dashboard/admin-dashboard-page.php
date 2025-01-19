@@ -4,6 +4,7 @@ require_once '../../auth/role_check.php';
 $hasAccess = checkAdminRole(); // Store the result of the role check
 require_once '../../auth/auth_check.php';
 require_once '../../components/navbar.php';
+require_once "./fetch-users.php";
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -67,8 +68,12 @@ if (isset($_SESSION['error_message'])) {
             <div class="action-panel">
                 <h3>System Management</h3>
                 <div class="admin-controls">
-                    <button class="admin-btn" id="manageUsersBtn"><i class="fas fa-user-plus"></i> Manage Users</button>
-                    <button class="admin-btn"><i class="fas fa-project-diagram"></i> Manage Projects</button>
+                    <a href="./manage-users.php" class="admin-btn" id="manageUsersBtn">
+                        <i class="fas fa-user-plus"></i> Manage Users
+                    </a>
+                    <button class="admin-btn">
+                        <i class="fas fa-project-diagram"></i> Manage Projects
+                    </button>
                 </div>
             </div>
         </div>
@@ -78,46 +83,35 @@ if (isset($_SESSION['error_message'])) {
             <div class="action-panel">
                 <div class="panel-header">
                     <h3>User Management</h3>
-                    <button class="add-user-btn" id="addUserBtn">
+                    <button class="new-user-btn" id="newUserBtn">
                         <i class="fas fa-plus"></i> Add New User
                     </button>
                 </div>
-                
-                <!-- User Table -->
-                <div class="table-container">
-                    <table class="user-table">
-                        <thead>
-                            <tr>
-                                <th>Name</th>
-                                <th>Email</th>
-                                <th>Role</th>
-                                <th>Status</th>
-                                <th>Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody id="userTableBody">
-                            <tr>
-                                <td>John Doe</td>
-                                <td>john@example.com</td>
-                                <td>Student</td>
-                                <td><span class="status-badge active">Active</span></td>
-                                <td>
-                                    <button class="action-icon edit-btn"><i class="fas fa-edit"></i></button>
-                                    <button class="action-icon delete-btn"><i class="fas fa-trash"></i></button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Jane Smith</td>
-                                <td>jane@example.com</td>
-                                <td>Supervisor</td>
-                                <td><span class="status-badge active">Active</span></td>
-                                <td>
-                                    <button class="action-icon edit-btn"><i class="fas fa-edit"></i></button>
-                                    <button class="action-icon delete-btn"><i class="fas fa-trash"></i></button>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
+                <div class="users-list">
+                    <?php
+                        $result = getAllUsers();
+                        while ($row = $result->fetch_assoc()) {
+                            echo "<div class='user-item'>";
+                            echo "<div class='user-header'>";
+                            echo "<h4 class='username'><i class='fas fa-user'></i> ".$row['full_name']."</h4>";
+                            echo "<p class='user-email'><i class='fas fa-envelope'></i> ".$row['email']."</p>";
+                            echo "</div>";
+                            echo "<div class='user-details'>";
+                            echo "<span class='user-role'><i class='fas fa-user-tag'></i> Role: ".$row['role']."</span>";
+                            if ($row['additional_info']) {
+                                $icon = $row['role'] === 'student' ? 'fa-id-card' : 'fa-info-circle';
+                                echo "<span class='user-info'><i class='fas ".$icon."'></i> ".$row['additional_info']."</span>";
+                            }
+                            echo "<span class='user-phone'><i class='fas fa-phone'></i> ".$row['phone_number']."</span>";
+                            echo "<span class='user-date'><i class='fas fa-calendar-alt'></i> Joined: ".date('M d, Y', strtotime($row['created_at']))."</span>";
+                            echo "</div>";
+                            echo "<div class='user-actions'>";
+                            echo "<button class='edit-btn' data-userid='".$row['user_id']."'><i class='fas fa-edit'></i> Edit</button>";
+                            echo "<button class='delete-btn' data-userid='".$row['user_id']."'><i class='fas fa-trash'></i> Delete</button>";
+                            echo "</div>";
+                            echo "</div>";
+                        }
+                    ?>
                 </div>
             </div>
 
