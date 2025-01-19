@@ -1,6 +1,7 @@
 <?php
 session_start();
 header('Content-Type: application/json');
+require_once "../db_connection.php";
 
 try {
     require_once __DIR__ . '/../db_connection.php';
@@ -32,7 +33,7 @@ try {
 }
 
 function handleRegistration($data) {
-    global $conn;
+    $conn = OpenCon();
     
     try {
         // Check for required fields
@@ -103,7 +104,7 @@ function handleRegistration($data) {
 }
 
 function handleLogin($data) {
-    global $conn;
+    $conn = OpenCon();
     
     try {
         if (!$conn) {

@@ -3,7 +3,7 @@ CREATE DATABASE IF NOT EXISTS fyp_system;
 USE fyp_system;
 
 -- Users table (base table for all user types)
-CREATE TABLE users (
+CREATE   TABLE users (
     user_id INT PRIMARY KEY AUTO_INCREMENT,
     email VARCHAR(255) UNIQUE NOT NULL,
     password VARCHAR(255) NOT NULL,
@@ -16,7 +16,7 @@ CREATE TABLE users (
 );
 
 -- Students table
-CREATE TABLE students (
+CREATE   TABLE students (
     student_id INT PRIMARY KEY,
     matric_number VARCHAR(20) UNIQUE NOT NULL,
     course VARCHAR(100) NOT NULL,
@@ -24,20 +24,20 @@ CREATE TABLE students (
 );
 
 -- Supervisors table
-CREATE TABLE supervisors (
+CREATE   TABLE supervisors (
     supervisor_id INT PRIMARY KEY,
     expertise TEXT,
     FOREIGN KEY (supervisor_id) REFERENCES users(user_id) ON DELETE CASCADE
 );
 
 -- Admin table
-CREATE TABLE admins (
+CREATE   TABLE admins (
     admin_id INT PRIMARY KEY,
     FOREIGN KEY (admin_id) REFERENCES users(user_id) ON DELETE CASCADE
 );
 
 -- Project proposals table
-CREATE TABLE project_proposals (
+CREATE   TABLE project_proposals (
     proposal_id INT PRIMARY KEY AUTO_INCREMENT,
     student_id INT,
     supervisor_id INT,
@@ -52,7 +52,7 @@ CREATE TABLE project_proposals (
 );
 
 -- Projects table (approved proposals become projects)
-CREATE TABLE projects (
+CREATE   TABLE projects (
     project_id INT PRIMARY KEY AUTO_INCREMENT,
     proposal_id INT UNIQUE,
     student_id INT,
@@ -68,7 +68,7 @@ CREATE TABLE projects (
 );
 
 -- Assessments table
-CREATE TABLE assessments (
+CREATE   TABLE assessments (
     assessment_id INT PRIMARY KEY AUTO_INCREMENT,
     project_id INT,
     title VARCHAR(255) NOT NULL,
@@ -83,7 +83,7 @@ CREATE TABLE assessments (
 );
 
 -- Communications table (for emails and messages)
-CREATE TABLE communications (
+CREATE   TABLE communications (
     communication_id INT PRIMARY KEY AUTO_INCREMENT,
     sender_id INT,
     receiver_id INT,
@@ -95,7 +95,7 @@ CREATE TABLE communications (
 );
 
 -- Important dates table
-CREATE TABLE important_dates (
+CREATE   TABLE important_dates (
     date_id INT PRIMARY KEY AUTO_INCREMENT,
     title VARCHAR(255) NOT NULL,
     description TEXT,
@@ -105,7 +105,7 @@ CREATE TABLE important_dates (
 );
 
 -- FAQ table
-CREATE TABLE faqs (
+CREATE   TABLE faqs (
     faq_id INT PRIMARY KEY AUTO_INCREMENT,
     question TEXT NOT NULL,
     answer TEXT NOT NULL,
@@ -115,7 +115,7 @@ CREATE TABLE faqs (
 );
 
 -- Project guidelines table
-CREATE TABLE guidelines (
+CREATE   TABLE guidelines (
     guideline_id INT PRIMARY KEY AUTO_INCREMENT,
     title VARCHAR(255) NOT NULL,
     content TEXT NOT NULL,
@@ -124,7 +124,7 @@ CREATE TABLE guidelines (
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
-CREATE Table announcements (
+CREATE   Table announcements (
     announcement_id INT PRIMARY KEY AUTO_INCREMENT,
     title VARCHAR(255) NOT NULL,
     content TEXT NOT NULL,
@@ -132,7 +132,7 @@ CREATE Table announcements (
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
-CREATE TABLE feedback(
+CREATE   TABLE feedbacks(
     feedback_id INT PRIMARY KEY AUTO_INCREMENT,
     user_id INT,
     title VARCHAR(255) NOT NULL,
@@ -141,7 +141,7 @@ CREATE TABLE feedback(
     FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE
 );
 
-CREATE TABLE forum(
+CREATE   TABLE forums(
     forum_id INT PRIMARY KEY AUTO_INCREMENT,
     user_id INT,
     title VARCHAR(255) NOT NULL,
@@ -150,17 +150,17 @@ CREATE TABLE forum(
     FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE
 );
 
-CREATE TABLE forum_comments(
+CREATE   TABLE forum_comments(
     comment_id INT PRIMARY KEY AUTO_INCREMENT,
     forum_id INT,
     user_id INT,
     comment TEXT NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (forum_id) REFERENCES forum(forum_id) ON DELETE CASCADE,
+    FOREIGN KEY (forum_id) REFERENCES forums(forum_id) ON DELETE CASCADE,
     FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE
 );
 
-CREATE TABLE meetings(
+CREATE   TABLE meetings(
     meeting_id INT PRIMARY KEY AUTO_INCREMENT,
     user_id INT,
     title VARCHAR(255) NOT NULL,
@@ -173,7 +173,7 @@ CREATE TABLE meetings(
     FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE
 );
 
-CREATE TABLE meeting_logs(
+CREATE   TABLE meeting_logs(
     meeting_log_id INT PRIMARY KEY AUTO_INCREMENT,
     meeting_id INT,
     user_id INT,
@@ -186,7 +186,7 @@ CREATE TABLE meeting_logs(
     FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE
 );
 
-CREATE TABLE presentations_slots(
+CREATE   TABLE presentations_slots(
     presentation_slot_id INT PRIMARY KEY AUTO_INCREMENT,
     presentation_id INT,
     user_id INT,
@@ -194,11 +194,10 @@ CREATE TABLE presentations_slots(
     slot_time TIME NOT NULL,
     status ENUM('available', 'booked') DEFAULT 'available',
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (presentation_id) REFERENCES presentations(presentation_id) ON DELETE CASCADE,
     FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE
 );
 
-CREATE TABLE goals(
+CREATE   TABLE goals(
     goal_id INT PRIMARY KEY AUTO_INCREMENT,
     user_id INT,
     goal TEXT NOT NULL,
@@ -207,12 +206,9 @@ CREATE TABLE goals(
     FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE
 );
 
-
-
 -- Create indexes for better performance
 CREATE INDEX idx_user_email ON users(email);
 CREATE INDEX idx_student_matric ON students(matric_number);
 CREATE INDEX idx_proposal_status ON project_proposals(status);
 CREATE INDEX idx_project_status ON projects(status);
-CREATE INDEX idx_assessment_due_date ON assessments(due_date);
 CREATE INDEX idx_communication_date ON communications(sent_at); 

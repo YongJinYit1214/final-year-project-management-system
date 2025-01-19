@@ -1,6 +1,8 @@
 <?php
 require_once '../../auth/auth_check.php';
 require_once '../../components/navbar.php';
+require_once '../../components/form/feedback-form.php';
+require_once "./fetch-feedback.php";
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -46,37 +48,27 @@ require_once '../../components/navbar.php';
         <div class="action-panel">
             <div class="panel-header">
                 <h3>Your Previous Feedback</h3>
-                <button class="new-feedback-btn">
+                <button class="new-feedback-btn" id="newFeedbackBtn">
                     <i class="fas fa-plus"></i> New Feedback
                 </button>
             </div>
             <div class="feedback-list">
-                <div class="feedback-item">
-                    <div class="feedback-header">
-                        <span class="feedback-type technical">Technical Issue</span>
-                        <span class="feedback-status">Resolved</span>
-                    </div>
-                    <h4 class="feedback-subject">Database Connection Error</h4>
-                    <p class="feedback-description">Unable to connect to the project database from local environment.</p>
-                    <div class="feedback-footer">
-                        <span class="feedback-date">Submitted: April 2, 2024</span>
-                        <span class="resolution-time">Resolved in 2 hours</span>
-                    </div>
-                </div>
-
-                <div class="feedback-item">
-                    <div class="feedback-header">
-                        <span class="feedback-type suggestion">Suggestion</span>
-                        <span class="feedback-status">Under Review</span>
-                    </div>
-                    <h4 class="feedback-subject">Meeting Scheduling Feature</h4>
-                    <p class="feedback-description">Suggest adding calendar integration for supervisor meetings.</p>
-                    <div class="feedback-footer">
-                        <span class="feedback-date">Submitted: April 5, 2024</span>
-                        <span class="pending">Pending Review</span>
-                    </div>
-                </div>
+                <?php
+                    $result = getAllFeedbacks();
+                    while ($row = $result->fetch_assoc()) {
+                        echo "<div class='feedback-item'>";
+                        echo "<div class='feedback-header'>";
+                        echo "<h4 class='feedback-subject'><i class='fas fa-comment'></i> ".$row['title']."</h4>";
+                        echo "<p class='feedback-description'>".$row['feedback']."</p>";
+                        echo "</div>";
+                        echo "<div class='feedback-footer'>";
+                        echo "<span class='feedback-date'><i class='fas fa-calendar-alt'></i> Submitted: ".$row['created_at']."</span>";
+                        echo "</div>";
+                        echo "</div>";
+                    }
+                ?>
             </div>
+
         </div>
     </div>
 </div>
@@ -84,6 +76,31 @@ require_once '../../components/navbar.php';
 <footer>
     <p>&copy; 2024 Faculty of Computing and Informatics, Multimedia University. All Rights Reserved.</p>
 </footer>
+
+<script>
+// Get the modal, open button, and close button
+const feedbackModal = document.getElementById("feedbackModal");
+const openModalBtn = document.getElementById("newFeedbackBtn");
+const closeBtn = document.querySelector(".close-btn");
+
+// Show the modal
+openModalBtn.addEventListener("click", () => {
+    feedbackModal.style.display = "block";
+});
+
+// Hide the modal when the close button is clicked
+closeBtn.addEventListener("click", () => {
+    feedbackModal.style.display = "none";
+});
+
+// Hide the modal when clicking outside the modal content
+window.addEventListener("click", (event) => {
+    if (event.target === feedbackModal) {
+        feedbackModal.style.display = "none";
+    }
+});
+
+</script>
 
 </body>
 </html>
