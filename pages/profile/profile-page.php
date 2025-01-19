@@ -9,6 +9,9 @@ if (!isset($_SESSION['user_id'])) {
     exit;
 }
 
+// Open database connection
+$conn = OpenCon();
+
 // Get user data
 $user_id = $_SESSION['user_id'];
 $stmt = $conn->prepare("SELECT full_name, email, role, country_code, phone_number FROM users WHERE user_id = ?");
@@ -79,8 +82,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
     
     header('Content-Type: application/json');
     echo json_encode($response);
+    CloseCon($conn);
     exit;
 }
+
+// Don't forget to close the connection at the end of the file
+CloseCon($conn);
 ?>
 <!DOCTYPE html>
 <html lang="en">
