@@ -1,6 +1,4 @@
 <?php
-require_once "../../db_connection.php";
-
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $title = $_POST['title'];
     $feedback = $_POST['feedback'];

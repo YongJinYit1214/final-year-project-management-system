@@ -78,7 +78,6 @@ require_once "./fetch-feedback.php";
 </footer>
 
 <script>
-// Get the modal, open button, and close button
 const feedbackModal = document.getElementById("feedbackModal");
 const openModalBtn = document.getElementById("newFeedbackBtn");
 const closeBtn = document.querySelector(".close-btn");
