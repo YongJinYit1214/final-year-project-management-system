@@ -5,14 +5,14 @@ session_start();
 if (!isset($_SESSION['user_id']) || empty($_SESSION['user_id'])) {
     // Store the current URL in session to redirect back after login
     $_SESSION['redirect_url'] = $_SERVER['REQUEST_URI'];
-    header('Location: /fyp-system/pages/login/login-page.php');
+    header('Location: ../pages/login/login-page.php');
     exit();
 }
 
 // Function to check if user has specific role
 function checkRole($allowed_roles) {
     if (!isset($_SESSION['role']) || !in_array($_SESSION['role'], $allowed_roles)) {
-        header('Location: /fyp-system/index.php');
+        header('Location: ../index.php');
         exit();
     }
 }
@@ -21,7 +21,7 @@ function checkRole($allowed_roles) {
 function validateSession() {
     if (!isset($_SESSION['user_id']) || !isset($_SESSION['role']) || !isset($_SESSION['email'])) {
         session_destroy();
-        header('Location: /fyp-system/pages/login/login-page.php');
+        header('Location: ../pages/login/login-page.php');
         exit();
     }
 }
