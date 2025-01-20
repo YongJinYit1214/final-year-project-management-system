@@ -59,10 +59,7 @@ require_once '../../components/navbar.php';
 
         <!-- Project Submissions -->
         <div class="panel-header">
-            <h3>Project Submissions</h3>
-            <button class="submit-project-btn">
-                <i class="fas fa-plus"></i> Submit Project
-            </button>
+            <h3>My Proposals</h3>
         </div>
         <table class="submission-table">
             <thead>
@@ -70,12 +67,92 @@ require_once '../../components/navbar.php';
                     <th>Title</th>
                     <th>Description</th>
                     <th>Submission Date</th>
+                    <th>Submitted To</th>
                     <th>Status</th>
-                    <th>Actions</th>
                 </tr>
             </thead>
             <tbody>
-                <!-- Add your submission data here -->
+                <?php
+                require_once "../../db_connection.php";
+                $conn = OpenCon();
+                $student_id = $_SESSION['user_id'];
+                
+                // Get supervisor proposals
+                $supervisor_sql = "SELECT sp.*, u.full_name as supervisor_name 
+                                 FROM supervisor_proposals sp 
+                                 JOIN users u ON sp.supervisor_id = u.user_id 
+                                 WHERE sp.student_id = ?";
+                
+                $stmt = $conn->prepare($supervisor_sql);
+                $stmt->bind_param("i", $student_id);
+                $stmt->execute();
+                $supervisor_result = $stmt->get_result();
+
+                // Get admin proposals
+                $admin_sql = "SELECT pp.*, u.full_name as supervisor_name 
+                            FROM project_proposals pp 
+                            LEFT JOIN users u ON pp.supervisor_id = u.user_id 
+                            WHERE pp.student_id = ?";
+                
+                $stmt = $conn->prepare($admin_sql);
+                $stmt->bind_param("i", $student_id);
+                $stmt->execute();
+                $admin_result = $stmt->get_result();
+
+                // Display supervisor proposals
+                while ($row = $supervisor_result->fetch_assoc()) {
+                    echo "<tr>";
+                    echo "<td>" . htmlspecialchars($row['title']) . "</td>";
+                    echo "<td>" . htmlspecialchars($row['description']) . "</td>";
+                    echo "<td>" . htmlspecialchars($row['submitted_at']) . "</td>";
+                    echo "<td>Supervisor: " . htmlspecialchars($row['supervisor_name']) . "</td>";
+                    echo "<td>";
+                    $status_class = '';
+                    switch($row['status']) {
+                        case 'pending':
+                            $status_class = 'status-badge pending';
+                            break;
+                        case 'approved':
+                            $status_class = 'status-badge approved';
+                            break;
+                        case 'rejected':
+                            $status_class = 'status-badge rejected';
+                            break;
+                    }
+                    echo "<span class='" . $status_class . "'>" . ucfirst($row['status']) . " by Supervisor</span>";
+                    echo "</td>";
+                    echo "</tr>";
+                }
+
+                // Display admin proposals
+                while ($row = $admin_result->fetch_assoc()) {
+                    echo "<tr>";
+                    echo "<td>" . htmlspecialchars($row['title']) . "</td>";
+                    echo "<td>" . htmlspecialchars($row['description']) . "</td>";
+                    echo "<td>" . htmlspecialchars($row['submitted_at']) . "</td>";
+                    echo "<td>Admin" . ($row['supervisor_name'] ? " (Preferred: " . htmlspecialchars($row['supervisor_name']) . ")" : "") . "</td>";
+                    echo "<td>";
+                    $status_class = '';
+                    switch($row['status']) {
+                        case 'pending':
+                            $status_class = 'status-badge pending';
+                            break;
+                        case 'approved':
+                            $status_class = 'status-badge approved';
+                            break;
+                        case 'rejected':
+                            $status_class = 'status-badge rejected';
+                            break;
+                        case 'available':
+                            $status_class = 'status-badge active';
+                            break;
+                    }
+                    echo "<span class='" . $status_class . "'>" . ucfirst($row['status']) . " by Admin</span>";
+                    echo "</td>";
+                    echo "</tr>";
+                }
+                CloseCon($conn);
+                ?>
             </tbody>
         </table>
 
