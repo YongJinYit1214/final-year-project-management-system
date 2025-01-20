@@ -2,6 +2,35 @@
 session_start();
 require_once '../../auth/auth_check.php';
 require_once '../../components/navbar.php';
+require_once './fetch-forum.php';
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $title = $_POST['title'];
+    $content = $_POST['content'];
+    addTopic($title, $content);
+    header("Location: /fyp-system/pages/communication/forum.php");
+}
+
+function addTopic($title, $content) {
+    require_once '../../db_connection.php';
+    $conn = OpenCon();
+    session_start();
+    
+    $user_id = $_SESSION['user_id']; // Assuming user_id is stored in the session
+
+    // Use a prepared statement
+    $stmt = $conn->prepare("INSERT INTO forums (user_id, title, content) VALUES (?, ?, ?)");
+    $stmt->bind_param("iss", $user_id, $title, $content);
+
+    if ($stmt->execute()) {
+        echo "Topic added successfully!";
+    } else {
+        echo "Error: " . $stmt->error;
+    }
+
+    $stmt->close();
+    CloseCon($conn);
+}
 ?>
 
 <!DOCTYPE html>
@@ -42,92 +71,61 @@ require_once '../../components/navbar.php';
                     <a href="#new-topic" class="new-topic-btn">
                         <i class="fas fa-plus"></i> New Topic
                     </a>
-                </div>
-                <div class="forum-categories">
-                    <div class="category">
-                        <h4>Technical Discussions</h4>
-                        <div class="topic-list">
-                            <a href="#topic1" class="topic-item">
-                                <div class="topic-info">
-                                    <h5>Best Practices for Database Design</h5>
-                                    <p>Started by John Doe • 12 replies • 2 hours ago</p>
-                                    <span class="topic-tag">Database</span>
-                                    <span class="topic-tag">Architecture</span>
-                                </div>
-                                <div class="topic-stats">
-                                    <span title="Number of comments"><i class="fas fa-comment"></i> 12</span>
-                                </div>
-                            </a>
-                            <a href="#topic2" class="topic-item">
-                                <div class="topic-info">
-                                    <h5>UI/UX Design Resources</h5>
-                                    <p>Started by Emma Wilson • 8 replies • 1 day ago</p>
-                                    <span class="topic-tag">UI/UX</span>
-                                    <span class="topic-tag">Design</span>
-                                </div>
-                                <div class="topic-stats">
-                                    <span title="Number of comments"><i class="fas fa-comment"></i> 8</span>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
 
-                    <div class="category">
-                        <h4>Project Management</h4>
-                        <div class="topic-list">
-                            <a href="#topic3" class="topic-item">
-                                <div class="topic-info">
-                                    <h5>Meeting Schedule Coordination</h5>
-                                    <p>Started by Admin • 5 replies • 3 days ago</p>
-                                    <span class="topic-tag">Meetings</span>
-                                    <span class="topic-tag">Planning</span>
+                    <!-- New Forum Topic Modal -->
+                    <div class="modal" id="newTopicModal">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h3>Create New Topic</h3>
+                                <button class="close-btn">&times;</button>
+                            </div>
+                            <form id="topicForm" action="" method="post">
+                                <div class="form-group">
+                                    <label for="topicTitle">Title:</label>
+                                    <input name='title' type="text" id="topicTitle" required>
                                 </div>
-                                <div class="topic-stats">
-                                    <span title="Number of comments"><i class="fas fa-comment"></i> 5</span>
+                                <div class="form-group">
+                                    <label for="topicContent">Content:</label>
+                                    <textarea name='content'id="topicContent" rows="6" required></textarea>
                                 </div>
-                            </a>
-                            <a href="#topic4" class="topic-item">
-                                <div class="topic-info">
-                                    <h5>Project Timeline Templates</h5>
-                                    <p>Started by Sarah Lee • 15 replies • 4 days ago</p>
-                                    <span class="topic-tag">Templates</span>
-                                    <span class="topic-tag">Resources</span>
+                                <div class="modal-footer">
+                                    <button type="button" class="cancel-btn">Cancel</button>
+                                    <button type="submit" class="save-btn">Create Topic</button>
                                 </div>
-                                <div class="topic-stats">
-                                    <span title="Number of comments"><i class="fas fa-comment"></i> 15</span>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-
-                    <div class="category">
-                        <h4>General Discussion</h4>
-                        <div class="topic-list">
-                            <a href="#topic5" class="topic-item">
-                                <div class="topic-info">
-                                    <h5>Project Showcase Ideas</h5>
-                                    <p>Started by Mike Brown • 20 replies • 1 week ago</p>
-                                    <span class="topic-tag">Presentation</span>
-                                    <span class="topic-tag">Ideas</span>
-                                </div>
-                                <div class="topic-stats">
-                                    <span title="Number of comments"><i class="fas fa-comment"></i> 20</span>
-                                </div>
-                            </a>
-                            <a href="#topic6" class="topic-item">
-                                <div class="topic-info">
-                                    <h5>Research Paper Guidelines</h5>
-                                    <p>Started by Prof. Johnson • 25 replies • 1 week ago</p>
-                                    <span class="topic-tag">Research</span>
-                                    <span class="topic-tag">Documentation</span>
-                                </div>
-                                <div class="topic-stats">
-                                    <span title="Number of comments"><i class="fas fa-comment"></i> 25</span>
-                                </div>
-                            </a>
+                            </form>
                         </div>
                     </div>
                 </div>
+
+                <?php
+                    // Check if forums exist
+                    $forums = fetchAllForums();
+                    if (!empty($forums)) {
+                        foreach ($forums as $forum) {
+                            $forum_id = $forum['forum_id'];
+                            $username = htmlspecialchars($forum['full_name']);
+                            $title = htmlspecialchars($forum['title']);
+                            $content = htmlspecialchars($forum['content']);
+                            $createdAt = htmlspecialchars($forum['created_at']);
+                            echo "
+                            <div class='forum-item'>
+                                <div class='forum-header'>
+                                    <h3 class='forum-title'>
+                                        <a href='forum-details.php?forum_id=$forum_id'>$title</a>
+                                    </h3>
+                                    
+                                    <p class='forum-meta'>Posted by: <span class='forum-author'>$username</span> on <span class='forum-date'>$createdAt</span></p>
+                                </div>
+                                <div class='forum-body'>
+                                    <p class='forum-content'>$content</p>
+                                </div>
+                            </div>
+                            ";
+                        }
+                    } else {
+                        echo "<p class='no-forums'>No forums found.</p>";
+                    }
+                    ?>
             </div>
         </div>
     </div>
@@ -136,5 +134,22 @@ require_once '../../components/navbar.php';
         <p>&copy; 2024 Faculty of Computing and Informatics, Multimedia University. All Rights Reserved.</p>
     </footer>
     
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const modal = document.getElementById("newTopicModal");
+            const openModalBtn = document.querySelector(".new-topic-btn");
+            const closeModalBtn = document.querySelector(".close-btn");
+            const cancelBtn = document.querySelector(".cancel-btn");
+
+            const toggleModal = (show) => {
+                modal.style.display = show ? "block" : "none";
+            };
+
+            openModalBtn.addEventListener("click", () => toggleModal(true));
+            closeModalBtn.addEventListener("click", () => toggleModal(false));
+            cancelBtn.addEventListener("click", () => toggleModal(false));
+        });
+
+    </script>
 </body>
 </html> 
