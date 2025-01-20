@@ -1,107 +1,120 @@
+<?php
+require_once '../../db_connection.php';
+// Start the session if not already started
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FCI FYP System - Available Projects</title>
-    <link rel="stylesheet" href="./view-projects.css">
+    <title>Available Projects - FCI FYP</title>
+    <link rel="stylesheet" href="../../index.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="./view-projects.css">
 </head>
 <body>
-    <div class="home-button">
-        <a href="../projects/projects-page.php" title="Back to Home">
-            <i class="fas fa-home"></i>
+    <div class="back-button">
+        <a href="projects-page.php" title="Back to Projects">
+            <i class="fas fa-arrow-left"></i> Back to Projects
         </a>
     </div>
 
     <div class="section">
-        <h2>Available Projects</h2>
+        <h2>Available Project Proposals</h2>
         
-        <div class="filters-section">
-            <div class="search-bar">
-                <i class="fas fa-search"></i>
-                <input type="text" placeholder="Search projects...">
-            </div>
-            <div class="filter-options">
-                <select class="filter-select">
-                    <option value="">All Categories</option>
-                    <option value="ai">Artificial Intelligence</option>
-                    <option value="web">Web Development</option>
-                    <option value="mobile">Mobile Development</option>
-                    <option value="security">Cybersecurity</option>
-                </select>
-                <select class="filter-select">
-                    <option value="">All Supervisors</option>
-                    <option value="dr-smith">Dr. Smith</option>
-                    <option value="dr-jones">Dr. Jones</option>
-                    <option value="prof-wilson">Prof. Wilson</option>
-                </select>
-            </div>
-        </div>
+        <div class="projects-container">
+            <?php
+            $conn = OpenCon();
+            
+            // Query to get all available project proposals
+            $sql = "SELECT pp.proposal_id, 
+                    pp.title, 
+                    pp.description, 
+                    pp.status,
+                    pp.submitted_at,
+                    pp.feedback,
+                    u.full_name as supervisor_name,
+                    u.email as supervisor_email,
+                    s.expertise
+                    FROM project_proposals pp
+                    LEFT JOIN users u ON pp.supervisor_id = u.user_id
+                    LEFT JOIN supervisors s ON pp.supervisor_id = s.supervisor_id
+                    WHERE pp.status = 'available'
+                    ORDER BY pp.submitted_at DESC";
+            
+            $result = mysqli_query($conn, $sql);
 
-        <div class="projects-grid">
-            <!-- Project Card 1 -->
-            <div class="project-card">
-                <div class="project-header">
-                    <span class="project-category">Artificial Intelligence</span>
-                    <span class="project-status available">Available</span>
-                </div>
-                <h3>AI-Powered Healthcare Diagnosis System</h3>
-                <p class="project-description">
-                    Development of a machine learning model for early disease detection using patient symptoms and medical history.
-                </p>
-                <div class="project-details">
-                    <div class="detail-item">
-                        <i class="fas fa-user-tie"></i>
-                        <span>Dr. Sarah Johnson</span>
-                    </div>
-                    <div class="detail-item">
-                        <i class="fas fa-clock"></i>
-                        <span>8 months duration</span>
-                    </div>
-                </div>
-                <div class="project-skills">
-                    <span class="skill-tag">Python</span>
-                    <span class="skill-tag">TensorFlow</span>
-                    <span class="skill-tag">Healthcare</span>
-                </div>
-                <button class="apply-btn">Apply for Project</button>
-            </div>
-
-            <!-- Project Card 2 -->
-            <div class="project-card">
-                <div class="project-header">
-                    <span class="project-category">Web Development</span>
-                    <span class="project-status available">Available</span>
-                </div>
-                <h3>E-Learning Platform with Real-time Collaboration</h3>
-                <p class="project-description">
-                    Building an interactive learning platform with video conferencing and collaborative tools.
-                </p>
-                <div class="project-details">
-                    <div class="detail-item">
-                        <i class="fas fa-user-tie"></i>
-                        <span>Dr. Michael Brown</span>
-                    </div>
-                    <div class="detail-item">
-                        <i class="fas fa-clock"></i>
-                        <span>6 months duration</span>
-                    </div>
-                </div>
-                <div class="project-skills">
-                    <span class="skill-tag">React</span>
-                    <span class="skill-tag">Node.js</span>
-                    <span class="skill-tag">WebRTC</span>
-                </div>
-                <button class="apply-btn">Apply for Project</button>
-            </div>
-
-            <!-- Add more project cards as needed -->
+            if (mysqli_num_rows($result) > 0) {
+                while ($proposal = mysqli_fetch_assoc($result)) {
+                    echo '<div class="project-card">';
+                    echo '<div class="project-header">';
+                    echo '<h3>' . htmlspecialchars($proposal['title']) . '</h3>';
+                    echo '</div>';
+                    
+                    echo '<div class="project-body">';
+                    echo '<p><strong>Description:</strong><br>' . htmlspecialchars($proposal['description']) . '</p>';
+                    
+                    echo '<div class="supervisor-info">';
+                    echo '<p><strong>Supervisor:</strong><br>';
+                    echo htmlspecialchars($proposal['supervisor_name']) . '<br>';
+                    echo '<small>' . htmlspecialchars($proposal['supervisor_email']) . '</small></p>';
+                    
+                    if (!empty($proposal['expertise'])) {
+                        echo '<p><strong>Expertise:</strong></p>';
+                        echo '<div class="expertise-tags">';
+                        $expertise_array = explode(',', $proposal['expertise']);
+                        foreach ($expertise_array as $expertise) {
+                            echo '<span class="expertise-tag">' . htmlspecialchars(trim($expertise)) . '</span>';
+                        }
+                        echo '</div>';
+                    }
+                    echo '</div>';
+                    
+                    echo '<div class="project-footer">';
+                    echo '<p><small>Posted: ' . date('M d, Y', strtotime($proposal['submitted_at'])) . '</small></p>';
+                    
+                    if (isset($_SESSION['user_role']) && $_SESSION['user_role'] === 'student') {
+                        echo '<button class="apply-btn" data-proposal-id="' . $proposal['proposal_id'] . '">';
+                        echo '<i class="fas fa-paper-plane"></i> Apply Now</button>';
+                    }
+                    echo '</div>';
+                    
+                    echo '</div>'; // end project-body
+                    echo '</div>'; // end project-card
+                }
+            } else {
+                echo '<div class="no-projects">';
+                echo '<i class="fas fa-info-circle"></i>';
+                echo '<p>No available project proposals at the moment.</p>';
+                echo '<p>Please check back later.</p>';
+                echo '</div>';
+            }
+            
+            CloseCon($conn);
+            ?>
         </div>
     </div>
 
     <footer>
         <p>&copy; 2024 Faculty of Computing and Informatics, Multimedia University. All Rights Reserved.</p>
     </footer>
+
+    <script>
+    // Handle apply button clicks
+    document.querySelectorAll('.apply-btn').forEach(button => {
+        button.addEventListener('click', function() {
+            const proposalId = this.dataset.proposalId;
+            if (confirm('Are you sure you want to apply for this project?')) {
+                // Add your application logic here
+                // You might want to redirect to an application form or handle it via AJAX
+                window.location.href = `apply-project.php?proposal_id=${proposalId}`;
+            }
+        });
+    });
+    </script>
 </body>
 </html> 
