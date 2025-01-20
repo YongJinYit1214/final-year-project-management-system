@@ -4,7 +4,37 @@ require_once '../../auth/role_check.php';
 $hasAccess = checkAdminRole(); // Store the result of the role check
 require_once '../../auth/auth_check.php';
 require_once '../../components/navbar.php';
-require_once "./fetch-users.php";
+require_once '../../db_connection.php';
+
+// Get database counts
+$conn = OpenCon();
+
+// Count total students
+$students_sql = "SELECT COUNT(*) as count FROM users WHERE role = 'student'";
+$students_result = mysqli_query($conn, $students_sql);
+$students_count = mysqli_fetch_assoc($students_result)['count'];
+
+// Count total supervisors
+$supervisors_sql = "SELECT COUNT(*) as count FROM users WHERE role = 'supervisor'";
+$supervisors_result = mysqli_query($conn, $supervisors_sql);
+$supervisors_count = mysqli_fetch_assoc($supervisors_result)['count'];
+
+// Count total admin proposals
+$proposals_sql = "SELECT COUNT(*) as count FROM project_proposals";
+$proposals_result = mysqli_query($conn, $proposals_sql);
+$proposals_count = mysqli_fetch_assoc($proposals_result)['count'];
+
+// Count supervisor proposals
+$supervisor_proposals_sql = "SELECT COUNT(*) as count FROM supervisor_proposals";
+$supervisor_proposals_result = mysqli_query($conn, $supervisor_proposals_sql);
+$supervisor_proposals_count = mysqli_fetch_assoc($supervisor_proposals_result)['count'];
+
+// Count available proposals
+$available_sql = "SELECT COUNT(*) as count FROM project_proposals WHERE status = 'available'";
+$available_result = mysqli_query($conn, $available_sql);
+$available_count = mysqli_fetch_assoc($available_result)['count'];
+
+CloseCon($conn);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -48,19 +78,29 @@ if (isset($_SESSION['error_message'])) {
     <div class="dashboard-overview">
         <div class="dashboard-stats">
             <div class="stat-card">
-                <h3>Total Projects</h3>
-                <div class="stat-number">45</div>
-                <p>Active Projects</p>
-            </div>
-            <div class="stat-card">
                 <h3>Total Students</h3>
-                <div class="stat-number">150</div>
-                <p>Registered</p>
+                <div class="stat-number"><?php echo $students_count; ?></div>
+                <p>Registered Students</p>
             </div>
             <div class="stat-card">
                 <h3>Total Supervisors</h3>
-                <div class="stat-number">15</div>
-                <p>Active</p>
+                <div class="stat-number"><?php echo $supervisors_count; ?></div>
+                <p>Active Supervisors</p>
+            </div>
+            <div class="stat-card">
+                <h3>Admin Proposals</h3>
+                <div class="stat-number"><?php echo $proposals_count; ?></div>
+                <p>Total Admin Proposals</p>
+            </div>
+            <div class="stat-card">
+                <h3>Supervisor Proposals</h3>
+                <div class="stat-number"><?php echo $supervisor_proposals_count; ?></div>
+                <p>Direct to Supervisors</p>
+            </div>
+            <div class="stat-card">
+                <h3>Available Proposals</h3>
+                <div class="stat-number"><?php echo $available_count; ?></div>
+                <p>Open for Students</p>
             </div>
         </div>
         
