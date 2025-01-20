@@ -206,6 +206,20 @@ CREATE   TABLE goals(
     FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE
 );
 
+CREATE TABLE supervisor_proposals (
+    proposal_id INT PRIMARY KEY AUTO_INCREMENT,
+    student_id INT,
+    supervisor_id INT,
+    title VARCHAR(255) NOT NULL,
+    description TEXT NOT NULL,
+    status ENUM('pending', 'approved', 'rejected') DEFAULT 'pending',
+    feedback TEXT,
+    submitted_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (student_id) REFERENCES students(student_id) ON DELETE SET NULL,
+    FOREIGN KEY (supervisor_id) REFERENCES supervisors(supervisor_id) ON DELETE SET NULL
+);
+
 -- Create indexes for better performance
 CREATE INDEX idx_user_email ON users(email);
 CREATE INDEX idx_student_matric ON students(matric_number);
