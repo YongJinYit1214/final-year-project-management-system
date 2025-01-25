@@ -17,3 +17,13 @@ SET @admin_id = LAST_INSERT_ID();
 
 INSERT INTO admins (admin_id)
 VALUES (@admin_id);
+
+-- Insert student user
+
+INSERT INTO users (email, password, full_name, role, phone_number, country_code)
+VALUES ('student@mmu.edu.my', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'John Doe', 'student', '123456789', '+60');
+
+SET @student_id = LAST_INSERT_ID();
+
+INSERT INTO students (student_id, matric_number, course)
+VALUES (@student_id, '1234567890', 'Software Engineering');
