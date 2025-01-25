@@ -13,13 +13,42 @@ body {
     padding-top: 70px; 
 }
 
+/* Carousel container styling */
 .carousel-container {
     position: relative;
     max-width: 100%;
     overflow: hidden;
-    margin: 1rem 2rem;
-    border-radius: 10px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    margin: 2rem;
+    border-radius: 10px; /* Adds rounded corners */
+}
+
+.carousel {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+}
+
+.carousel-item {
+    min-width: 100%;
+    height: 400px;
+    position: relative;
+}
+
+.carousel-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Ensures the image covers the space without distortion */
+}
+
+.carousel-caption {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    padding: 10px;
+    font-size: 18px;
+    border-radius: 5px;
+    max-width: 80%;
 }
 
 .dashboard-grid {
@@ -296,70 +325,6 @@ body {
 
 .resource-item i {
     color: #3498db;
-}
-
-/* Carousel container styling */
-.carousel-container {
-    position: relative;
-    max-width: 100%;
-    overflow: hidden;
-    margin: 2rem;
-    border-radius: 10px; /* Adds rounded corners */
-}
-
-.carousel {
-    display: flex;
-    transition: transform 0.5s ease-in-out;
-}
-
-.carousel-item {
-    min-width: 100%;
-    height: 400px;
-    position: relative;
-}
-
-.carousel-item img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover; /* Ensures the image covers the space without distortion */
-}
-
-.carousel-caption {
-    position: absolute;
-    bottom: 20px;
-    left: 20px;
-    background-color: rgba(0, 0, 0, 0.5);
-    color: white;
-    padding: 10px;
-    font-size: 18px;
-    border-radius: 5px;
-    max-width: 80%;
-}
-
-/* Carousel buttons */
-.carousel-button {
-    position: absolute;
-    top: 50%;
-    background-color: rgba(0, 0, 0, 0.5);
-    color: white;
-    font-size: 24px;
-    padding: 10px;
-    border: none;
-    cursor: pointer;
-    z-index: 1;
-    transform: translateY(-50%);
-}
-
-.carousel-button.prev {
-    left: 10px;
-}
-
-.carousel-button.next {
-    right: 10px;
-}
-
-.carousel-button:hover {
-    background-color: rgba(0, 0, 0, 0.7);
 }
 
 /* Navbar styles */

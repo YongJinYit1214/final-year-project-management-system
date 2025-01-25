@@ -33,16 +33,13 @@ require_once './components/navbar.php';
                 <div class="carousel-caption">Join the FYP Community and Stay Ahead</div>
             </div>
         </div>
-        <button class="carousel-button prev" onclick="plusSlides(-1)">&#10094;</button>
-        <button class="carousel-button next" onclick="plusSlides(1)">&#10095;</button>
     </div>
         <div style="text-align: center;">
             <span class="dot" onclick="currentSlide(1)"></span>
             <span class="dot" onclick="currentSlide(2)"></span>
             <span class="dot" onclick="currentSlide(3)"></span>
         </div>
-    <script src="assets\js\carousel.js"></script>
-    <!-- <script src="assets\js\carousel-auto.js"></script> -->
+    <script src="assets\js\carousel-auto.js"></script>
     <div class="dashboard-grid">
         <div class="dashboard-card announcements">
             <h3><i class="fas fa-bullhorn"></i>Announcements</h3>
