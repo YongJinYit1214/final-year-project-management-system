@@ -188,13 +188,14 @@ CREATE   TABLE meeting_logs(
 
 CREATE   TABLE presentations_slots(
     presentation_slot_id INT PRIMARY KEY AUTO_INCREMENT,
-    presentation_id INT,
-    user_id INT,
     slot_date DATE NOT NULL,
     slot_time TIME NOT NULL,
+    user_id INT,
+    supervisor_id INT,
     status ENUM('available', 'booked') DEFAULT 'available',
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE
+    FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE SET NULL,
+    FOREIGN KEY (supervisor_id) REFERENCES users(user_id) ON DELETE SET NULL
 );
 
 CREATE   TABLE goals(
