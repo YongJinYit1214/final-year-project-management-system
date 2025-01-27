@@ -107,21 +107,6 @@ CloseCon($conn);
     <div class="section content-section" id="profile">
         <h2>Profile</h2>
         <div class="profile-container">
-            <div class="profile-header">
-                <div class="profile-avatar">
-                    <img src="https://hds.hel.fi/images/foundation/visual-assets/placeholders/user-image-s@3x.png" alt="Profile Picture">
-                    <label class="change-avatar-btn">
-                        <i class="fas fa-camera"></i>
-                        <input type="file" id="avatarInput" accept="image/*" hidden>
-                    </label>
-                </div>
-                <div class="profile-info">
-                    <h3><?php echo htmlspecialchars($user_data['full_name']); ?></h3>
-                    <p class="user-id">Student ID: <?php echo htmlspecialchars($user_data['student_id'] ?? 'N/A'); ?></p>
-                    <p class="user-role">Role: <?php echo ucfirst(htmlspecialchars($user_data['role'])); ?></p>
-                </div>
-            </div>
-
             <form class="profile-form">
                 <div class="form-grid">
                     <div class="form-group">
