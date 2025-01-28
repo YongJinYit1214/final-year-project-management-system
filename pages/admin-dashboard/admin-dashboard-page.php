@@ -114,6 +114,9 @@ if (isset($_SESSION['error_message'])) {
                     <a href="./manage-projects.php" class="admin-btn">
                         <i class="fas fa-project-diagram"></i> Manage Projects
                     </a>
+                    <a href="./manage-announcements.php" class="admin-btn">
+                        <i class="fas fa-bullhorn"></i> Manage Announcements
+                    </a>
                 </div>
             </div>
         </div>
