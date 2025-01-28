@@ -1,8 +1,18 @@
 <?php
-session_start();
-require_once './auth/auth_check.php';
-require_once './components/navbar.php';
+    session_start();
+    require_once './auth/auth_check.php';
+    require_once './components/navbar.php';
+    require_once './db_connection.php';
+
+    $conn = OpenCon();
+
+    // Fetch announcements from database
+    $sql = "SELECT * FROM announcements ORDER BY created_at DESC LIMIT 5"; // Limit to 5 most recent
+    $result = mysqli_query($conn, $sql);
+
+    CloseCon($conn);
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -41,19 +51,22 @@ require_once './components/navbar.php';
         </div>
     <script src="assets\js\carousel-auto.js"></script>
     <div class="dashboard-grid">
-        <div class="dashboard-card announcements">
+        <div class="dashboard-card">
             <h3><i class="fas fa-bullhorn"></i>Announcements</h3>
-            <div class="announcement-list">
-                <div class="announcement">
-                    <h4>FYP Registration Deadline</h4>
-                    <p>Registration closes on March 30, 2024</p>
-                    <small>Posted: March 15, 2024</small>
-                </div>
-                <div class="announcement">
-                    <h4>Supervisor Assignment</h4>
-                    <p>Supervisor assignments will be finalized by April 5, 2024</p>
-                    <small>Posted: March 14, 2024</small>
-                </div>
+            <div class="announcements-container">
+                <?php if (mysqli_num_rows($result) > 0): ?>
+                    <?php while ($row = mysqli_fetch_assoc($result)): ?>
+                        <div class="announcement">
+                            <h4><?php echo htmlspecialchars($row['title']); ?></h4>
+                            <p><?php echo htmlspecialchars($row['content']); ?></p>
+                            <small>Posted: <?php echo date('M d, Y', strtotime($row['created_at'])); ?></small>
+                        </div>
+                    <?php endwhile; ?>
+                <?php else: ?>
+                    <div class="announcement">
+                        <p>No announcements available.</p>
+                    </div>
+                <?php endif; ?>
             </div>
         </div>
 
