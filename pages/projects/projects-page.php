@@ -53,7 +53,7 @@ require_once '../../db_connection.php';
                 <div class="action-icon">
                     <i class="fas fa-list"></i>
                 </div>
-                <h4>Available Project proposals</h4>
+                <h4>Available Project Proposals</h4>
                 <p>View the list of available project proposals.</p>
                 <button class="action-btn" onclick="window.location.href='view-projects.php'">
                     View Proposals
