@@ -79,9 +79,9 @@ h2 {
 }
 
 .project-header {
-    background: #1a237e;
+    background: #0951a3;
     color: white;
-    padding: 1.5rem;
+    padding: 1rem;
     position: relative;
 }
 
@@ -102,7 +102,7 @@ h2 {
 }
 
 .supervisor-info {
-    background: #f5f5f5;
+    background: whitesmoke;
     padding: 1rem;
     border-radius: 8px;
     margin: 1rem 0;
@@ -113,7 +113,7 @@ h2 {
 }
 
 .supervisor-info strong {
-    color: #1a237e;
+    color: #0951a3;
 }
 
 .supervisor-info small {
