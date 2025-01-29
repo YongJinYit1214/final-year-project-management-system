@@ -120,7 +120,7 @@ CloseCon($conn);
                             <?php while ($row = mysqli_fetch_assoc($result)): ?>
                                 <tr>
                                     <td><?php echo htmlspecialchars($row['title']); ?></td>
-                                    <td><?php echo htmlspecialchars(substr($row['content'], 0, 100)) . '...'; ?></td>
+                                    <td><?php echo htmlspecialchars(substr($row['content'], 0, 100)); ?></td>
                                     <td><?php echo date('M d, Y H:i', strtotime($row['created_at'])); ?></td>
                                     <td><?php echo date('M d, Y H:i', strtotime($row['updated_at'])); ?></td>
                                     <td class="action-buttons">
@@ -235,4 +235,4 @@ CloseCon($conn);
         });
     </script>
 </body>
-</html>
+</html> 

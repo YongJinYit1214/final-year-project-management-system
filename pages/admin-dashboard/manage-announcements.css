@@ -59,21 +59,22 @@
     margin-top: 20px;
 }
 
-.announcement-table th,
 .announcement-table td {
-    padding: 12px 15px;
-    text-align: left;
-    border-bottom: 1px solid #eee;
+    border-bottom: 1pt solid lightgrey;
+    padding: 15px 15px;
+    text-align: center;
 }
 
 .announcement-table th {
-    background-color: #f8f9fa;
-    font-weight: 600;
-    color: #333;
+    background-color: #004c99;
+    font-weight: bold;
+    color: white;
+    padding: 15px 15px;
+    text-align: center;
 }
 
 .announcement-table tr:hover {
-    background-color: #f8f9fa;
+    background-color: whitesmoke;
 }
 
 /* Action Buttons */
