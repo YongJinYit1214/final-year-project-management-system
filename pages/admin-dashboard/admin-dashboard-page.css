@@ -219,7 +219,6 @@ h2:after {
 
 /* Table Styles */
 .proposal-table, 
-.announcement-table,
 .presentation-table,
 .submission-table,
 .planning-table {
@@ -231,8 +230,6 @@ h2:after {
 
 .proposal-table th,
 .proposal-table td,
-.announcement-table th,
-.announcement-table td,
 .presentation-table th,
 .presentation-table td,
 .submission-table th,
@@ -246,7 +243,6 @@ h2:after {
 }
 
 .proposal-table th,
-.announcement-table th,
 .presentation-table th,
 .submission-table th,
 .planning-table th {
@@ -258,7 +254,6 @@ h2:after {
 }
 
 .proposal-table tbody tr:nth-child(even),
-.announcement-table tbody tr:nth-child(even),
 .presentation-table tbody tr:nth-child(even),
 .submission-table tbody tr:nth-child(even),
 .planning-table tbody tr:nth-child(even) {

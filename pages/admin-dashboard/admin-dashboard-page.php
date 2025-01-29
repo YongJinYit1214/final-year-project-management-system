@@ -201,41 +201,6 @@ if (isset($_SESSION['error_message'])) {
                 </div>
             </div>
         </div>
-
-        <!-- Announcements Management -->
-        <div class="action-panel">
-            <div class="panel-header">
-                <h3>Announcements Management</h3>
-                <button class="add-announcement-btn" id="addAnnouncementBtn">
-                    <i class="fas fa-bullhorn"></i> Add Announcement
-                </button>
-            </div>
-            <div class="announcements-list">
-                <table class="announcement-table">
-                    <thead>
-                        <tr>
-                            <th>Title</th>
-                            <th>Content</th>
-                            <th>Posted Date</th>
-                            <th>Status</th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody id="announcementTableBody">
-                        <tr>
-                            <td>FYP Registration Deadline</td>
-                            <td>Registration closes on March 30, 2024</td>
-                            <td>March 15, 2024</td>
-                            <td><span class="status-badge active">Active</span></td>
-                            <td>
-                                <button class="action-icon edit-btn" title="Edit"><i class="fas fa-edit"></i></button>
-                                <button class="action-icon delete-btn" title="Delete"><i class="fas fa-trash"></i></button>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
     </div>
 </div>
 <?php endif; ?>
