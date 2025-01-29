@@ -75,14 +75,14 @@ CloseCon($conn);
 </head>
 <body>
     <?php echo getNavbar('admin'); ?>
+    <br>
+    <div class="back-button">
+        <a href="./admin-dashboard-page.php" title="Back to Dashboard">
+            <i class="fas fa-arrow-left"></i> Back to Dashboard
+        </a>
+    </div>
     
     <div class="section">
-        <div class="back-button">
-            <a href="./admin-dashboard-page.php" title="Back to Dashboard">
-                <i class="fas fa-arrow-left"></i> Back to Dashboard
-            </a>
-        </div>
-
         <h2>Manage Announcements</h2>
         
         <?php
