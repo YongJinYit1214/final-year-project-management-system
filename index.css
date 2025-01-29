@@ -272,11 +272,12 @@ body {
     display: flex;
     gap: 1.5rem;
     padding: 1.5rem;
-    margin-bottom: 1rem;
+    margin-bottom: 0rem;
     border-radius: 12px;
     background: rgba(255, 255, 255, 0.6);
     backdrop-filter: blur(10px);
     transition: transform 0.3s ease;
+    align-items: center;
 }
 
 .event:hover {
@@ -297,6 +298,33 @@ body {
     border-radius: 12px;
     background-color: #0951a3;
     color: white;
+    flex-shrink: 0;
+}
+
+.event-details {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.event-details h4 {
+    margin: 0 0 0.5rem 0;
+    color: #0951a3;
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+.event-details p {
+    font-size: 1rem;
+    margin: 0 0 0.5rem 0;
+    font-weight: 600;
+    color: black;
+}
+
+.event-details small {
+    color: black;
+    font-weight: 400;
 }
 
 /* Resources */

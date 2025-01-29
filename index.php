@@ -83,23 +83,37 @@
                     <i class="fas fa-user-shield"></i> Admin Dashboard</a></li>
             </ul>
         </div>
-        <div class="dashboard-card upcoming-events">
-            <h3><i class="fas fa-calendar"></i> Upcoming Events</h3>
-            <div class="event-list">
-                <div class="event">
-                    <div class="event-date">MAR 25</div>
-                    <div class="event-details">
-                        <h4>Project Proposal Submission</h4>
-                        <p>Deadline: 11:59 PM</p>
-                    </div>
-                </div>
-                <div class="event">
-                    <div class="event-date">APR 01</div>
-                    <div class="event-details">
-                        <h4>FYP Orientation Session</h4>
-                        <p>Time: 2:00 PM - 4:00 PM</p>
-                    </div>
-                </div>
+        <div class="dashboard-card important-dates">
+            <h3><i class="fas fa-calendar-alt"></i> Upcoming Events</h3>
+            <div class="dates-list">
+                <?php
+                $conn = OpenCon();
+                $sql = "SELECT d.*, u.full_name as creator_name 
+                        FROM important_dates d 
+                        LEFT JOIN users u ON d.created_by = u.user_id 
+                        WHERE d.date >= CURDATE() 
+                        ORDER BY d.date ASC LIMIT 5";
+                $result = mysqli_query($conn, $sql);
+                
+                if (mysqli_num_rows($result) > 0) {
+                    while ($row = mysqli_fetch_assoc($result)) {
+                        echo '<div class="event">';
+                        echo '<div class="event-date">';
+                        echo '<span>' . date('M', strtotime($row['date'])) . '</span>';
+                        echo '<span>' . date('d', strtotime($row['date'])) . '</span>';
+                        echo '</div>';
+                        echo '<div class="event-details">';
+                        echo '<h4>' . htmlspecialchars($row['title']) . '</h4>';
+                        echo '<p>' . htmlspecialchars($row['description']) . '</p>';
+                        echo '<small>Posted by: ' . htmlspecialchars($row['creator_name'] ?? 'Unknown') . '</small>';
+                        echo '</div>';
+                        echo '</div>';
+                    }
+                } else {
+                    echo '<div class="event"><p>No upcoming events.</p></div>';
+                }
+                CloseCon($conn);
+                ?>
             </div>
         </div>
     </div>
