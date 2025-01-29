@@ -28,7 +28,7 @@ if (session_status() === PHP_SESSION_NONE) {
         <h2>Available Project Proposals</h2>
 
         <div class="search-bar">
-            <input type="text" id="searchInput" placeholder="Search projects">
+            <input type="text" id="searchInput" placeholder="Search project proposal">
         </div>
         
         <div class="projects-container">
@@ -162,4 +162,4 @@ if (session_status() === PHP_SESSION_NONE) {
     });
     </script>
 </body>
-</html> 
+</html>
