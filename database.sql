@@ -237,7 +237,6 @@ CREATE INDEX idx_user_email ON users(email);
 CREATE INDEX idx_student_matric ON students(matric_number);
 CREATE INDEX idx_proposal_status ON project_proposals(status);
 CREATE INDEX idx_project_status ON projects(status);
-CREATE INDEX idx_communication_date ON communications(sent_at); 
 
 -- Insert supervisor user
 
