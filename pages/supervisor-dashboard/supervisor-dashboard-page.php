@@ -4,6 +4,8 @@ require_once '../../auth/role_check.php';
 $hasAccess = checkSupervisorRole(); // Store the result of the role check
 require_once '../../auth/auth_check.php';
 require_once '../../components/navbar.php';
+require_once '../../db_connection.php';
+$conn = OpenCon(); // Establish database connection
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -93,8 +95,6 @@ if (isset($_SESSION['error_message'])) {
                 </thead>
                 <tbody>
                     <?php
-                    require_once '../../db_connection.php';
-                    
                     $supervisor_id = $_SESSION['user_id'];
                     $query = "SELECT ps.*, u.full_name 
                              FROM presentations_slots ps 
