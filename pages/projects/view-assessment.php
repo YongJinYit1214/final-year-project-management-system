@@ -1,33 +1,37 @@
 <?php
-session_start();
-require_once '../../auth/role_check.php';
-$hasAccess = checkStudentRole();
 require_once '../../auth/auth_check.php';
 require_once '../../components/navbar.php';
 require_once '../../db_connection.php';
 $conn = OpenCon();
 
-$student_id = $_SESSION['user_id'];
+$project_id = isset($_GET['project_id']) ? (int)$_GET['project_id'] : 0;
+$supervisor_id = $_SESSION['user_id'];
 
-// Get student's project and assessment details
-$query = "SELECT p.title as project_title, 
-                 a.total_marks, 
-                 a.project_planning, 
-                 a.technical_implementation, 
-                 a.documentation, 
-                 a.presentation, 
-                 a.feedback,
-                 u.full_name as supervisor_name
-          FROM projects p
-          JOIN users u ON p.supervisor_id = u.user_id
-          LEFT JOIN assessments a ON p.project_id = a.project_id
-          WHERE p.student_id = ?";
+// Get project and assessment details
+$query = "SELECT p.*, 
+                 u.full_name as student_name,
+                 a.total_marks,
+                 a.project_planning,
+                 a.technical_implementation,
+                 a.documentation,
+                 a.presentation,
+                 a.feedback
+          FROM projects p 
+          JOIN users u ON p.student_id = u.user_id
+          JOIN assessments a ON p.project_id = a.project_id
+          WHERE p.project_id = ? AND p.supervisor_id = ?";
 
 $stmt = $conn->prepare($query);
-$stmt->bind_param("i", $student_id);
+$stmt->bind_param("ii", $project_id, $supervisor_id);
 $stmt->execute();
 $result = $stmt->get_result();
 $assessment = $result->fetch_assoc();
+
+if (!$assessment) {
+    $_SESSION['error_message'] = "Assessment not found or access denied.";
+    header("Location: assess-projects.php");
+    exit();
+}
 ?>
 
 <!DOCTYPE html>
@@ -35,95 +39,113 @@ $assessment = $result->fetch_assoc();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Assessment Results - FYP System</title>
+    <title>View Assessment - FYP System</title>
     <link rel="stylesheet" href="../../index.css">
     <link rel="stylesheet" href="./projects-page.css">
 </head>
 <body>
-    <?php echo getNavbar('student'); ?>
+    <?php echo getNavbar('supervisor'); ?>
     
-    <?php if ($hasAccess): ?>
     <div class="section">
-        <h2>Project Assessment Results</h2>
-        
-        <?php if ($assessment): ?>
-            <div class="assessment-results">
-                <div class="project-info">
-                    <h3><?php echo htmlspecialchars($assessment['project_title']); ?></h3>
-                    <p>Supervisor: <?php echo htmlspecialchars($assessment['supervisor_name']); ?></p>
+        <div class="assessment-header">
+            <h2>Assessment Details</h2>
+            <div class="project-info">
+                <h3><?php echo htmlspecialchars($assessment['title']); ?></h3>
+                <p>Student: <?php echo htmlspecialchars($assessment['student_name']); ?></p>
+                <p>Submission Date: <?php echo date('d M Y', strtotime($assessment['start_date'])); ?></p>
+            </div>
+        </div>
+
+        <div class="assessment-details">
+            <div class="marks-section">
+                <h3>Marks Breakdown</h3>
+                <div class="marks-grid">
+                    <div class="mark-item">
+                        <label>Project Planning:</label>
+                        <span><?php echo number_format($assessment['project_planning'], 1); ?>/25</span>
+                    </div>
+                    
+                    <div class="mark-item">
+                        <label>Technical Implementation:</label>
+                        <span><?php echo number_format($assessment['technical_implementation'], 1); ?>/25</span>
+                    </div>
+                    
+                    <div class="mark-item">
+                        <label>Documentation:</label>
+                        <span><?php echo number_format($assessment['documentation'], 1); ?>/25</span>
+                    </div>
+                    
+                    <div class="mark-item">
+                        <label>Presentation:</label>
+                        <span><?php echo number_format($assessment['presentation'], 1); ?>/25</span>
+                    </div>
+                    
+                    <div class="mark-item total">
+                        <label>Total Marks:</label>
+                        <span><?php echo number_format($assessment['total_marks'], 1); ?>/100</span>
+                    </div>
                 </div>
-                
-                <?php if ($assessment['total_marks']): ?>
-                    <div class="marks-breakdown">
-                        <h4>Marks Breakdown</h4>
-                        <div class="marks-grid">
-                            <div class="mark-item">
-                                <label>Project Planning:</label>
-                                <span><?php echo number_format($assessment['project_planning'], 1); ?>/25</span>
-                            </div>
-                            <div class="mark-item">
-                                <label>Technical Implementation:</label>
-                                <span><?php echo number_format($assessment['technical_implementation'], 1); ?>/25</span>
-                            </div>
-                            <div class="mark-item">
-                                <label>Documentation:</label>
-                                <span><?php echo number_format($assessment['documentation'], 1); ?>/25</span>
-                            </div>
-                            <div class="mark-item">
-                                <label>Presentation:</label>
-                                <span><?php echo number_format($assessment['presentation'], 1); ?>/25</span>
-                            </div>
-                            <div class="mark-item total">
-                                <label>Total Marks:</label>
-                                <span><?php echo number_format($assessment['total_marks'], 1); ?>/100</span>
-                            </div>
-                        </div>
-                        
-                        <div class="feedback-section">
-                            <h4>Supervisor's Feedback</h4>
-                            <p><?php echo nl2br(htmlspecialchars($assessment['feedback'])); ?></p>
-                        </div>
-                    </div>
-                <?php else: ?>
-                    <div class="no-assessment">
-                        <p>Your project has not been assessed yet.</p>
-                    </div>
-                <?php endif; ?>
             </div>
-        <?php else: ?>
-            <div class="no-project">
-                <p>No project found. Please submit a project first.</p>
-                <a href="submit-project.php" class="btn">Submit Project</a>
+
+            <div class="feedback-section">
+                <h3>Feedback</h3>
+                <div class="feedback-content">
+                    <?php echo nl2br(htmlspecialchars($assessment['feedback'])); ?>
+                </div>
             </div>
-        <?php endif; ?>
+
+            <div class="action-buttons">
+                <a href="assess-projects.php" class="back-btn">Back to Projects</a>
+            </div>
+        </div>
     </div>
-    <?php endif; ?>
 
     <style>
-        .assessment-results {
-            max-width: 800px;
-            margin: 20px auto;
+        .section {
             padding: 20px;
-            background: white;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            margin: 20px;
+        }
+
+        .assessment-header {
+            margin-bottom: 30px;
         }
 
         .project-info {
-            margin-bottom: 30px;
-            padding-bottom: 20px;
-            border-bottom: 1px solid #eee;
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 20px;
         }
 
-        .marks-breakdown {
-            margin-top: 20px;
+        .project-info h3 {
+            margin: 0 0 10px 0;
+            color: #333;
+        }
+
+        .project-info p {
+            margin: 5px 0;
+            color: #666;
+        }
+
+        .assessment-details {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .marks-section,
+        .feedback-section {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
         }
 
         .marks-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
             gap: 20px;
-            margin: 20px 0;
+            margin-top: 20px;
         }
 
         .mark-item {
@@ -141,32 +163,29 @@ $assessment = $result->fetch_assoc();
             font-weight: bold;
         }
 
-        .feedback-section {
+        .feedback-content {
+            margin-top: 15px;
+            line-height: 1.6;
+            white-space: pre-wrap;
+        }
+
+        .action-buttons {
             margin-top: 30px;
-            padding-top: 20px;
-            border-top: 1px solid #eee;
-        }
-
-        .no-assessment,
-        .no-project {
             text-align: center;
-            padding: 40px;
-            background: #f8f9fa;
-            border-radius: 8px;
         }
 
-        .btn {
+        .back-btn {
             display: inline-block;
             padding: 10px 20px;
-            background: #007bff;
+            background: #6c757d;
             color: white;
             text-decoration: none;
             border-radius: 4px;
-            margin-top: 15px;
+            transition: background-color 0.2s;
         }
 
-        .btn:hover {
-            background: #0056b3;
+        .back-btn:hover {
+            background: #5a6268;
         }
     </style>
 </body>
