@@ -1,6 +1,7 @@
 <?php
 function getNavbar($active_page = '') {
     $isLoggedIn = isset($_SESSION['user_id']) && !empty($_SESSION['user_id']);
+    $meetingsPage = '/fyp-system/pages/meetings/meetings-page.php';
     
     $html = '
     <nav class="navbar">
@@ -12,7 +13,7 @@ function getNavbar($active_page = '') {
                 <div class="nav-links">
                     <a href="/fyp-system/index.php" class="nav-link ' . ($active_page === 'home' ? 'active' : '') . '" id="homeLink">Home</a>
                     <a href="/fyp-system/pages/projects/projects-page.php" class="nav-link ' . ($active_page === 'projects' ? 'active' : '') . '" id="projectsLink">Projects</a>
-                    <a href="/fyp-system/pages/meetings/meetings-page.php" class="nav-link ' . ($active_page === 'meetings' ? 'active' : '') . '" id="meetingsLink">Meetings</a>
+                    <a href="'.$meetingsPage.'" class="nav-link ' . ($active_page === 'meetings' ? 'active' : '') . '" id="meetingsLink">Meetings</a>
                     <a href="/fyp-system/pages/progress/progress-page.php" class="nav-link ' . ($active_page === 'progress' ? 'active' : '') . '" id="progressLink">Progress</a>
                     <a href="/fyp-system/pages/assessment/assessment-page.php" class="nav-link ' . ($active_page === 'assessment' ? 'active' : '') . '" id="assessmentLink">Assessment</a>
                     <a href="/fyp-system/pages/support/support-page.php" class="nav-link ' . ($active_page === 'support' ? 'active' : '') . '" id="supportLink">Support</a>

@@ -15,7 +15,7 @@ if (!$conn) {
 
 $sql = "
     SELECT cm.*, u.full_name AS sender_name 
-    FROM communications cm
+    FROM messages cm
     JOIN users u ON cm.sender_id = u.user_id
     WHERE (sender_id = ? AND receiver_id = ?) OR (sender_id = ? AND receiver_id = ?)
     ORDER BY sent_at ASC

@@ -22,10 +22,12 @@ document.addEventListener('DOMContentLoaded', function() {
                     }, 1500);
                 } else {
                     showAlert('error', data.message || 'Login failed. Please try again.');
+                    showAlert('error', `${errorMsg} (Code: REG-${Date.now()})`);
                 }
             })
             .catch(() => {
-                showAlert('error', 'Login failed. Please try again.');
+                console.error('Full error:', error);
+                showAlert('error', error.message); // Show actual error message
             });
         });
     }

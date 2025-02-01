@@ -200,6 +200,7 @@ body {
     flex-direction: column;
     background: white;
     height: 100%; /* Full height of parent container */
+    min-height: 600px;
 }
 
 .chat-messages {

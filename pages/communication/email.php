@@ -3,42 +3,86 @@ require_once '../../auth/auth_check.php';
 require_once '../../components/navbar.php';
 require_once './fetch-email.php';
 
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+use PHPMailer\PHPMailer\SMTP; 
+
+require_once "../../helper/pw-encryption.php";
+require_once '../../PHPMailer-master/src/Exception.php';
+require_once '../../PHPMailer-master/src/PHPMailer.php';
+require_once '../../PHPMailer-master/src/SMTP.php'; 
+
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $subject = $_POST['subject'];
-    $message = $_POST['message'];
-    $email = $_POST['email'];
-    addEmail($subject, $message, $email);
-    header("Location: /fyp-system/pages/communication/communication-page.php");
-    exit(); 
+    $body = $_POST['message'];
+    $recipientEmail = $_POST['email'];
+
+    try {
+        sendEmail($subject, $body, $recipientEmail);
+        $_SESSION['message'] = "Email sent successfully!";
+    } catch (Exception $e) {
+        $_SESSION['error'] = "Error sending email: " . $e->getMessage();
+    }
+    header("Location: /fyp-system/pages/communication/email.php");
+    exit();
 }
 
-function addEmail($subject, $message, $email) {
+function sendEmail($subject, $body, $recipientEmail) {
     require_once '../../db_connection.php';
     $conn = OpenCon();
 
-    if (!isset($_SESSION['user_id'])) {
-        die("User not logged in.");
-    }
-
     $user_id = $_SESSION['user_id'];
 
-    // Use prepared statements to prevent SQL injection
-    $sql = "
-        INSERT INTO communications (sender_id, receiver_id, subject, message) 
-        VALUES (?, (SELECT user_id FROM users WHERE email = ?), ?, ?)
-    ";
-    $stmt = $conn->prepare($sql);
-    $stmt->bind_param("isss", $user_id, $email, $subject, $message);
+    // Fetch sender email and encrypted SMTP password
+    $stmt = $conn->prepare("SELECT smtp_pass, email FROM users WHERE user_id = ?");
+    $stmt->bind_param("i", $user_id);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $user = $result->fetch_assoc();
 
-    if ($stmt->execute()) {
-        echo "Email sent successfully!";
-    } else {
-        echo "Error: " . $stmt->error;
+    if (!$user) {
+        throw new Exception("User not found.");
     }
 
-    $stmt->close();
-    CloseCon($conn);
+    // $smtp_password = Encryption::decrypt($user['smtp_pass']); 
+    $smtp_password = $user['smtp_pass'];
+    $senderEmail = $user['email'];
+
+    $mail = new PHPMailer(true);
+
+    try {
+        $mail->isSMTP();
+        $mail->Host = 'smtp.gmail.com';
+        $mail->SMTPAuth = true;
+        $mail->Username = $senderEmail;
+        $mail->Password = $smtp_password;
+        $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS; // Ensure secure connection
+        $mail->Port = 587;
+
+        // Recipients
+        $mail->setFrom($senderEmail);
+        $mail->addAddress($recipientEmail);
+
+        // Email content
+        $mail->isHTML(true);
+        $mail->Subject = $subject;
+        $mail->Body    = $body;
+        $mail->AltBody = strip_tags($body);
+
+        if ($mail->send()) {
+            echo 'Message has been sent';
+
+            // Save email to database
+            $stmt = $conn->prepare("INSERT INTO emails (sender_id, receiver_id, subject, message) VALUES (?, ?, ?, ?)");
+            $stmt->bind_param("iiss", $user_id, $receiver_id, $subject, $body);
+            $stmt->execute();
+        }
+    } catch (Exception $e) {
+        echo "Error sending email: {$mail->ErrorInfo}";
+    }
 }
+
 ?>
 
 <!DOCTYPE html>
@@ -47,8 +91,6 @@ function addEmail($subject, $message, $email) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FCI FYP System - Email</title>
-    <!-- <link rel="stylesheet" href="../../index.css"> -->
-    <!-- <link rel="stylesheet" href="./shared.css"> -->
     <link rel="stylesheet" href="./email.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <script src="../../assets/js/auth.js" defer></script>
@@ -116,15 +158,18 @@ function addEmail($subject, $message, $email) {
                 </div>
                 <div class="email-list" id="inbox">
                     <?php
-                        $result = getInbox();
-                        
-                        while ($row = $result->fetch_assoc()) {
-                            echo '<a href="#email1" class="email-item unread">';
-                            echo '<div class="email-sender">'.$row['full_name'].'</div>';
-                            echo '<div class="email-subject">'.$row['subject'].'</div>';
-                            echo '<div class="email-preview">'.$row['message'].'</div>';
-                            echo '<div class="email-date">'.$row['sent_at'].'</div>';
-                            echo '</a>';
+                        $result = getInboxEmails();
+                        if ($result->num_rows > 0) {
+                            while ($row = $result->fetch_assoc()) {
+                                echo '<a href="#email1" class="email-item unread">';
+                                echo '<div class="email-sender">'.$row['full_name'].'</div>';
+                                echo '<div class="email-subject">'.$row['subject'].'</div>';
+                                echo '<div class="email-preview">'.$row['message'].'</div>';
+                                echo '<div class="email-date">'.$row['sent_at'].'</div>';
+                                echo '</a>';
+                            }
+                        } else {
+                            echo '<p>No inbox emails found.</p>';
                         }
                     ?>
                 </div>
@@ -154,7 +199,6 @@ function addEmail($subject, $message, $email) {
         <p>&copy; 2024 Faculty of Computing and Informatics, Multimedia University. All Rights Reserved.</p>
     </footer>
     <script>
-    console.log("Script is running!"); // Add this at the top of your script
     const modal = document.getElementById('emailModal');
     const openModalBtn = document.getElementById('composeBtn');
     const closeModalBtn = document.querySelector('.close-btn');

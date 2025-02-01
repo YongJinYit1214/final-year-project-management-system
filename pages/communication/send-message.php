@@ -8,7 +8,7 @@ $receiver_id = $data['receiver_id'];
 $message = $data['message'];
 
 $conn = OpenCon();
-$sql = "INSERT INTO communications (sender_id, receiver_id, message) VALUES (?, ?, ?)";
+$sql = "INSERT INTO messages (sender_id, receiver_id, message) VALUES (?, ?, ?)";
 $stmt = $conn->prepare($sql);
 $stmt->bind_param("iis", $sender_id, $receiver_id, $message);
 $stmt->execute();

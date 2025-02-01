@@ -1,7 +1,7 @@
 <?php
 require_once "../../db_connection.php";
 
-function getInbox() {
+function getInboxEmails() {
     if (!isset($_SESSION['user_id'])) {
         die("User is not logged in.");
     }
@@ -9,7 +9,7 @@ function getInbox() {
     $user_id = $_SESSION['user_id'];
     $sql = "
         SELECT u.full_name, subject, message, sent_at 
-        FROM communications f
+        FROM emails f
         JOIN users u
         ON f.sender_id = u.user_id
         WHERE f.receiver_id = ?
@@ -34,7 +34,7 @@ function getSentEmails() {
     $user_id = $_SESSION['user_id'];
     $sql = "
         SELECT u.full_name, subject, message, sent_at 
-        FROM communications f
+        FROM emails f
         JOIN users u
         ON f.receiver_id = u.user_id
         WHERE f.sender_id = ?

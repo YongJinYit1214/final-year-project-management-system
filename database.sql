@@ -7,6 +7,7 @@ CREATE   TABLE users (
     user_id INT PRIMARY KEY AUTO_INCREMENT,
     email VARCHAR(255) UNIQUE NOT NULL,
     password VARCHAR(255) NOT NULL,
+    smtp_pass VARCHAR(255) NOT NULL,
     full_name VARCHAR(255) NOT NULL,
     role ENUM('student', 'supervisor', 'admin') NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
@@ -82,12 +83,21 @@ CREATE   TABLE assessments (
     FOREIGN KEY (project_id) REFERENCES projects(project_id) ON DELETE CASCADE
 );
 
--- Communications table (for emails and messages)
-CREATE   TABLE communications (
-    communication_id INT PRIMARY KEY AUTO_INCREMENT,
+CREATE   TABLE emails (
+    email_id INT PRIMARY KEY AUTO_INCREMENT,
     sender_id INT,
     receiver_id INT,
     subject VARCHAR(255),
+    message TEXT NOT NULL,
+    sent_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (sender_id) REFERENCES users(user_id) ON DELETE SET NULL,
+    FOREIGN KEY (receiver_id) REFERENCES users(user_id) ON DELETE SET NULL
+);
+
+CREATE   TABLE messages (
+    message_id INT PRIMARY KEY AUTO_INCREMENT,
+    sender_id INT,
+    receiver_id INT,
     message TEXT NOT NULL,
     sent_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (sender_id) REFERENCES users(user_id) ON DELETE SET NULL,
@@ -165,8 +175,9 @@ CREATE   TABLE meetings(
     user_id INT,
     title VARCHAR(255) NOT NULL,
     description TEXT NOT NULL,
-    start_time DATETIME NOT NULL,
-    end_time DATETIME NOT NULL,
+    date DATE NOT NULL,
+    start_time TIME NOT NULL,
+    end_time TIME NOT NULL,
     venue VARCHAR(255) NOT NULL,
     status ENUM('upcoming', 'completed') DEFAULT 'upcoming',
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
@@ -226,3 +237,34 @@ CREATE INDEX idx_student_matric ON students(matric_number);
 CREATE INDEX idx_proposal_status ON project_proposals(status);
 CREATE INDEX idx_project_status ON projects(status);
 CREATE INDEX idx_communication_date ON communications(sent_at); 
+
+-- Insert supervisor user
+
+INSERT INTO users (email, password, full_name, role, phone_number, country_code)
+VALUES ('sarah.johnson@mmu.edu.my', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'Dr. Sarah Johnson', 'supervisor', '1234567890', '+60');
+
+SET @supervisor_id = LAST_INSERT_ID();
+
+INSERT INTO supervisors (supervisor_id, expertise)
+VALUES (@supervisor_id, 'Artificial Intelligence, Machine Learning, Data Science');
+
+-- Insert admin user
+
+INSERT INTO users (email, password, full_name, role, phone_number, country_code)
+VALUES ('admin@mmu.edu.my', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'System Administrator', 'admin', '0987654321', '+60');
+
+SET @admin_id = LAST_INSERT_ID();
+
+INSERT INTO admins (admin_id)
+VALUES (@admin_id);
+
+-- Insert student user
+
+INSERT INTO users (email, password, full_name, role, phone_number, country_code)
+VALUES ('student@mmu.edu.my', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'John Doe', 'student', '123456789', '+60');
+
+SET @student_id = LAST_INSERT_ID();
+
+INSERT INTO students (student_id, matric_number, course)
+VALUES (@student_id, '1234567890', 'Software Engineering');
+

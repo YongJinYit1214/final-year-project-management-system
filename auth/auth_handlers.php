@@ -2,6 +2,7 @@
 session_start();
 header('Content-Type: application/json');
 require_once "../db_connection.php";
+require_once "../helper/pw-encryption.php";
 
 try {
     require_once __DIR__ . '/../db_connection.php';
@@ -61,6 +62,13 @@ function handleRegistration($data) {
         // Sanitize inputs
         $email = sanitize_input($data['email']);
         $password = $data['password'];
+        // Inside handleRegistration():
+        $encrypted_smtp_pass = Encryption::encrypt($password);
+        if ($encrypted_smtp_pass === false) {
+            throw new Exception("Encryption failed: " . openssl_error_string());
+        }
+        error_log("Encrypted length: " . strlen($encrypted_smtp_pass)); // Should be > 0
+
         $full_name = sanitize_input($data['name']);
         $role = 'student';
         $student_id = sanitize_input($data['student_id']);
@@ -79,9 +87,22 @@ function handleRegistration($data) {
         $conn->begin_transaction();
 
         // Insert user with phone details
-        $stmt = $conn->prepare("INSERT INTO users (email, password, full_name, role, country_code, phone_number) VALUES (?, ?, ?, ?, ?, ?)");
+        $stmt = $conn->prepare("INSERT INTO users (email, password, smtp_pass, full_name, role, country_code, phone_number) VALUES (?, ?, ?, ?, ?, ?, ?)");
         $hashed_password = password_hash($password, PASSWORD_DEFAULT);
-        $stmt->bind_param("ssssss", $email, $hashed_password, $full_name, $role, $country_code, $phone_number);
+        $stmt->bind_param("ssbssss", 
+        $email, 
+        $hashed_password, 
+            $encrypted_smtp_pass_blob, // Pass by reference
+            $full_name, 
+            $role, 
+            $country_code, 
+            $phone_number
+        );
+
+        // Assign the encrypted data to a variable by reference
+        $encrypted_smtp_pass_blob = null;
+        $stmt->send_long_data(2, $encrypted_smtp_pass); // Index 2 (third parameter)
+
         $stmt->execute();
         $user_id = $conn->insert_id;
         $stmt->close();
@@ -99,7 +120,11 @@ function handleRegistration($data) {
         if (isset($conn) && $conn->ping()) {
             $conn->rollback();
         }
-        return ['success' => false, 'message' => 'Registration failed'];
+        error_log("ERROR: " . $e->getMessage()); // Log to server
+        return [
+            'success' => false,
+            'message' => $e->getMessage() // Return error message as string
+        ];
     }
 }
 

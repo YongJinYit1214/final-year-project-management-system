@@ -49,7 +49,6 @@ function addTopic($title, $content) {
 <?php echo getNavbar('communication'); ?>
     <!-- Forum Section -->
     <div class="section" id="communication">
-        <h2>Communication Center</h2>
         <div class="communication-container">
             <!-- Communication Tabs -->
             <div class="comm-tabs">

@@ -1,7 +1,19 @@
 <?php
 session_start();
+$user_role = isset($_SESSION['role']) ? $_SESSION['role'] : '';
 require_once '../../auth/auth_check.php';
+require_once '../../auth/role_check.php';
 require_once '../../components/navbar.php';
+require_once 'meetings-fn.php';
+
+function calculateDuration($startTime, $endTime) {
+    $start = strtotime($startTime);
+    $end = strtotime($endTime);
+    $duration = $end - $start;
+
+    return gmdate("H:i", $duration) . ' hours';
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -22,100 +34,90 @@ require_once '../../components/navbar.php';
         <div class="meetings-container">
             <div class="upcoming-meetings">
                 <h3>Upcoming Meetings</h3>
-                <button class="schedule-btn" id="scheduleNewMeeting">
-                    <i class="fas fa-plus"></i> Schedule Meeting
-                </button>
+                <?php
+                if ($user_role === 'supervisor') {
+                    echo '<button class="schedule-btn" id="scheduleNewMeeting">';
+                    echo '<i class="fas fa-plus"></i> Schedule Meeting';
+                    echo '</button>';
+                }
+                ?>
+                
+                <!-- Modal Container -->
+                <div id="emailModal" class="modal">
+                    <div class="modal-content">
+                        <span class="close-btn">&times;</span>
+                        <div class="panel-header">
+                            <h3>Schedule New Meeting</h3>
+                        </div>
+                        <form id="meetingForm" action="schedule-meeting.php" method="post">
+                            <div class="form-group">
+                                <label for="meetingTitle">Meeting Title:</label>
+                                <input type="text" id="meetingTitle" name="meetingTitle" required>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="datetime-inputs">
+                                    <label for="meetingDate">Date:</label>
+                                    <input type="date" id="meetingDate" name="meetingDate" required>
+                                    <label for="meetingStartTime">Start Time:</label>
+                                    <input type="time" id="meetingStartTime" name="meetingStartTime" required>
+                                    <label for="meetingEndTime">End Time:</label>
+                                    <input type="time" id="meetingEndTime" name="meetingEndTime" required>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="meetingLocation">Location:</label>
+                                <select id="meetingLocation" name="meetingLocation" required>
+                                    <option value="">Select Location</option>
+                                    <option value="Online (Google Meet)">Online (Google Meet)</option>
+                                    <option value="Online (Zoom)">Online (Zoom)</option>
+                                    <option value="FCI Meeting Room 1">FCI Meeting Room 1</option>
+                                    <option value="FCI Meeting Room 2">FCI Meeting Room 2</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="meetingDescription">Description:</label>
+                                <textarea id="meetingDescription" name="meetingDescription" rows="4"></textarea>
+                            </div>                        
+                            <button type="submit" class="submit-btn">Create Meeting</button>
+                        </form>
+                    </div>
+                </div>
                 <div class="meetings-list">
-                    <div class="meeting-item">
-                        <div class="meeting-info">
-                            
-                            <h4>Project Review Meeting</h4>
-                            <p><i class="fas fa-user"></i> Dr. Sarah Johnson</p>
-                            <p><i class="fas fa-calendar"></i> April 15, 2024 - 2:00 PM</p>
-                            <p><i class="fas fa-map-marker-alt"></i> Online (Google Meet)</p>
-                        </div>
-                        <div class="meeting-actions">
-                            <span class="meeting-status upcoming">Upcoming</span>
-                            <button class="action-btn join-btn">Join Meeting</button>
-                        </div>
-                    </div>
-
-                    <div class="meeting-item">
-                        <div class="meeting-info">
-                            <h4>Database Design Discussion</h4>
-                            <p><i class="fas fa-user"></i> Prof. Michael Chen</p>
-                            <p><i class="fas fa-calendar"></i> April 18, 2024 - 10:30 AM</p>
-                            <p><i class="fas fa-map-marker-alt"></i> FCI Meeting Room 2</p>
-                        </div>
-                        <div class="meeting-actions">
-                            <span class="meeting-status scheduled">Scheduled</span>
-                            <button class="action-btn reschedule-btn">Reschedule</button>
-                        </div>
-                    </div>
-
-                    <div class="meeting-item">
-                        <div class="meeting-info">
-                            <h4>Weekly Progress Update</h4>
-                            <p><i class="fas fa-user"></i> Dr. Sarah Johnson</p>
-                            <p><i class="fas fa-calendar"></i> April 22, 2024 - 3:00 PM</p>
-                            <p><i class="fas fa-map-marker-alt"></i> Online (Zoom)</p>
-                        </div>
-                        <div class="meeting-actions">
-                            <span class="meeting-status scheduled">Scheduled</span>
-                            <button class="action-btn reschedule-btn">Reschedule</button>
-                        </div>
-                    </div>
-                </div>
+                <?php
+                $upcomingMeetings = fetchMeetings('upcoming');
+                if (!empty($upcomingMeetings)) {
+                    foreach ($upcomingMeetings as $meeting) {
+                        echo '<div class="meeting-item">';
+                        echo '<div class="meeting-info">';
+                        echo '<h4>' . htmlspecialchars($meeting['title']) . '</h4>';
+                        echo '<p><i class="fas fa-user"></i> ' . htmlspecialchars($meeting['full_name']) . '</p>';
+                        echo '<p><i class="fas fa-calendar"></i> ' . htmlspecialchars($meeting['date']);
+                        echo '<p><i class="fas fa-clock"></i> ' . htmlspecialchars($meeting['start_time']) . ' - '.htmlspecialchars($meeting['end_time']).'</p>';
+                        echo '<p><i class="fas fa-map-marker-alt"></i> ' . htmlspecialchars($meeting['venue']) . '</p>';
+                        echo '<p><i class="fas fa-circle-info"></i> ' . htmlspecialchars($meeting['description']) . '</p>';
+                        echo '</div>';
+                        echo '<div class="meeting-actions">';
+                        echo '<span class="meeting-status ' . htmlspecialchars($meeting['status']) . '">' . ucfirst($meeting['status']) . '</span>';
+                        echo '<a href="meeting-detail.php?meeting_id='. $meeting['meeting_id'] .'">';
+                        echo '<button class="action-btn view-notes-btn">View Meeting Log</button>';
+                        echo '</a>';
+                        echo '</div>';
+                        echo '</div>';
+                    }
+                } else {
+                    echo '<p>No upcoming meetings found.</p>';
+                }
+                ?>
             </div>
 
-            <div class="meeting-logs">
-                <h3>Meeting Logs</h3>
-                <div class="logs-list">
-                    <div class="meeting-item completed">
-                        <div class="meeting-info">
-                            <h4>Initial Project Discussion</h4>
-                            <p><i class="fas fa-user"></i> Dr. Sarah Johnson</p>
-                            <p><i class="fas fa-calendar"></i> April 1, 2024 - 2:00 PM</p>
-                            <p><i class="fas fa-clock"></i> Duration: 45 minutes</p>
-                        </div>
-                        <div class="meeting-actions">
-                            <span class="meeting-status completed">Completed</span>
-                            <button class="action-btn view-notes-btn">View Notes</button>
-                        </div>
-                    </div>
-
-                    <div class="meeting-item completed">
-                        <div class="meeting-info">
-                            <h4>Requirements Analysis</h4>
-                            <p><i class="fas fa-user"></i> Prof. Michael Chen</p>
-                            <p><i class="fas fa-calendar"></i> April 5, 2024 - 11:00 AM</p>
-                            <p><i class="fas fa-clock"></i> Duration: 60 minutes</p>
-                        </div>
-                        <div class="meeting-actions">
-                            <span class="meeting-status completed">Completed</span>
-                            <button class="action-btn view-notes-btn">View Notes</button>
-                        </div>
-                    </div>
-
-                    <div class="meeting-item cancelled">
-                        <div class="meeting-info">
-                            <h4>Technical Review</h4>
-                            <p><i class="fas fa-user"></i> Dr. Sarah Johnson</p>
-                            <p><i class="fas fa-calendar"></i> April 8, 2024 - 3:30 PM</p>
-                            <p><i class="fas fa-info-circle"></i> Rescheduled to April 15</p>
-                        </div>
-                        <div class="meeting-actions">
-                            <span class="meeting-status cancelled">Cancelled</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            
         </div>
     </div>
     <footer>
         <p>&copy; 2024 Faculty of Computing and Informatics, Multimedia University. All Rights Reserved.</p>
     </footer>
-    
-
 </body>
 </html>
