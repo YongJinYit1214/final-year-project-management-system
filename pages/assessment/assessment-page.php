@@ -1,7 +1,35 @@
 <?php
-session_start();
 require_once '../../auth/auth_check.php';
 require_once '../../components/navbar.php';
+require_once '../../db_connection.php';
+$conn = OpenCon();
+
+// Get user's role and ID
+$user_id = $_SESSION['user_id'];
+$role = $_SESSION['role'];
+
+// Get assessment data based on role
+if ($role === 'student') {
+    $query = "SELECT p.title as project_title, 
+                     a.total_marks, 
+                     a.project_planning, 
+                     a.technical_implementation, 
+                     a.documentation, 
+                     a.presentation, 
+                     a.feedback,
+                     CURRENT_TIMESTAMP as assessment_date,
+                     u.full_name as supervisor_name
+              FROM projects p
+              JOIN users u ON p.supervisor_id = u.user_id
+              LEFT JOIN assessments a ON p.project_id = a.project_id
+              WHERE p.student_id = ?";
+    
+    $stmt = $conn->prepare($query);
+    $stmt->bind_param("i", $user_id);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $assessment = $result->fetch_assoc();
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -9,7 +37,7 @@ require_once '../../components/navbar.php';
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FCI FYP System - Assessment</title>
-    <!-- <link rel="stylesheet" href="../../index.css"> -->
+    <link rel="stylesheet" href="../../index.css">
     <link rel="stylesheet" href="./assessment-page.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <script src="../../assets/js/auth.js" defer></script>
@@ -20,110 +48,102 @@ require_once '../../components/navbar.php';
 <!-- Assessment Section -->
 <div class="section" id="assessment">
     <h2>Assessment Dashboard</h2>
-    <div class="assessment-overview">
-        <!-- Assessment Summary Cards -->
-        <div class="assessment-cards">
-            <div class="assessment-card">
-                <h3>Midterm Evaluation</h3>
-                <div class="score-display">
-                    <span class="score">85</span>/100
+    
+    <?php if ($role === 'student'): ?>
+        <?php if ($assessment): ?>
+            <div class="assessment-overview">
+                <!-- Assessment Summary Card -->
+                <div class="assessment-cards">
+                    <div class="assessment-card">
+                        <h3><?php echo htmlspecialchars($assessment['project_title']); ?></h3>
+                        <?php if ($assessment['total_marks']): ?>
+                            <div class="score-display">
+                                <span class="score"><?php echo number_format($assessment['total_marks'], 1); ?></span>/100
+                            </div>
+                            <div class="assessment-details">
+                                <p class="assessment-date">Submitted: <?php echo date('F j, Y', strtotime($assessment['assessment_date'])); ?></p>
+                                <p class="assessment-status completed">Completed</p>
+                            </div>
+                        <?php else: ?>
+                            <div class="score-display">
+                                <span class="score pending">Pending</span>
+                            </div>
+                            <div class="assessment-details">
+                                <p class="assessment-status upcoming">Not Assessed Yet</p>
+                            </div>
+                        <?php endif; ?>
+                    </div>
                 </div>
-                <div class="assessment-details">
-                    <p class="assessment-date">Submitted: March 15, 2024</p>
-                    <p class="assessment-status completed">Completed</p>
-                </div>
-                <button class="view-details-btn">View Details</button>
+
+                <?php if ($assessment['total_marks']): ?>
+                    <!-- Detailed Rubric Section -->
+                    <div class="rubric-container">
+                        <h3>Project Assessment Breakdown</h3>
+                        <div class="rubric-section">
+                            <div class="rubric-item">
+                                <div class="criteria">
+                                    <h4>Project Planning</h4>
+                                    <p>Clear objectives, timeline, and methodology</p>
+                                </div>
+                                <div class="score-breakdown">
+                                    <span class="points"><?php echo number_format($assessment['project_planning'], 1); ?>/25</span>
+                                </div>
+                            </div>
+
+                            <div class="rubric-item">
+                                <div class="criteria">
+                                    <h4>Technical Implementation</h4>
+                                    <p>Code quality, architecture, and functionality</p>
+                                </div>
+                                <div class="score-breakdown">
+                                    <span class="points"><?php echo number_format($assessment['technical_implementation'], 1); ?>/25</span>
+                                </div>
+                            </div>
+
+                            <div class="rubric-item">
+                                <div class="criteria">
+                                    <h4>Documentation</h4>
+                                    <p>Clear and comprehensive documentation</p>
+                                </div>
+                                <div class="score-breakdown">
+                                    <span class="points"><?php echo number_format($assessment['documentation'], 1); ?>/25</span>
+                                </div>
+                            </div>
+
+                            <div class="rubric-item">
+                                <div class="criteria">
+                                    <h4>Presentation</h4>
+                                    <p>Communication and demonstration skills</p>
+                                </div>
+                                <div class="score-breakdown">
+                                    <span class="points"><?php echo number_format($assessment['presentation'], 1); ?>/25</span>
+                                </div>
+                            </div>
+
+                            <div class="total-marks">
+                                <h4>Total Score: <?php echo number_format($assessment['total_marks'], 1); ?>/100</h4>
+                            </div>
+                        </div>
+
+                        <!-- Feedback Section -->
+                        <div class="feedback-section">
+                            <h3>Supervisor Feedback</h3>
+                            <div class="feedback-content">
+                                <p class="feedback-text"><?php echo nl2br(htmlspecialchars($assessment['feedback'])); ?></p>
+                                <p class="feedback-author">- <?php echo htmlspecialchars($assessment['supervisor_name']); ?></p>
+                                <p class="feedback-date"><?php echo date('F j, Y', strtotime($assessment['assessment_date'])); ?></p>
+                            </div>
+                        </div>
+                    </div>
+                <?php endif; ?>
             </div>
-            
-            <div class="assessment-card">
-                <h3>Final Evaluation</h3>
-                <div class="score-display">
-                    <span class="score pending">Pending</span>
-                </div>
-                <div class="assessment-details">
-                    <p class="assessment-date">Due: May 30, 2024</p>
-                    <p class="assessment-status upcoming">Upcoming</p>
-                </div>
-                <button class="view-details-btn">View Requirements</button>
+        <?php else: ?>
+            <div class="no-project">
+                <p>No project found. Please submit a project first.</p>
+                <a href="../projects/submit-project.php" class="btn">Submit Project</a>
             </div>
-
-            <div class="assessment-card">
-                <h3>Project Documentation</h3>
-                <div class="score-display">
-                    <span class="score">92</span>/100
-                </div>
-                <div class="assessment-details">
-                    <p class="assessment-date">Submitted: April 1, 2024</p>
-                    <p class="assessment-status completed">Completed</p>
-                </div>
-                <button class="view-details-btn">View Details</button>
-            </div>
-        </div>
-
-        <!-- Detailed Rubric Section -->
-        <div class="rubric-container">
-            <h3>Midterm Evaluation Breakdown</h3>
-            <div class="rubric-section">
-                <div class="rubric-item">
-                    <div class="criteria">
-                        <h4>Project Planning</h4>
-                        <p>Clear objectives, timeline, and methodology</p>
-                    </div>
-                    <div class="score-breakdown">
-                        <span class="points">18/20</span>
-                    </div>
-                </div>
-
-                <div class="rubric-item">
-                    <div class="criteria">
-                        <h4>Technical Implementation</h4>
-                        <p>Code quality, architecture, and functionality</p>
-                    </div>
-                    <div class="score-breakdown">
-                        <span class="points">25/30</span>
-                    </div>
-                </div>
-
-                <div class="rubric-item">
-                    <div class="criteria">
-                        <h4>Documentation</h4>
-                        <p>Clear and comprehensive documentation</p>
-                    </div>
-                    <div class="score-breakdown">
-                        <span class="points">22/25</span>
-                    </div>
-                </div>
-
-                <div class="rubric-item">
-                    <div class="criteria">
-                        <h4>Presentation</h4>
-                        <p>Communication and demonstration skills</p>
-                    </div>
-                    <div class="score-breakdown">
-                        <span class="points">20/25</span>
-                    </div>
-                </div>
-
-                <div class="total-marks">
-                    <h4>Total Score: 85/100</h4>
-                </div>
-            </div>
-
-            <!-- Feedback Section -->
-            <div class="feedback-section">
-                <h3>Supervisor Feedback</h3>
-                <div class="feedback-content">
-                    <p class="feedback-text">
-                        "Excellent project planning and implementation. Documentation is thorough and well-structured. 
-                        Consider improving the user interface design and adding more test cases. Overall, strong progress 
-                        and good understanding of the project requirements."
-                    </p>
-                    <p class="feedback-author">- Dr. Sarah Johnson</p>
-                    <p class="feedback-date">March 16, 2024</p>
-                </div>
-            </div>
-        </div>
-    </div>
+        <?php endif; ?>
+    <?php endif; ?>
 </div>
 
 <footer>
