@@ -90,76 +90,23 @@ h2 {
 
 /* Profile Container */
 .profile-container {
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
-    flex-direction: column;
+    width: 100%;
 }
 
 .profile-header {
-    display: flex;
-    align-items: center;
-    gap: 2rem;
-    padding-bottom: 2rem;
-}
-
-.profile-avatar {
-    position: relative;
-    width: 150px;
-    height: 150px;
-    margin-left: 15rem;
-}
-
-.profile-avatar img {
-    width: 150px;
-    height: 150px;
-    border-radius: 50%;
-    border: 3px solid #ddd;
-    object-fit: cover;
-}
-
-.change-avatar-btn {
-    position: absolute;
-    bottom: 0;
-    right: 0;
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    padding: 5px;
-    border-radius: 50%;
-    cursor: pointer;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    transition: background-color 0.3s;
-}
-
-.change-avatar-btn:hover {
-    background: green;
-}
-
-.change-avatar-btn input[type="file"] {
-    display: none;
+    width: 100%;
+    background: #f8f9fa;
+    border-radius: 8px;
+    margin-bottom: 30px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    padding: 30px 20px;
 }
 
 .profile-info {
-    margin-left: 1rem;
+    width: 100%;
+    text-align: center;
 }
 
-.profile-info h3 {
-    font-size: 1.5em;
-    margin: 0;
-}
-
-.profile-info p {
-    font-size: 1em;
-    color: black;
-}
-
-.user-role, .user-id {
-    font-size: 1em;
-    margin-top: 10px;
-}
 
 /* Form Styles */
 .profile-form {

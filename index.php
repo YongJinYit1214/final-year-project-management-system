@@ -1,8 +1,18 @@
 <?php
-session_start();
-require_once './auth/auth_check.php';
-require_once './components/navbar.php';
+    session_start();
+    require_once './auth/auth_check.php';
+    require_once './components/navbar.php';
+    require_once './db_connection.php';
+
+    $conn = OpenCon();
+
+    // Fetch announcements from database
+    $sql = "SELECT * FROM announcements ORDER BY created_at DESC LIMIT 5"; // Limit to 5 most recent
+    $result = mysqli_query($conn, $sql);
+
+    CloseCon($conn);
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -41,19 +51,22 @@ require_once './components/navbar.php';
         </div>
     <script src="assets\js\carousel-auto.js"></script>
     <div class="dashboard-grid">
-        <div class="dashboard-card announcements">
+        <div class="dashboard-card">
             <h3><i class="fas fa-bullhorn"></i>Announcements</h3>
-            <div class="announcement-list">
-                <div class="announcement">
-                    <h4>FYP Registration Deadline</h4>
-                    <p>Registration closes on March 30, 2024</p>
-                    <small>Posted: March 15, 2024</small>
-                </div>
-                <div class="announcement">
-                    <h4>Supervisor Assignment</h4>
-                    <p>Supervisor assignments will be finalized by April 5, 2024</p>
-                    <small>Posted: March 14, 2024</small>
-                </div>
+            <div class="announcements-container">
+                <?php if (mysqli_num_rows($result) > 0): ?>
+                    <?php while ($row = mysqli_fetch_assoc($result)): ?>
+                        <div class="announcement">
+                            <h4><?php echo htmlspecialchars($row['title']); ?></h4>
+                            <p><?php echo htmlspecialchars($row['content']); ?></p>
+                            <small>Posted: <?php echo date('M d, Y', strtotime($row['created_at'])); ?></small>
+                        </div>
+                    <?php endwhile; ?>
+                <?php else: ?>
+                    <div class="announcement">
+                        <p>No announcements available.</p>
+                    </div>
+                <?php endif; ?>
             </div>
         </div>
 
@@ -70,23 +83,37 @@ require_once './components/navbar.php';
                     <i class="fas fa-user-shield"></i> Admin Dashboard</a></li>
             </ul>
         </div>
-        <div class="dashboard-card upcoming-events">
-            <h3><i class="fas fa-calendar"></i> Upcoming Events</h3>
-            <div class="event-list">
-                <div class="event">
-                    <div class="event-date">MAR 25</div>
-                    <div class="event-details">
-                        <h4>Project Proposal Submission</h4>
-                        <p>Deadline: 11:59 PM</p>
-                    </div>
-                </div>
-                <div class="event">
-                    <div class="event-date">APR 01</div>
-                    <div class="event-details">
-                        <h4>FYP Orientation Session</h4>
-                        <p>Time: 2:00 PM - 4:00 PM</p>
-                    </div>
-                </div>
+        <div class="dashboard-card important-dates">
+            <h3><i class="fas fa-calendar-alt"></i> Upcoming Events</h3>
+            <div class="dates-list">
+                <?php
+                $conn = OpenCon();
+                $sql = "SELECT d.*, u.full_name as creator_name 
+                        FROM important_dates d 
+                        LEFT JOIN users u ON d.created_by = u.user_id 
+                        WHERE d.date >= CURDATE() 
+                        ORDER BY d.date ASC LIMIT 5";
+                $result = mysqli_query($conn, $sql);
+                
+                if (mysqli_num_rows($result) > 0) {
+                    while ($row = mysqli_fetch_assoc($result)) {
+                        echo '<div class="event">';
+                        echo '<div class="event-date">';
+                        echo '<span>' . date('M', strtotime($row['date'])) . '</span>';
+                        echo '<span>' . date('d', strtotime($row['date'])) . '</span>';
+                        echo '</div>';
+                        echo '<div class="event-details">';
+                        echo '<h4>' . htmlspecialchars($row['title']) . '</h4>';
+                        echo '<p>' . htmlspecialchars($row['description']) . '</p>';
+                        echo '<small>Posted by: ' . htmlspecialchars($row['creator_name'] ?? 'Unknown') . '</small>';
+                        echo '</div>';
+                        echo '</div>';
+                    }
+                } else {
+                    echo '<div class="event"><p>No upcoming events.</p></div>';
+                }
+                CloseCon($conn);
+                ?>
             </div>
         </div>
     </div>

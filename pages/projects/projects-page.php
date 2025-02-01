@@ -1,6 +1,8 @@
 <?php
+session_start();
 require_once '../../auth/auth_check.php';
 require_once '../../components/navbar.php';
+require_once '../../db_connection.php';
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -17,7 +19,9 @@ require_once '../../components/navbar.php';
     <?php echo getNavbar('projects'); ?>
 
     <div class="section">
-        <h2>Project Management</h2>
+        <div class="page-header">
+            <h2>Project Management</h2>
+        </div>
         
         <div class="project-actions-container">
             <!-- Submit to Supervisor Card -->
@@ -49,11 +53,103 @@ require_once '../../components/navbar.php';
                 <div class="action-icon">
                     <i class="fas fa-list"></i>
                 </div>
-                <h4>Available Project proposals</h4>
+                <h4>Available Project Proposals</h4>
                 <p>View the list of available project proposals.</p>
                 <button class="action-btn" onclick="window.location.href='view-projects.php'">
                     View Proposals
                 </button>
+            </div>
+        </div>
+
+        <!-- Add the presentation slots section here -->
+        <div class="panel-header">
+            <h3>Available Presentation Slots</h3>
+        </div>
+        <div class="presentation-slots-section">
+            <div class="table-responsive">
+                <?php
+                $conn = OpenCon();
+                $user_id = $_SESSION['user_id'];
+
+                // Check if student has already booked a slot
+                $check_booking = "SELECT ps.*, u.full_name as supervisor_name 
+                                 FROM presentations_slots ps 
+                                 LEFT JOIN users u ON ps.supervisor_id = u.user_id 
+                                 WHERE ps.user_id = ? AND ps.status = 'booked'";
+                $stmt = mysqli_prepare($conn, $check_booking);
+                mysqli_stmt_bind_param($stmt, "i", $user_id);
+                mysqli_stmt_execute($stmt);
+                $booked_result = mysqli_stmt_get_result($stmt);
+                $has_booking = mysqli_fetch_assoc($booked_result);
+
+                if ($has_booking) {
+                    echo "<div class='booked-slot-section'>
+                            <div class='section-header'>
+                                <h4>Your Presentation Schedule</h4>
+                            </div>
+                            <table class='submission-table'>
+                                <thead>
+                                    <tr>
+                                        <th>Date</th>
+                                        <th>Time</th>
+                                        <th>Supervisor</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>" . date('l, d M Y', strtotime($has_booking['slot_date'])) . "</td>
+                                        <td>" . date('h:i A', strtotime($has_booking['slot_time'])) . "</td>
+                                        <td>" . htmlspecialchars($has_booking['supervisor_name']) . "</td>
+                                        <td><span class='status-badge confirmed'>Confirmed</span></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                          </div>";
+                } else {
+                    // Show available slots with supervisor names
+                    $query = "SELECT ps.*, u.full_name as supervisor_name 
+                             FROM presentations_slots ps 
+                             LEFT JOIN users u ON ps.supervisor_id = u.user_id 
+                             WHERE ps.status = 'available' 
+                             AND ps.slot_date >= CURDATE()
+                             ORDER BY ps.slot_date ASC, ps.slot_time ASC";
+                    $result = mysqli_query($conn, $query);
+
+                    if (mysqli_num_rows($result) > 0) {
+                        ?>
+                        <table class="submission-table">
+                            <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Time</th>
+                                    <th>Supervisor</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php while ($slot = mysqli_fetch_assoc($result)) { ?>
+                                    <tr>
+                                        <td><?php echo date('d M Y', strtotime($slot['slot_date'])); ?></td>
+                                        <td><?php echo date('h:i A', strtotime($slot['slot_time'])); ?></td>
+                                        <td><?php echo htmlspecialchars($slot['supervisor_name'] ?? 'Not Assigned'); ?></td>
+                                        <td>
+                                            <button onclick="bookSlot(<?php echo $slot['presentation_slot_id']; ?>)" 
+                                                    class="action-btn">
+                                                <i class="fas fa-calendar-check"></i> Book Slot
+                                            </button>
+                                        </td>
+                                    </tr>
+                                <?php } ?>
+                            </tbody>
+                        </table>
+                        <?php
+                    } else {
+                        echo "<div class='alert alert-warning'>No presentation slots available at the moment.</div>";
+                    }
+                }
+                CloseCon($conn);
+                ?>
             </div>
         </div>
 
@@ -73,7 +169,6 @@ require_once '../../components/navbar.php';
             </thead>
             <tbody>
                 <?php
-                require_once "../../db_connection.php";
                 $conn = OpenCon();
                 $student_id = $_SESSION['user_id'];
                 
@@ -179,28 +274,6 @@ require_once '../../components/navbar.php';
             </tbody>
         </table>
 
-        <!-- Presentation Slot Booking -->
-        <div class="panel-header">
-            <h3>Presentation Slot Booking</h3>
-            <button class="book-slot-btn">
-                <i class="fas fa-plus"></i> Book Slot
-            </button>
-        </div>
-        <table class="booking-table">
-            <thead>
-                <tr>
-                    <th>Date</th>
-                    <th>Time</th>
-                    <th>Venue</th>
-                    <th>Supervisor</th>
-                    <th>Status</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                <!-- Add your booking data here -->
-            </tbody>
-        </table>
     </div>
 
     <!-- Supervisor Submission Modal -->
@@ -218,7 +291,6 @@ require_once '../../components/navbar.php';
                     <select id="supervisor" name="supervisor_id" required>
                         <option value="">Choose a supervisor</option>
                         <?php
-                        require_once "../../db_connection.php";
                         $conn = OpenCon();
                         $sql = "SELECT u.user_id, u.full_name, u.email 
                                FROM users u 
@@ -298,6 +370,7 @@ require_once '../../components/navbar.php';
         </div>
     </div>
 
+
     <script>
     function openModal(modalId) {
         document.getElementById(modalId).style.display = "block";
@@ -311,6 +384,12 @@ require_once '../../components/navbar.php';
     window.onclick = function(event) {
         if (event.target.className === 'modal') {
             event.target.style.display = "none";
+        }
+    }
+
+    function bookSlot(slotId) {
+        if (confirm('Are you sure you want to book this presentation slot?')) {
+            window.location.href = `book-presentation-slot.php?id=${slotId}`;
         }
     }
     </script>

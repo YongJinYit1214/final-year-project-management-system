@@ -1,5 +1,6 @@
 <?php
 require_once '../../db_connection.php';
+
 // Start the session if not already started
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
@@ -25,6 +26,10 @@ if (session_status() === PHP_SESSION_NONE) {
 
     <div class="section">
         <h2>Available Project Proposals</h2>
+
+        <div class="search-bar">
+            <input type="text" id="searchInput" placeholder="Search project proposal">
+        </div>
         
         <div class="projects-container">
             <?php
@@ -115,6 +120,46 @@ if (session_status() === PHP_SESSION_NONE) {
             }
         });
     });
+
+    // Add search function (Search available project proposals)
+    const searchInput = document.getElementById('searchInput');
+    const projectsContainer = document.querySelector('.projects-container');
+
+    // Variable to store timeout ID for debouncing (query rate limiting)
+    let searchTimeout;
+
+    // Add event listener for input changes in search box
+    searchInput.addEventListener('input', function() {
+        // Clear any existing timeout to implement debouncing
+        clearTimeout(searchTimeout);
+        
+        // Set a timeout to delay the search execution
+        // This prevents sending too many requests while user is still typing
+        searchTimeout = setTimeout(() => {
+            // Get the trimmed search term
+            const searchTerm = this.value.trim();
+            
+            // Make AJAX request to search-proposal.php with the search term
+            fetch(`search-proposal.php?search=${encodeURIComponent(searchTerm)}`)
+                .then(response => response.text())
+                .then(data => {
+                    // Update the projects container with search results
+                    projectsContainer.innerHTML = data;
+                    
+                    // Reattach event listeners to new apply buttons
+                    // This is necessary because the original buttons were replaced
+                    document.querySelectorAll('.apply-btn').forEach(button => {
+                        button.addEventListener('click', function() {
+                            const proposalId = this.dataset.proposalId;
+                            if (confirm('Are you sure you want to apply for this project?')) {
+                                window.location.href = `apply-project.php?proposal_id=${proposalId}`;
+                            }
+                        });
+                    });
+                })
+                .catch(error => console.error('Error:', error));
+        }, 300); // Add a 300ms delay to prevent too many requests
+    });
     </script>
 </body>
-</html> 
+</html>

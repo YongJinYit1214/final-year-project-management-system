@@ -641,3 +641,245 @@ footer p {
 .submit-project-btn i {
     font-size: 0.9rem;
 }
+
+/* Presentation Slots Section */
+.presentation-slots-section {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin: 20px;
+}
+
+.presentation-slots-section h3 {
+    color: #2c3e50;
+    margin-bottom: 20px;
+}
+
+.table-responsive {
+    overflow-x: auto;
+}
+
+.standard-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+    background: white;
+}
+
+.standard-table th,
+.standard-table td {
+    padding: 12px;
+    text-align: left;
+    border: 1px solid #ddd;
+}
+
+.standard-table th {
+    background-color: #0066cc;
+    color: white;
+    font-weight: 600;
+}
+
+.standard-table tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.standard-table tbody tr:hover {
+    background-color: #f5f5f5;
+}
+
+.book-button {
+    background-color: #28a745;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.3s ease;
+}
+
+.book-button:hover {
+    background-color: #218838;
+    transform: scale(1.05);
+}
+
+.book-button i {
+    font-size: 1rem;
+}
+
+.alert {
+    padding: 15px;
+    border-radius: 4px;
+    margin-bottom: 20px;
+}
+
+.alert-info {
+    background-color: #cce5ff;
+    border: 1px solid #b8daff;
+    color: #004085;
+}
+
+.alert-warning {
+    background-color: #fff3cd;
+    border: 1px solid #ffeeba;
+    color: #856404;
+}
+
+/* Booked Slot Card Styles */
+.booked-slot-card {
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    padding: 25px;
+    margin: 20px auto;
+    max-width: 600px;
+    border: 1px solid #e0e0e0;
+    border-left: 5px solid #28a745;
+}
+
+.booked-slot-header {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 25px;
+    padding-bottom: 15px;
+    border-bottom: 2px solid #f0f0f0;
+}
+
+.booked-slot-header i {
+    font-size: 28px;
+    color: #28a745;
+    background: #e8f5e9;
+    padding: 12px;
+    border-radius: 50%;
+}
+
+.booked-slot-header h4 {
+    margin: 0;
+    color: #1a237e;
+    font-size: 1.4rem;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+}
+
+.booked-slot-details {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 0 10px;
+}
+
+.detail-item {
+    display: flex;
+    align-items: center;
+    padding: 12px 15px;
+    background: #f8f9fa;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.detail-item:hover {
+    background: #f0f4f8;
+    transform: translateX(5px);
+}
+
+.detail-item i {
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #0066cc;
+    font-size: 1.1rem;
+    margin-right: 15px;
+}
+
+.detail-item span {
+    color: #666;
+    width: 100px;
+    font-size: 0.95rem;
+    font-weight: 500;
+}
+
+.detail-item strong {
+    color: #2c3e50;
+    font-weight: 600;
+    font-size: 1.05rem;
+    flex: 1;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .booked-slot-card {
+        margin: 15px;
+        padding: 20px;
+    }
+    
+    .booked-slot-header h4 {
+        font-size: 1.2rem;
+    }
+    
+    .detail-item {
+        padding: 10px;
+    }
+    
+    .detail-item span {
+        width: 80px;
+        font-size: 0.9rem;
+    }
+    
+    .detail-item strong {
+        font-size: 1rem;
+    }
+}
+
+.booked-slot-section {
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin: 20px;
+    padding: 20px;
+}
+
+.section-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+.section-header i {
+    font-size: 24px;
+    color: #28a745;
+    background: #e8f5e9;
+    padding: 10px;
+    border-radius: 50%;
+}
+
+.section-header h4 {
+    margin: 0;
+    color: #2c3e50;
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
+/* Update existing status-badge styles */
+.status-badge.confirmed {
+    background-color: #28a745;
+    color: white;
+}
+
+/* Update the section class */
+.section {
+    padding: 90px 20px 20px 20px; /* Increased top padding to 90px */
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* You can also add this class for better spacing */
+.page-header {
+    margin-bottom: 30px;
+}
