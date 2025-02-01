@@ -67,9 +67,8 @@ require_once './get-user.php';
     </div>
 </div>
 
-<footer>
-    <p>&copy; 2024 Faculty of Computing and Informatics, Multimedia University. All Rights Reserved.</p>
-</footer>
+<?php require_once '../../components/common/footer.php' ?>
+
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         // Select the first user by default
@@ -116,18 +115,31 @@ require_once './get-user.php';
                 .then(data => {
                     const chatMessages = document.querySelector('.chat-messages');
                     chatMessages.innerHTML = ''; // Clear existing messages
-                    data.forEach(message => {
-                        const messageDiv = document.createElement('div');
-                        messageDiv.classList.add('message', message.sender_id == <?php echo $_SESSION['user_id']; ?> ? 'sent' : 'received');
-                        messageDiv.innerHTML = `
-                            <div class="message-info">
-                                <span class="sender">${message.sender_name}</span>
-                                <span class="time">${message.sent_at}</span>
-                            </div>
-                            <div class="message-content">${message.message}</div>
-                        `;
-                        chatMessages.appendChild(messageDiv);
-                    });
+                    
+                    if (data.length === 0) {
+                        // Handle empty conversation
+                        const emptyMessageDiv = document.createElement('div');
+                        emptyMessageDiv.classList.add('empty-conversation');
+                        emptyMessageDiv.innerHTML = `<p>No messages yet. Start the conversation!</p>`;
+                        chatMessages.appendChild(emptyMessageDiv);
+                    } else {
+                        // Display messages
+                        data.forEach(message => {
+                            const messageDiv = document.createElement('div');
+                            messageDiv.classList.add('message', 
+                                message.sender_id == <?php echo $_SESSION['user_id']; ?> ? 'sent' : 'received'
+                            );
+                            messageDiv.innerHTML = `
+                                <div class="message-info">
+                                    <span class="sender">${message.sender_name}</span>
+                                    <span class="time">${message.sent_at}</span>
+                                </div>
+                                <div class="message-content">${message.message}</div>
+                            `;
+                            chatMessages.appendChild(messageDiv);
+                        });
+                    }
+
                     // Scroll to the bottom of the chat messages
                     chatMessages.scrollTop = chatMessages.scrollHeight;
                 })

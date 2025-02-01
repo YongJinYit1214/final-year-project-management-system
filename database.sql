@@ -242,7 +242,7 @@ CREATE INDEX idx_project_status ON projects(status);
 -- Insert supervisor user
 
 INSERT INTO users (email, password, full_name, role, phone_number, country_code)
-VALUES ('sarah.johnson@mmu.edu.my', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'Dr. Sarah Johnson', 'supervisor', '1234567890', '+60');
+VALUES ('supervisor@mmu.edu.my', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'Dr. Sarah Johnson', 'supervisor', '1234567890', '+60');
 
 SET @supervisor_id = LAST_INSERT_ID();
 

@@ -7,7 +7,6 @@ use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 use PHPMailer\PHPMailer\SMTP; 
 
-require_once "../../helper/pw-encryption.php";
 require_once '../../PHPMailer-master/src/Exception.php';
 require_once '../../PHPMailer-master/src/PHPMailer.php';
 require_once '../../PHPMailer-master/src/SMTP.php'; 
@@ -34,7 +33,7 @@ function sendEmail($subject, $body, $recipientEmail) {
 
     $user_id = $_SESSION['user_id'];
 
-    // Fetch sender email and encrypted SMTP password
+    // Fetch sender email and app password
     $stmt = $conn->prepare("SELECT smtp_pass, email FROM users WHERE user_id = ?");
     $stmt->bind_param("i", $user_id);
     $stmt->execute();
@@ -45,7 +44,6 @@ function sendEmail($subject, $body, $recipientEmail) {
         throw new Exception("User not found.");
     }
 
-    // $smtp_password = Encryption::decrypt($user['smtp_pass']); 
     $smtp_password = $user['smtp_pass'];
     $senderEmail = $user['email'];
 
@@ -57,7 +55,7 @@ function sendEmail($subject, $body, $recipientEmail) {
         $mail->SMTPAuth = true;
         $mail->Username = $senderEmail;
         $mail->Password = $smtp_password;
-        $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS; // Ensure secure connection
+        $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS; 
         $mail->Port = 587;
 
         // Recipients

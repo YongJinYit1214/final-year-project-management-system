@@ -55,16 +55,20 @@ require_once "./fetch-feedback.php";
             <div class="feedback-list">
                 <?php
                     $result = getAllFeedbacks();
-                    while ($row = $result->fetch_assoc()) {
-                        echo "<div class='feedback-item'>";
-                        echo "<div class='feedback-header'>";
-                        echo "<h4 class='feedback-subject'><i class='fas fa-comment'></i> ".$row['title']."</h4>";
-                        echo "<p class='feedback-description'>".$row['feedback']."</p>";
-                        echo "</div>";
-                        echo "<div class='feedback-footer'>";
-                        echo "<span class='feedback-date'><i class='fas fa-calendar-alt'></i> Submitted: ".$row['created_at']."</span>";
-                        echo "</div>";
-                        echo "</div>";
+                    if ($result->num_rows === 0) {
+                        echo "<p>No previous feedbacks found.</p>";
+                    } else {
+                        while ($row = $result->fetch_assoc()) {
+                            echo "<div class='feedback-item'>";
+                            echo "<div class='feedback-header'>";
+                            echo "<h4 class='feedback-subject'><i class='fas fa-comment'></i> ".$row['title']."</h4>";
+                            echo "<p class='feedback-description'>".$row['feedback']."</p>";
+                            echo "</div>";
+                            echo "<div class='feedback-footer'>";
+                            echo "<span class='feedback-date'><i class='fas fa-calendar-alt'></i> Submitted: ".$row['created_at']."</span>";
+                            echo "</div>";
+                            echo "</div>";
+                        }
                     }
                 ?>
             </div>
