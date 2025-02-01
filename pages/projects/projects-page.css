@@ -132,27 +132,42 @@ h2, h3, h4 {
     flex-wrap: wrap;
     justify-content: center;
     padding: 20px;
+    max-width: 1400px;
+    margin: 0 auto;
 }
 
-/*View Available Projects, Submit to Supervisor, Submit to Admin, Project Timeline*/
 .action-card h4 {
     padding-left: 0px;
+    font-size: 1.3rem;
+    margin: 15px 0;
+    color: #333;
 }
 
 .action-card {
-    flex: 1 1 calc(25% - 40px);
-    max-width: 300px;
+    flex: 1 1 calc(33.333% - 40px);
+    min-width: 300px;
+    max-width: 400px;
     border: 1px solid #ddd;
-    border-radius: 10px;
+    border-radius: 15px;
     background-color: #ffffff;
     text-align: center;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    padding: 15px;
-    transition: transform 0.2s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 25px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    margin: 10px;
 }
 
 .action-card:hover {
     transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.action-card p {
+    color: #666;
+    font-size: 1rem;
+    line-height: 1.5;
+    margin: 15px 0;
+    min-height: 48px;
 }
 
 .action-icon {
@@ -160,51 +175,35 @@ h2, h3, h4 {
     border: none;
     color: #e92135;
     cursor: pointer;
-    padding: 4px;
-    margin: 0 2px;
-    border-radius: 4px;
-    transition: all 0.2s ease;
-    font-size: 0.9rem;
+    padding: 15px;
+    margin: 10px 0;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+    display: inline-block;
 }
 
 .action-icon i {
-    font-size: 2rem;
-}
-
-.action-icon2 {
-    background: none;
-    border: none;
-    color: black;
-    cursor: pointer;
-    padding: 4px;
-    margin: 0 2px;
-    border-radius: 4px;
-    transition: all 0.2s ease;
-    font-size: 1rem;
-}
-
-.action-icon:hover {
-    background: rgba(37, 99, 235, 0.1);
-    transform: translateY(-1px);
+    font-size: 2.5rem;
 }
 
 .action-btn {
-    margin-top: 10px;
-    padding: 10px 20px;
+    margin-top: 20px;
+    padding: 12px 30px;
     background-color: #0066cc;
     color: white;
     border: none;
-    border-radius: 5px;
+    border-radius: 8px;
     cursor: pointer;
-    font-size: 14px;
-    font-weight: bold;
-    transition: background-color 0.3s ease, transform 0.3s ease;
+    font-size: 1rem;
+    font-weight: 500;
+    transition: all 0.3s ease;
     text-decoration: none;
+    display: inline-block;
 }
 
 .action-btn:hover {
     background-color: #004c99;
-    transform: scale(1.15);
+    transform: scale(1.05);
 }
 
 /* Available Projects */
@@ -882,4 +881,22 @@ footer p {
 /* You can also add this class for better spacing */
 .page-header {
     margin-bottom: 30px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 1200px) {
+    .action-card {
+        flex: 1 1 calc(50% - 40px);
+    }
+}
+
+@media (max-width: 768px) {
+    .action-card {
+        flex: 1 1 100%;
+        max-width: none;
+    }
+    
+    .project-actions-container {
+        padding: 10px;
+    }
 }
