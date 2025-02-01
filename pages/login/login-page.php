@@ -73,13 +73,6 @@ require_once '../../components/navbar.php';
                         <i class="fas fa-eye"></i>
                     </button>
                 </div>
-                <div class="form-options">
-                    <label class="remember-me">
-                        <input type="checkbox" name="remember">
-                        Remember me
-                    </label>
-                    <a href="forgot-password.php" class="forgot-password">Forgot Password?</a>
-                </div>
                 <button type="submit">Login</button>
                 <p class="form-footer">Don't have an account? <a href="../register/register-page.php">Register here</a></p>
             </form>
