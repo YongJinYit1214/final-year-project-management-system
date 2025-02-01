@@ -35,6 +35,54 @@ require_once '../../auth/auth_check.php';
         .back-btn i {
             font-size: 16px;
         }
+
+        /* New styles for action buttons */
+        .action-btn {
+            padding: 6px 12px;
+            margin: 0 4px;
+            font-size: 14px;
+            min-width: 80px;
+        }
+
+        .approve-btn {
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .reject-btn {
+            background-color: #dc3545;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .approve-btn:hover {
+            background-color: #218838;
+        }
+
+        .reject-btn:hover {
+            background-color: #c82333;
+        }
+
+        /* Adjust table cell padding */
+        .submission-table td {
+            padding: 12px 15px;
+            vertical-align: middle;
+        }
+
+        /* Add flex container for buttons */
+        .button-container {
+            display: flex;
+            gap: 8px;
+            justify-content: flex-start;
+            align-items: center;
+        }
     </style>
 </head>
 <body>
@@ -123,8 +171,10 @@ require_once '../../auth/auth_check.php';
                     echo "<td>" . htmlspecialchars($row['status']) . "</td>";
                     echo "<td>";
                     if ($row['status'] === 'pending') {
+                        echo "<div class='button-container'>";
                         echo "<button onclick='approveProposal(" . $row['proposal_id'] . ")' class='action-btn approve-btn'>Approve</button>";
                         echo "<button onclick='rejectProposal(" . $row['proposal_id'] . ")' class='action-btn reject-btn'>Reject</button>";
+                        echo "</div>";
                     }
                     echo "</td>";
                     echo "</tr>";
