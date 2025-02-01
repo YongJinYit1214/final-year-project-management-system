@@ -1,6 +1,26 @@
 <?php
 require_once '../../auth/auth_check.php';
 require_once '../../components/navbar.php';
+require_once '../../db_connection.php';
+
+$conn = OpenCon();
+
+require_once 'fetch-goals.php';
+$goalsData = fetchGoals();
+
+// Fetch total and completed goals
+$query = "SELECT COUNT(*) AS total_goals, 
+                 SUM(CASE WHEN status = 'completed' THEN 1 ELSE 0 END) AS completed_goals
+          FROM goals WHERE user_id = ?";
+$stmt = $conn->prepare($query);
+$user_id = $_SESSION['user_id'];
+$stmt->bind_param("i", $user_id);
+$stmt->execute();
+$result = $stmt->get_result();
+$goal_data = $result->fetch_assoc();
+$completed_goals = $goal_data['completed_goals'] ?? 0;
+$total_goals = $goal_data['total_goals'] ?? 0;
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -23,20 +43,9 @@ require_once '../../components/navbar.php';
     <div class="progress-overview">
         <div class="progress-stats">
             <div class="stat-card">
-                <h3>Overall Progress</h3>
-                <div class="progress-circle" data-progress="65">
-                    <span class="progress-text">65%</span>
-                </div>
-            </div>
-            <div class="stat-card">
                 <h3>Completed Tasks</h3>
-                <p class="stat-number">13/20</p>
+                <p class="stat-number"><?php echo $completed_goals; ?>/<?php echo $total_goals ?></p>
                 <p class="stat-subtitle">Tasks Completed</p>
-            </div>
-            <div class="stat-card">
-                <h3>Next Milestone</h3>
-                <p class="milestone-date">May 15, 2024</p>
-                <p class="milestone-title">Project Presentation</p>
             </div>
         </div>
         <div class="project-timeline">
@@ -53,51 +62,60 @@ require_once '../../components/navbar.php';
         </div>
         
         <div class="goals-container">
-            <div class="current-week">
-                <h4>Current Week Goals (Week of April 8, 2024)</h4>
-                <div class="goals-list" id="currentWeekGoals">
-                    <div class="goal-item high">
+        <div class="goals-list" id="currentWeekGoals">
+            <?php if (empty($goalsData)): ?>
+                <p class="empty-message">No goals available. Start by adding a new goal!</p>
+                <?php else: ?>
+                    <?php foreach ($goalsData as $goal): ?>
+                    <div class="goal-item">
                         <div class="goal-header">
-                            <h5>Complete Database Design</h5>
-                            <span class="goal-priority priority-high">High Priority</span>
+                            <h5><?php echo $goal['goal']; ?></h5>
+                            <span class="goal-priority priority-<?php echo $goal['status']; ?>">
+                                <?php echo ucfirst(str_replace('_', ' ', $goal['status'])); ?>
+                            </span>
                         </div>
-                        <p class="goal-description">Finalize ERD and implement database schema</p>
                         <div class="goal-footer">
-                            <span class="goal-deadline"><i class="fas fa-calendar"></i> Due: April 12, 2024</span>
-                            <span class="goal-progress">Progress: 75%</span>
+                            <span class="goal-deadline"><i class="fas fa-calendar"></i> Due: <?php echo date('F j, Y', strtotime($goal['due_date'])); ?></span>
+                            <button class="edit-goal-btn" data-goal-id="<?php echo $goal['goal_id']; ?>">Edit</button>
+                            <button class="delete-goal-btn" data-goal-id="<?php echo $goal['goal_id']; ?>">Delete</button>
                         </div>
                     </div>
+                    <?php endforeach; ?>
+                <?php endif; ?>
+            </div>
 
-                    <div class="goal-item medium">
-                        <div class="goal-header">
-                            <h5>User Interface Testing</h5>
-                            <span class="goal-priority priority-medium">Medium Priority</span>
-                        </div>
-                        <p class="goal-description">Conduct usability testing with 5 participants</p>
-                        <div class="goal-footer">
-                            <span class="goal-deadline"><i class="fas fa-calendar"></i> Due: April 14, 2024</span>
-                            <span class="goal-progress">Progress: 30%</span>
-                        </div>
+            <!-- Edit Goal Modal -->
+            <div class="modal" id="editGoalModal">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3>Edit Goal</h3>
+                        <button class="close-btn">&times;</button>
                     </div>
+                    <form id="editGoalForm" action="edit-goal.php" method="post">
+                        <input type="hidden" id="editGoalId" name="goal_id">
+                        <div class="form-group">
+                            <label for="editGoalTitle">Goal Title</label>
+                            <input type="text" id="editGoalTitle" name="goal" required placeholder="Enter goal title">
+                        </div>
+                        <div class="form-group">
+                            <label for="editGoalDeadline">Deadline</label>
+                            <input type="date" id="editGoalDeadline" name="due_date" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="editGoalStatus">Status</label>
+                            <select id="editGoalStatus" name="status" required>
+                                <option value="not_started">Not Started</option>
+                                <option value="in_progress">In Progress</option>
+                                <option value="completed">Completed</option>
+                            </select>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" class="save-btn">Save Changes</button>
+                        </div>
+                    </form>
                 </div>
             </div>
-            
-            <div class="previous-goals">
-                <h4>Previous Weeks</h4>
-                <div class="goals-list" id="previousWeekGoals">
-                    <div class="goal-item completed">
-                        <div class="goal-header">
-                            <h5>Requirements Analysis</h5>
-                            <span class="goal-priority priority-high">Completed</span>
-                        </div>
-                        <p class="goal-description">Document all functional and non-functional requirements</p>
-                        <div class="goal-footer">
-                            <span class="goal-deadline"><i class="fas fa-calendar-check"></i> Completed: April 5, 2024</span>
-                            <span class="goal-progress">Progress: 100%</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
+
         </div>
 
         <!-- Goal Setting Modal -->
@@ -107,30 +125,17 @@ require_once '../../components/navbar.php';
                     <h3>Set Weekly Goal</h3>
                     <button class="close-btn">&times;</button>
                 </div>
-                <form id="goalForm">
+                <form id="goalForm" action="create-goal.php" method="post">
                     <div class="form-group">
                         <label for="goalTitle">Goal Title</label>
-                        <input type="text" id="goalTitle" required placeholder="Enter goal title">
-                    </div>
-                    <div class="form-group">
-                        <label for="goalDescription">Description</label>
-                        <textarea id="goalDescription" rows="3" placeholder="Describe your goal"></textarea>
+                        <input type="text" id="goalTitle" name="goal" required placeholder="Enter goal title">
                     </div>
                     <div class="form-group">
                         <label for="goalDeadline">Deadline</label>
-                        <input type="date" id="goalDeadline" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="goalPriority">Priority</label>
-                        <select id="goalPriority" required>
-                            <option value="high">High</option>
-                            <option value="medium">Medium</option>
-                            <option value="low">Low</option>
-                        </select>
+                        <input type="date" id="goalDeadline" name="due_date" required>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="cancel-btn">Cancel</button>
-                        <button type="submit" class="save-btn">Save Goal</button>
+                        <button type="submit" class="save-btn">Create Goal</button>
                     </div>
                 </form>
             </div>
@@ -138,6 +143,82 @@ require_once '../../components/navbar.php';
     </div>
 </div>
 </body>
+<script>
+document.getElementById('addGoalBtn').addEventListener('click', function() {
+    document.getElementById('goalModal').style.display = 'block';
+});
+
+// Use delegation to handle close buttons correctly
+document.querySelectorAll('.close-btn').forEach(function(closeBtn) {
+    closeBtn.addEventListener('click', function() {
+        // Close the modal that triggered the event
+        this.closest('.modal').style.display = 'none';
+    });
+});
+
+// Open edit modal for editing goal details
+document.querySelectorAll('.edit-goal-btn').forEach(button => {
+    button.addEventListener('click', function() {
+        const goalId = this.getAttribute('data-goal-id');
+        
+        // Get the current goal data (goal title, deadline, status)
+        const goalItem = this.closest('.goal-item');
+        const title = goalItem.querySelector('h5').textContent;
+        const deadline = goalItem.querySelector('.goal-deadline').textContent.split(": ")[1];
+        const status = goalItem.querySelector('.goal-priority').textContent.toLowerCase().replace(" ", "_");
+
+        // Pre-fill the form with the goal data
+        document.getElementById('editGoalId').value = goalId;
+        document.getElementById('editGoalTitle').value = title;
+        // Ensure the deadline is in the correct format for <input type="date">
+        const formattedDate = new Date(deadline).toISOString().split('T')[0]; // Convert to YYYY-MM-DD
+        document.getElementById('editGoalDeadline').value = formattedDate;
+
+        // Open the edit modal
+        document.getElementById('editGoalModal').style.display = 'block';
+    });
+});
+
+// Close the modal when clicking outside of the modal content area
+window.addEventListener('click', function(event) {
+    const editModal = document.getElementById('editGoalModal');
+    const goalModal = document.getElementById('goalModal');
+    if (event.target === editModal) {
+        editModal.style.display = 'none';
+    }
+    if (event.target === goalModal) {
+        goalModal.style.display = 'none';
+    }
+});
+
+document.querySelectorAll('.delete-goal-btn').forEach(button => {
+    button.addEventListener('click', function() {
+        const goalId = this.getAttribute('data-goal-id');
+
+        if (confirm("Are you sure you want to delete this goal?")) {
+            fetch('delete-goal.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                body: `goal_id=${goalId}`
+            })
+            .then(response => response.text())
+            .then(data => {
+                if (data.includes("Error")) {
+                    alert("Failed to delete goal.");
+                } else {
+                    window.location.reload(); // Refresh page to reflect changes
+                }
+            })
+            .catch(error => console.error('Error:', error));
+        }
+    });
+});
+
+
+</script>
+
 <footer>
     <p>&copy; 2024 Faculty of Computing and Informatics, Multimedia University. All Rights Reserved.</p>
 </footer>

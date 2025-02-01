@@ -163,6 +163,7 @@ body {
     border: 1px solid #ddd;
     border-radius: 8px;
     font-size: 1rem;
+    resize: vertical;
 }
 
 /* Button Styles */
@@ -182,35 +183,6 @@ body {
     padding: 0.8rem 1.5rem;
     border-radius: 8px;
     cursor: pointer;
-}
-
-/* Progress Circle */
-.progress-circle {
-    width: 120px;
-    height: 120px;
-    border-radius: 50%;
-    background: conic-gradient(var(--primary-color) 65%, #e5e7eb 0);
-    margin: 1rem auto;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-}
-
-.progress-circle::before {
-    content: '';
-    position: absolute;
-    width: 90px;
-    height: 90px;
-    background: white;
-    border-radius: 50%;
-}
-
-.progress-text {
-    position: relative;
-    font-size: 1.5rem;
-    font-weight: bold;
-    color: var(--primary-color);
 }
 
 .stat-subtitle {
@@ -424,4 +396,30 @@ footer p {
     margin: 0;
     color: #666;
     font-size: 0.9rem;
+}
+
+/* Edit Button */
+.edit-goal-btn {
+    background-color: #f0ad4e;
+    color: white;
+    padding: 5px 10px;
+    border: none;
+    cursor: pointer;
+}
+
+.edit-goal-btn:hover {
+    background-color: #ec971f;
+}
+
+/* Delete Button */
+.delete-goal-btn {
+    background-color: #d9534f;
+    color: white;
+    padding: 5px 10px;
+    border: none;
+    cursor: pointer;
+}
+
+.delete-goal-btn:hover {
+    background-color: #c9302c;
 }

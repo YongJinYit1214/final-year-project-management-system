@@ -213,7 +213,8 @@ CREATE   TABLE goals(
     goal_id INT PRIMARY KEY AUTO_INCREMENT,
     user_id INT,
     goal TEXT NOT NULL,
-    status ENUM('not_started','ongoing', 'completed') DEFAULT 'ongoing',
+    status ENUM('not_started','ongoing', 'completed') DEFAULT 'not_started',
+    due_date DATE,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE
 );
