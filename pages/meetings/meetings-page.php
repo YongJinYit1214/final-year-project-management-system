@@ -120,4 +120,63 @@ function calculateDuration($startTime, $endTime) {
         <p>&copy; 2024 Faculty of Computing and Informatics, Multimedia University. All Rights Reserved.</p>
     </footer>
 </body>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+    const scheduleButton = document.getElementById("scheduleNewMeeting");
+    const modal = document.getElementById("emailModal");
+    const closeModal = document.querySelector(".close-btn");
+    const meetingForm = document.getElementById("meetingForm");
+    const meetingDate = document.getElementById("meetingDate");
+
+    // Open Modal when clicking "Schedule Meeting"
+    if (scheduleButton) {
+        scheduleButton.addEventListener("click", function () {
+            modal.style.display = "block";
+        });
+    }
+
+    // Close Modal when clicking "X" button
+    if (closeModal) {
+        closeModal.addEventListener("click", function () {
+            modal.style.display = "none";
+        });
+    }
+
+    // Close Modal when clicking outside of it
+    window.addEventListener("click", function (event) {
+        if (event.target === modal) {
+            modal.style.display = "none";
+        }
+    });
+
+    // Disable past dates in the date picker
+    if (meetingDate) {
+        let today = new Date().toISOString().split("T")[0];
+        meetingDate.setAttribute("min", today);
+    }
+
+    // Form Validation
+    if (meetingForm) {
+        meetingForm.addEventListener("submit", function (event) {
+            let title = document.getElementById("meetingTitle").value.trim();
+            let date = meetingDate.value;
+            let startTime = document.getElementById("meetingStartTime").value;
+            let endTime = document.getElementById("meetingEndTime").value;
+            let location = document.getElementById("meetingLocation").value;
+
+            if (!title || !date || !startTime || !endTime || !location) {
+                alert("Please fill in all required fields.");
+                event.preventDefault();
+            }
+
+            if (startTime >= endTime) {
+                alert("End time must be later than start time.");
+                event.preventDefault();
+            }
+        });
+    }
+});
+
+</script>
 </html>
