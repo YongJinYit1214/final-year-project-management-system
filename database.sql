@@ -160,7 +160,7 @@ CREATE   TABLE forums(
     FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE
 );
 
-CREATE   TABLE forum_comments(
+CREATE TABLE forum_comments(
     comment_id INT PRIMARY KEY AUTO_INCREMENT,
     forum_id INT,
     user_id INT,
@@ -170,7 +170,7 @@ CREATE   TABLE forum_comments(
     FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE
 );
 
-CREATE   TABLE meetings(
+CREATE TABLE meetings(
     meeting_id INT PRIMARY KEY AUTO_INCREMENT,
     user_id INT,
     title VARCHAR(255) NOT NULL,
