@@ -90,8 +90,6 @@ CloseCon($conn);
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
 </head>
 <body>
-    <?php echo getNavbar('admin'); ?>
-    <br>
     <div class="back-button">
         <a href="./admin-dashboard-page.php" title="Back to Dashboard">
             <i class="fas fa-arrow-left"></i> Back to Dashboard

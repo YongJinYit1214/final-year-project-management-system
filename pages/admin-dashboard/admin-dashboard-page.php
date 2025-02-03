@@ -61,7 +61,12 @@ CloseCon($conn);
     </style>
 </head>
 <body>
-<?php echo getNavbar('admin'); ?>
+
+<div class="back-button">
+        <a href="../../index.php" title="Back to Home Page">
+            <i class="fas fa-arrow-left"></i> Back to Home Page
+        </a>
+</div>
 
 <?php
 // Display error message if exists
