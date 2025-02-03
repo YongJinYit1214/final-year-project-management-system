@@ -44,8 +44,20 @@ function sendEmail($subject, $body, $recipientEmail) {
         throw new Exception("User not found.");
     }
 
+    // Fetch sender email and app password
+    $stmt = $conn->prepare("SELECT user_id FROM users WHERE email = ?");
+    $stmt->bind_param("s", $recipientEmail);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $receiver = $result->fetch_assoc();
+
+    if (!$receiver) {
+        throw new Exception("User not found.");
+    }
+
     $smtp_password = $user['smtp_pass'];
     $senderEmail = $user['email'];
+    $receiver_id = $receiver['user_id'];
 
     $mail = new PHPMailer(true);
 

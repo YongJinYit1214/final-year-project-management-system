@@ -269,3 +269,23 @@ SET @student_id = LAST_INSERT_ID();
 INSERT INTO students (student_id, matric_number, course)
 VALUES (@student_id, '1234567890', 'Software Engineering');
 
+-- Insert student user (Email purpose)
+
+INSERT INTO users (email, password, smtp_pass, full_name, role, phone_number, country_code)
+VALUES ('limtzeyou@gmail.com', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'sdbi ojrm aotd iwdz','Lim Tze You', 'student', '168396802', '+60');
+
+SET @student_id = LAST_INSERT_ID();
+
+INSERT INTO students (student_id, matric_number, course)
+VALUES (@student_id, '1221301879', 'Software Engineering');
+
+-- Insert supervisor user (Email purpose)
+
+INSERT INTO users (email, password, full_name, role, phone_number, country_code)
+VALUES ('tzeyoulim00@gmail.com', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'Supervisor Lim', 'supervisor', '1234567890', '+60');
+
+SET @supervisor_id = LAST_INSERT_ID();
+
+INSERT INTO supervisors (supervisor_id, expertise)
+VALUES (@supervisor_id, 'Artificial Intelligence, Machine Learning, Data Science');
+
