@@ -23,7 +23,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $errorMessage = "Error: " . $stmt->error;
     }
 
-    header("Location: meetings-student.php");
+    header("Location: meetings-page.php");
     $stmt->close();
 }
 

@@ -85,6 +85,7 @@ $log_exists = !empty($existing_log);
                     <?php if ($user_role === 'supervisor'): ?>
                         <form action="add-comment.php" method="POST">
                             <input type="hidden" name="log_id" value="<?php echo $log['meeting_log_id']; ?>">
+                            <input type="hidden" name="meeting_id" id="meeting_id" value="<?php echo $meeting_id ?>">
                             <label for="comment">Add Comment:</label>
                             <textarea name="comment" required></textarea>
                             <button type="submit" class="submit-btn">Add Comment</button>
@@ -118,6 +119,31 @@ $log_exists = !empty($existing_log);
     </div>
 
     <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const newMeetingLogBtn = document.getElementById("newMeetingLog");
+            const logModal = document.getElementById("logModal");
+            const closeBtn = document.querySelector("#logModal .close-btn");
+
+            if (newMeetingLogBtn) {
+                newMeetingLogBtn.addEventListener("click", function () {
+                    logModal.style.display = "block";
+                });
+            }
+
+            if (closeBtn) {
+                closeBtn.addEventListener("click", function () {
+                    logModal.style.display = "none";
+                });
+            }
+
+            // Close modal when clicking outside the modal content
+            window.addEventListener("click", function (event) {
+                if (event.target === logModal) {
+                    logModal.style.display = "none";
+                }
+            });
+        });
+
         function openEditModal(log) {
             document.getElementById("log_id").value = log.meeting_log_id;
             document.getElementById("edit_work_done").value = log.work_done;

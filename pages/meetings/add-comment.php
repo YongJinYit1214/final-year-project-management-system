@@ -14,6 +14,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['comment'])) {
 
     $stmt->close();
     CloseCon($conn);
+    header("Location: meetings-page.php");
 }
 
 ?>

@@ -9,6 +9,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     $log_id = $_POST['log_id'];
+    $meeting_id = $_POST['meeting_id'];
     $work_done = $_POST['work_done'];
     $future_work = $_POST['future_work'];
     $other = $_POST['other'];
@@ -16,7 +17,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $update_success = updateMeetingLog($log_id, $work_done, $future_work, $other);
 
     if ($update_success) {
-        header("Location: meeting-log-details.php?meeting_id=" . $_POST['meeting_id']);
+        header("Location: meetings-page.php");
         exit;
     } else {
         echo "Error updating log!";
@@ -24,7 +25,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 }
 
 function updateMeetingLog($log_id, $work_done, $future_work, $other) {
-    require "db.php";
+    require_once "../../db_connection.php";
+    $conn = OpenCon();
     $sql = "UPDATE meeting_logs SET work_done=?, future_work=?, other=? WHERE meeting_log_id=?";
     $stmt = $conn->prepare($sql);
     return $stmt->execute([$work_done, $future_work, $other, $log_id]);
