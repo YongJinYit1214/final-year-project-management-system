@@ -18,8 +18,13 @@ $conn = OpenCon(); // Establish database connection
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <script src="../../assets/js/auth.js" defer></script>
 </head>
+
 <body>
-<?php echo getNavbar('supervisor'); ?>
+<div class="back-button">
+        <a href="../../index.php" title="Back to Home Page">
+            <i class="fas fa-arrow-left"></i> Back to Home Page
+        </a>
+</div>
 
 <?php
 // Display error message if exists
