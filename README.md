@@ -16,7 +16,7 @@ Before setting up the PHP website, ensure you have the following installed:
 3. Start XAMPP Control Panel and ensure **Apache** and **MySQL** are running.
 
 ### Step 2: Configure the PHP Website
-1. Copy your PHP project folder into the `htdocs` directory located in your XAMPP installation directory (e.g., `C:\xampp\htdocs\mywebsite`).
+1. Copy your PHP project folder into the `htdocs` directory located in your XAMPP installation directory (e.g., `C:\xampp\htdocs\fyp-system`).
 2. Open XAMPP Control Panel and start **Apache** and **MySQL**.
 
 ### Step 3: Set Up the MySQL Database
