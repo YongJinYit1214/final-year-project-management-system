@@ -1,7 +1,10 @@
 <?php
 require_once '../../auth/auth_check.php';
+require_once '../../auth/role_check.php';
 require_once '../../components/navbar.php';
 require_once '../../db_connection.php';
+$hasAccess = checkStudentRole();
+
 $conn = OpenCon();
 
 // Get user's role and ID
@@ -41,9 +44,33 @@ if ($role === 'student') {
     <link rel="stylesheet" href="./assessment-page.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <script src="../../assets/js/auth.js" defer></script>
+    <style>
+        .alert {
+            padding: 15px;
+            margin: 20px;
+            border: 1px solid transparent;
+            border-radius: 4px;
+        }
+        .alert-error {
+            margin-top: 100px;
+            color: #721c24;
+            background-color: #f8d7da;
+            border-color: #f5c6cb;
+        }
+    </style>
 </head>
 <body>
 <?php echo getNavbar('assessment'); ?>
+
+<?php
+// Display error message if exists
+if (isset($_SESSION['error_message'])) {
+    echo '<div class="alert alert-error">' . htmlspecialchars($_SESSION['error_message']) . '</div>';
+    unset($_SESSION['error_message']); // Clear the message after displaying
+}
+?>
+
+<?php if ($hasAccess): ?>
 
 <!-- Assessment Section -->
 <div class="section" id="assessment">
@@ -140,12 +167,12 @@ if ($role === 'student') {
         <?php else: ?>
             <div class="no-project">
                 <p>No project found. Please submit a project first.</p>
-                <a href="../projects/submit-project.php" class="btn">Submit Project</a>
+                <a href="../projects/submit-project.php" class="submit-project-btn">Submit Project</a>
             </div>
         <?php endif; ?>
     <?php endif; ?>
 </div>
-
+<?php endif; ?>
 <footer>
     <p>&copy; 2024 Faculty of Computing and Informatics, Multimedia University. All Rights Reserved.</p>
 </footer>

@@ -323,3 +323,28 @@ footer p {
     color: #666;
     font-size: 0.9rem;
 }
+
+/* Submit Project button */
+.submit-project-btn {
+    margin-top: 10px;
+    margin-left: 1.5rem;
+    padding: 10px 20px;
+    background-color: #0066cc;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: bold;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    text-decoration: none;
+}
+
+.submit-project-btn:hover {
+    background-color: #004c99;
+    transform: scale(1.15);
+}
+
+.no-project p {
+    margin-left: 1.5rem;
+}

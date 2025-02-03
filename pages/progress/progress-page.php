@@ -42,6 +42,7 @@ $total_goals = $goal_data['total_goals'] ?? 0;
             border-radius: 4px;
         }
         .alert-error {
+            margin-top: 50px;
             color: #721c24;
             background-color: #f8d7da;
             border-color: #f5c6cb;
