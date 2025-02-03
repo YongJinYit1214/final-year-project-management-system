@@ -1,6 +1,5 @@
 <?php
 require_once '../../auth/auth_check.php';
-require_once '../../components/navbar.php';
 require_once '../../db_connection.php';
 $conn = OpenCon();
 
@@ -44,7 +43,6 @@ if (!$assessment) {
     <link rel="stylesheet" href="./projects-page.css">
 </head>
 <body>
-    <?php echo getNavbar('supervisor'); ?>
     
     <div class="section">
         <div class="assessment-header">
