@@ -58,3 +58,5 @@ if (isset($_GET['id'])) {
 
 header("Location: projects-page.php");
 exit(); 
+
+?>
