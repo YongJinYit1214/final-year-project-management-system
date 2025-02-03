@@ -29,6 +29,7 @@ require_once '../../components/navbar.php';
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FCI FYP System - Register</title>
     <link rel="stylesheet" href="./register-page.css">
+    <script src="pw-validation.js" defer></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
         .alert {
