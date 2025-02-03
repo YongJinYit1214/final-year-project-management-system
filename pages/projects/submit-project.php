@@ -64,10 +64,9 @@ $existing_project = $project_result->fetch_assoc();
     <link rel="stylesheet" href="./projects-page.css">
 </head>
 <body>
-    <?php echo getNavbar('student'); ?>
-    
+
     <div class="section">
-        <h2>Submit Project</h2>
+        <h2 style="color: #0066cc;">Submit Project</h2>
         
         <?php if (isset($_SESSION['error_message'])): ?>
             <div class="alert alert-error"><?php echo $_SESSION['error_message']; unset($_SESSION['error_message']); ?></div>

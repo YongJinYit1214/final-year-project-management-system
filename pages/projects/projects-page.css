@@ -883,6 +883,10 @@ footer p {
     margin-bottom: 30px;
 }
 
+.page-header h2 {
+    color: #0066cc;
+}
+
 /* Responsive adjustments */
 @media (max-width: 1200px) {
     .action-card {
