@@ -74,7 +74,7 @@
             <h3><i class="fas fa-link"></i> Quick Links</h3>
             <ul>
                 <li><a href="pages/guidelines/project-guidelines.php"><i class="fas fa-file-alt"></i> Project Guidelines</a></li>
-                <li><a href="pages/dates/important-dates.php"><i class="fas fa-calendar-alt"></i> Important Dates</a></li>
+                <!-- <li><a href="pages/dates/important-dates.php"><i class="fas fa-calendar-alt"></i> Important Dates</a></li> -->
                 <li><a href="pages/templates/documentation-templates.php"><i class="fas fa-book"></i> Documentation Templates</a></li>
                 <li><a href="pages/faq/faq.php"><i class="fas fa-question-circle"></i> FYP FAQ</a></li>
                 <li><a href="pages/supervisor-dashboard/supervisor-dashboard-page.php" class="dashboard-link" id="supervisorLink">
