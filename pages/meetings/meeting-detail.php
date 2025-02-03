@@ -33,7 +33,7 @@ $log_exists = !empty($existing_log);
     </div>
 
     <div class="container">
-        <?php if (!$log_exists): ?>
+        <?php if (!$log_exists && $_SESSION['role'] === 'student'): ?>
             <button class="schedule-btn" id="newMeetingLog">
                 <i class="fas fa-plus"></i> New Meeting Log
             </button>

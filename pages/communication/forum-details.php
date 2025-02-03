@@ -41,7 +41,11 @@ if ($forum_id && $comment) {
     <link rel="stylesheet" href="./forum-details.css">
 </head>
 <body>
-
+<div class="back-button">
+    <a href="./forum.php" title="Back">
+        <i class="fas fa-arrow-left"></i> Back
+    </a>
+</div>
 <?php
     require './fetch-forum.php';
 

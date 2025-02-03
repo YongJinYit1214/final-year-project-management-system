@@ -221,10 +221,14 @@ CloseCon($conn);
             method: 'POST',
             body: formData
         })
-        .then(response => response.json())
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
         .then(data => {
             if (data.success) {
-                alert(data.message);
                 // Update original data with new values
                 originalData = {
                     fullName: data.data.full_name,
@@ -233,15 +237,16 @@ CloseCon($conn);
                     countryCode: data.data.country_code,
                     specialization: data.data.specialization
                 };
-                // Update displayed name in profile header
-                document.querySelector('.profile-info h3').textContent = data.data.full_name;
-            } else {
+                
+                // Show success message
                 alert(data.message);
+            } else {
+                alert(data.message || 'Failed to update profile');
             }
         })
         .catch(error => {
-            alert('An error occurred while updating the profile.');
             console.error('Error:', error);
+            alert('An error occurred while updating the profile.');
         });
     }
     </script>

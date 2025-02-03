@@ -1,7 +1,9 @@
 <?php
 require_once '../../auth/auth_check.php';
+require_once '../../auth/role_check.php';
 require_once '../../components/navbar.php';
 require_once '../../db_connection.php';
+$hasAccess = checkStudentRole();
 
 $conn = OpenCon();
 
@@ -32,10 +34,33 @@ $total_goals = $goal_data['total_goals'] ?? 0;
     <link rel="stylesheet" href="./progress-page.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <script src="../../assets/js/auth.js" defer></script>
+    <style>
+        .alert {
+            padding: 15px;
+            margin: 20px;
+            border: 1px solid transparent;
+            border-radius: 4px;
+        }
+        .alert-error {
+            color: #721c24;
+            background-color: #f8d7da;
+            border-color: #f5c6cb;
+        }
+    </style>
 </head>
 
 <body>
 <?php echo getNavbar('progress'); ?>
+
+<?php
+// Display error message if exists
+if (isset($_SESSION['error_message'])) {
+    echo '<div class="alert alert-error">' . htmlspecialchars($_SESSION['error_message']) . '</div>';
+    unset($_SESSION['error_message']); // Clear the message after displaying
+}
+?>
+
+<?php if ($hasAccess): ?>
 
 <!-- Progress Section -->
 <div class="section" id="progress">
@@ -142,6 +167,7 @@ $total_goals = $goal_data['total_goals'] ?? 0;
         </div>
     </div>
 </div>
+<?php endif; ?>
 </body>
 <script>
 document.getElementById('addGoalBtn').addEventListener('click', function() {

@@ -128,6 +128,8 @@ function calculateDuration($startTime, $endTime) {
     const closeModal = document.querySelector(".close-btn");
     const meetingForm = document.getElementById("meetingForm");
     const meetingDate = document.getElementById("meetingDate");
+    const startTimeInput = document.getElementById("meetingStartTime");
+    const endTimeInput = document.getElementById("meetingEndTime");
 
     // Open Modal when clicking "Schedule Meeting"
     if (scheduleButton) {
@@ -156,18 +158,35 @@ function calculateDuration($startTime, $endTime) {
         meetingDate.setAttribute("min", today);
     }
 
-    // Form Validation
+    // Validate start and end time
+    function validateTime() {
+        let startTime = startTimeInput.value;
+        let endTime = endTimeInput.value;
+
+        if (startTime && endTime && startTime >= endTime) {
+            alert("End time must be later than start time.");
+            endTimeInput.value = ""; // Reset end time input
+        }
+    }
+
+    if (startTimeInput && endTimeInput) {
+        startTimeInput.addEventListener("change", validateTime);
+        endTimeInput.addEventListener("change", validateTime);
+    }
+
+    // Form Validation on Submit
     if (meetingForm) {
         meetingForm.addEventListener("submit", function (event) {
             let title = document.getElementById("meetingTitle").value.trim();
             let date = meetingDate.value;
-            let startTime = document.getElementById("meetingStartTime").value;
-            let endTime = document.getElementById("meetingEndTime").value;
+            let startTime = startTimeInput.value;
+            let endTime = endTimeInput.value;
             let location = document.getElementById("meetingLocation").value;
 
             if (!title || !date || !startTime || !endTime || !location) {
                 alert("Please fill in all required fields.");
                 event.preventDefault();
+                return;
             }
 
             if (startTime >= endTime) {

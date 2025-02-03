@@ -27,12 +27,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if ($stmt->execute()) {
         echo json_encode(['success' => true]);
-        $user_role = $_SESSION['role'];
-        if ($user_role === "student") {
-            header("Location: meetings-students.php");
-        } else if ($user_role === "supervisor") {
-            header("Location: meetings-supervisor.php");
-        }
+        header("Location: meetings-page.php");
     } else {
         http_response_code(500);
         echo $stmt->error;
