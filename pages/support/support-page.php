@@ -25,12 +25,6 @@ require_once "./fetch-feedback.php";
         <!-- Support Categories -->
         <div class="support-categories">
             <div class="category-card">
-                <i class="fas fa-headset"></i>
-                <h3>Technical Support</h3>
-                <p>Get help with technical issues and system access</p>
-                <button class="contact-support-btn">Contact Support</button>
-            </div>
-            <div class="category-card">
                 <i class="fas fa-book"></i>
                 <h3>Documentation</h3>
                 <p>Access user guides and documentation</p>
@@ -47,7 +41,7 @@ require_once "./fetch-feedback.php";
         <!-- Previous Feedback -->
         <div class="action-panel">
             <div class="panel-header">
-                <h3>Your Previous Feedback</h3>
+                <h3>Feedbacks</h3>
                 <button class="new-feedback-btn" id="newFeedbackBtn">
                     <i class="fas fa-plus"></i> New Feedback
                 </button>
