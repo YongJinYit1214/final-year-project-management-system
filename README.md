@@ -1,5 +1,63 @@
 # PHP Website Setup Guide (Using XAMPP & MySQL)
 
+## Functional Requirements
+
+### User Management
+- User registration and login functionality
+- Role-based access control (Admin, Supervisor, Student)
+- User profile management
+- Password reset functionality
+
+### FYP Management
+- Project proposal submission and approval workflow
+- Project allocation and assignment to supervisors
+- Progress tracking and milestone management
+- File upload/download for project documentation
+- Feedback and evaluation system
+
+### Communication
+- Messaging system between students and supervisors
+- Notification system for important events and deadlines
+- Announcement board for system-wide communications
+
+### Reporting
+- Generate progress reports for projects
+- Analytics dashboard for administrators
+- Export functionality for project data
+
+## Non-Functional Requirements
+
+### Performance
+- Page load time should not exceed 3 seconds
+- System should handle at least 100 concurrent users
+- Database queries should be optimized for speed
+
+### Security
+- Secure authentication and authorization mechanisms
+- Data encryption for sensitive information
+- Protection against common web vulnerabilities (XSS, CSRF, SQL Injection)
+- Regular security audits and updates
+
+### Usability
+- Intuitive and responsive user interface
+- Mobile-friendly design
+- Consistent navigation and layout
+- Helpful error messages and user guidance
+
+### Reliability
+- System availability of at least 99.5%
+- Automated backup and recovery procedures
+- Graceful error handling and logging
+
+### Scalability
+- Ability to scale with increasing user base
+- Modular architecture for easy feature additions
+- Efficient resource utilization
+
+### Compatibility
+- Support for major browsers (Chrome, Firefox, Safari, Edge)
+- Responsive design for different screen sizes
+
 ## Prerequisites
 
 Before setting up the PHP website, ensure you have the following installed:
@@ -55,4 +113,3 @@ Before setting up the PHP website, ensure you have the following installed:
 
 ## Conclusion
 Your PHP website is now set up and running locally using XAMPP. Happy coding!
-
